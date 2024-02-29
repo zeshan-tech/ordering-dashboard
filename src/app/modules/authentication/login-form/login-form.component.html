@@ -1,0 +1,55 @@
+<div class="flex justify-center items-center flex-col h-screen space-y-4 bg-cover bg-center" style="background-image: url('https://www.martechcube.com/wp-content/uploads/2023/08/E-Commerce.jpg');">
+
+    <mat-card class="flex flex-col items-center  w-[30rem]">
+        <div class="flex items-end justify-center">
+            <img [src]="logoUrl" alt="Company Logo" class="w-20">
+            <h1 class="pb-1">Your company</h1>
+        </div>
+
+        <mat-card-header class="mb-4">
+            <mat-card-title>Sign in to your account</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form (ngSubmit)="login($event)" [formGroup]="loginCredentials">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" formControlName="email" name="email">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password" name="password">
+                </mat-form-field>
+
+                <button mat-flat-button color="primary" type="submit" class="w-full" [disabled]="loginCredentials.invalid">
+                    Sign In
+                </button>
+                <a class="underline float-end mt-2" [routerLink]="'/auth/reset-password'">Forgot password?</a>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <span class="px-4">or</span>
+
+    <mat-card>
+        <mat-card-content class="w-[30rem] space-y-1">
+            <button class="float-end" mat-stroked-button color="primary" [routerLink]="'/auth/register'">
+                Register
+            </button>
+            <button class="w-full" mat-stroked-button color="primary" (click)="continueWithGoogle()">
+                <mat-icon class="mr-2"><app-more-icons [iconName]="'google'"></app-more-icons></mat-icon>
+                Continue with Google
+            </button>
+            <button class="w-full" mat-stroked-button color="primary" (click)="continueWithFacebook()">
+                <mat-icon class="mr-2">facebook</mat-icon>
+                Continue with Facebook
+            </button>
+            <button class="w-full" mat-stroked-button color="primary" (click)="continueWithApple()">
+                <mat-icon class="mr-2">apple</mat-icon>
+                Continue with Apple
+            </button>
+        </mat-card-content>
+    </mat-card>
+
+</div>

@@ -10,7 +10,7 @@
 
     <mat-card class="example-card !shadow-none">
         <mat-card-header *ngIf="currentUser$ | async as currentUser">
-            <img mat-card-avatar [src]="currentUser.user_metadata['avatar_url']" alt="User Avatar">
+            <img mat-card-avatar [src]="currentUser.user_metadata['picture']" alt="User Avatar">
             <mat-card-title>{{ currentUser.user_metadata['full_name'] }}</mat-card-title>
             <mat-card-subtitle>{{ currentUser.email }}</mat-card-subtitle>
         </mat-card-header>

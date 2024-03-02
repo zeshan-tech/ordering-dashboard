@@ -1,0 +1,35 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Update profile
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <form [formGroup]="currentUserFormGroup" (ngSubmit)="updateProfile($event)">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>First name</mat-label>
+            <input matInput formControlName="userName" type="text">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Phone number</mat-label>
+            <input matInput type="tel" formControlName="phone">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Profile picture</mat-label>
+            <input matInput readonly hidden type="text">
+            <input type="file" accept=".png, .jpg" (change)="onFileSelected($event)">
+        </mat-form-field>
+
+        <mat-action-row>
+            <button mat-stroked-button color="primary" (click)="clearForm()">Clear</button>
+            <button mat-flat-button color="primary" [disabled]="currentUserFormGroup.invalid || !currentUserFormGroup.dirty">Update</button>
+        </mat-action-row>
+    </form>
+</mat-expansion-panel>

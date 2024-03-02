@@ -13,6 +13,10 @@ import { SecurityComponent } from './security/security.component';
 import { PersonalComponent } from './personal/personal.component';
 import { ProfileSettingsComponent } from './profile-settings.component';
 import { ProfileSettingsRoutingModule } from './profile-settings-routing.module';
+import { UserCardComponent } from './personal/user-card/user-card.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { UserEditAccordionComponent } from './personal/user-edit-accordion/user-edit-accordion.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,9 @@ import { ProfileSettingsRoutingModule } from './profile-settings-routing.module'
     CommunicationPreferencesComponent,
     SecurityComponent,
     PersonalComponent,
-    ProfileSettingsComponent
+    ProfileSettingsComponent,
+    UserCardComponent,
+    UserEditAccordionComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +37,9 @@ import { ProfileSettingsRoutingModule } from './profile-settings-routing.module'
     FormsModule,
     MatButtonModule,
     MatTabsModule,
-    ProfileSettingsRoutingModule
+    ProfileSettingsRoutingModule,
+    MatExpansionModule,
+    MatIconModule,
   ],
 })
 export class ProfileSettingsModule {}

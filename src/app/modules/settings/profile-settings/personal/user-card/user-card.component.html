@@ -1,0 +1,11 @@
+<!-- user-card.component.html -->
+<mat-card-content class="space-y-4 !flex flex-col items-center" *ngIf="currentUser$ | async as currentUser">
+    <img *ngIf="currentUser$ | async as currentUser" [src]="currentUser.user_metadata['picture']" alt="Profile Image" class="w-56 h-56">
+
+    <div class="text-center">
+        <h1 class="text-lg">{{ currentUser.user_metadata['full_name'] }}</h1>
+        <p>{{ currentUser.email }}</p>
+        <p>{{ currentUser.phone }}</p>
+        <button mat-button color="primary" (click)="copyUserId()">Copy userId</button>
+    </div>
+</mat-card-content>

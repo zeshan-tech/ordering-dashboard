@@ -9,6 +9,8 @@ import {
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { nanoid } from 'nanoid';
+import { getFileExtension } from '../../utils/getFileExtension';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -52,9 +54,17 @@ export class AuthenticationService {
     return this.currentUser.asObservable();
   }
 
-  async signUp(credentials: { email: string; password: string }) {
+  async signUp(credentials: ISignUp) {
     try {
-      const result = await this.supabase.auth.signUp(credentials);
+      const result = await this.supabase.auth.signUp({
+        email: credentials.email,
+        password: credentials.password,
+        options: {
+          data: {
+            fullName: credentials.userName,
+          },
+        },
+      });
 
       if (result.error) {
         throw result.error;
@@ -174,7 +184,83 @@ export class AuthenticationService {
     }
   }
 
+  async updateEmail(email: string) {
+    try {
+      const result = await this.supabase.auth.updateUser({ email });
+
+      if (result.error) {
+        throw result.error;
+      }
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
+    }
+  }
+
+  async updatePhone(phone: string) {
+    try {
+      const result = await this.supabase.auth.updateUser({ phone });
+
+      if (result.error) {
+        throw result.error;
+      }
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
+    }
+  }
+
+  async updateUserData(updatedUser: IUpdateUserData) {
+    try {
+      const data: any = {};
+      console.log(updatedUser);
+      
+
+      if (updatedUser.userName) data['full_name'] = updatedUser.userName;
+      if (updatedUser.picture) data['picture'] = updatedUser.picture;
+
+      const result = await this.supabase.auth.updateUser({ data });
+
+      if (result.error) {
+        throw result.error;
+      }
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
+    }
+  }
+
+  async uploadPicture(file: File): Promise<string | void> {
+    try {
+      const { data, error } = await this.supabase.storage
+        .from('profile-pictures')
+        .upload(`${nanoid()}.${getFileExtension(file.name)}`, file);
+
+      if (error) throw error;
+
+      console.log(data.path);
+
+      const {
+        data: { publicUrl },
+      } = this.supabase.storage
+        .from('profile-pictures')
+        .getPublicUrl(data.path);
+
+      return publicUrl;
+    } catch (error) {
+      this.openSnackBar((error as Error).message, 'Close');
+    }
+  }
+
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
+}
+
+interface IUpdateUserData {
+  userName: string;
+  picture: string;
+}
+
+interface ISignUp {
+  email: string;
+  userName: string;
+  password: string;
 }

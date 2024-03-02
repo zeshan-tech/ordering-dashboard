@@ -19,7 +19,6 @@ export class LoginFormComponent {
     private _authenticationService: AuthenticationService,
     private _router: Router,
     private _sanitizer: DomSanitizer,
-    private _snackBar: MatSnackBar
   ) {
     this.loginCredentials = this._formBuilder.nonNullable.group({
       email: ['demo@user.com', [Validators.required, Validators.email]],

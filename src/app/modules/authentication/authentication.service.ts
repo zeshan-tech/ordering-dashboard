@@ -61,8 +61,9 @@ export class AuthenticationService {
         password: credentials.password,
         options: {
           data: {
-            fullName: credentials.userName,
+            full_name: credentials.userName,
           },
+          emailRedirectTo: `${window.location.origin}/home`,
         },
       });
 
@@ -70,7 +71,7 @@ export class AuthenticationService {
         throw result.error;
       }
 
-      this._router.navigate(['/auth/mail-sent']);
+      this._router.navigate(['auth/mail-sent']);
     } catch (error) {
       this.openSnackBar((error as AuthError).message, 'Close');
     }
@@ -84,7 +85,7 @@ export class AuthenticationService {
         throw result.error;
       }
 
-      this._router.navigate(['/home']);
+      this._router.navigate(['home']);
     } catch (error) {
       this.openSnackBar((error as AuthError).message, 'Close');
     }
@@ -94,13 +95,14 @@ export class AuthenticationService {
     try {
       const result = await this.supabase.auth.signInWithOAuth({
         provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/home`,
+        },
       });
 
       if (result.error) {
         throw result.error;
       }
-
-      // this._router.navigate(['/home']);
     } catch (error) {
       this.openSnackBar((error as AuthError).message, 'Close');
     }
@@ -110,13 +112,14 @@ export class AuthenticationService {
     try {
       const result = await this.supabase.auth.signInWithOAuth({
         provider: 'apple',
+        options: {
+          redirectTo: `${window.location.origin}/home`,
+        },
       });
 
       if (result.error) {
         throw result.error;
       }
-
-      // this._router.navigate(['/home']);
     } catch (error) {
       this.openSnackBar((error as AuthError).message, 'Close');
     }
@@ -124,17 +127,16 @@ export class AuthenticationService {
 
   async facebookAuth() {
     try {
-      console.log('working');
-
       const result = await this.supabase.auth.signInWithOAuth({
         provider: 'facebook',
+        options: {
+          redirectTo: `${window.location.origin}/home`,
+        },
       });
 
       if (result.error) {
         throw result.error;
       }
-
-      // this._router.navigate(['/home']);
     } catch (error) {
       this.openSnackBar((error as AuthError).message, 'Close');
     }
@@ -143,14 +145,14 @@ export class AuthenticationService {
   async sendPasswordReset(email: string) {
     try {
       const result = await this.supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/settings/personal/update-password`,
+        redirectTo: `${window.location.origin}/home`,
       });
 
       if (result.error) {
         throw result.error;
       }
 
-      this._router.navigate(['/auth/mail-sent']);
+      this._router.navigate(['auth/mail-sent']);
     } catch (error) {
       this.openSnackBar((error as AuthError).message, 'Close');
     }
@@ -164,7 +166,7 @@ export class AuthenticationService {
         throw result.error;
       }
 
-      this._router.navigateByUrl('/', { replaceUrl: true });
+      this._router.navigateByUrl('', { replaceUrl: true });
     } catch (error) {
       this.openSnackBar((error as AuthError).message, 'Close');
     }
@@ -178,7 +180,7 @@ export class AuthenticationService {
         throw result.error;
       }
 
-      this._router.navigateByUrl('/');
+      this._router.navigateByUrl('');
     } catch (error) {
       this.openSnackBar((error as AuthError).message, 'Close');
     }
@@ -186,7 +188,10 @@ export class AuthenticationService {
 
   async updateEmail(email: string) {
     try {
-      const result = await this.supabase.auth.updateUser({ email });
+      const result = await this.supabase.auth.updateUser(
+        { email },
+        { emailRedirectTo: `${window.location.origin}/home` }
+      );
 
       if (result.error) {
         throw result.error;
@@ -212,7 +217,6 @@ export class AuthenticationService {
     try {
       const data: any = {};
       console.log(updatedUser);
-      
 
       if (updatedUser.userName) data['full_name'] = updatedUser.userName;
       if (updatedUser.picture) data['picture'] = updatedUser.picture;

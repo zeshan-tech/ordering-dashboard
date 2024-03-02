@@ -4,6 +4,11 @@ import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full',
+  },
+  {
     path: 'auth',
     children: [
       {
@@ -52,10 +57,6 @@ const routes: Routes = [
           ),
       },
     ],
-  },
-  {
-    path: '**',
-    redirectTo: 'auth',
   },
 ];
 

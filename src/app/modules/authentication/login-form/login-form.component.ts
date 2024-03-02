@@ -18,7 +18,7 @@ export class LoginFormComponent {
     private _formBuilder: FormBuilder,
     private _authenticationService: AuthenticationService,
     private _router: Router,
-    private _sanitizer: DomSanitizer,
+    private _sanitizer: DomSanitizer
   ) {
     this.loginCredentials = this._formBuilder.nonNullable.group({
       email: ['demo@user.com', [Validators.required, Validators.email]],
@@ -28,12 +28,6 @@ export class LoginFormComponent {
     this.logoUrl = this._sanitizer.bypassSecurityTrustResourceUrl(
       '../../../../assets/company-logo.svg'
     );
-
-    this._authenticationService.getCurrentUser().subscribe((user) => {
-      if (user) {
-        this._router.navigateByUrl('/home');
-      }
-    });
   }
 
   async login(event: Event) {

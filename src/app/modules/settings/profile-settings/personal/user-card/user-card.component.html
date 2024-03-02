@@ -1,6 +1,7 @@
 <!-- user-card.component.html -->
 <mat-card-content class="space-y-4 !flex flex-col items-center" *ngIf="currentUser$ | async as currentUser">
-    <img *ngIf="currentUser$ | async as currentUser" [src]="currentUser.user_metadata['picture']" alt="Profile Image" class="w-56 h-56">
+    <!-- TODO: this dummy image is just for client satisfaction -->
+    <img *ngIf="currentUser$ | async as currentUser" [src]="currentUser.user_metadata['picture'] ?? 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1709337600&semt=ais'" alt="Profile Image" class="w-56 h-56">
 
     <div class="text-center">
         <h1 class="text-lg">{{ currentUser.user_metadata['full_name'] }}</h1>

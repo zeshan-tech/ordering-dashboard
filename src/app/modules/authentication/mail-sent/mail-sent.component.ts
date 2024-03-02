@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-mail-sent',
@@ -17,5 +16,4 @@ export class MailSentComponent {
       '../../../../assets/company-logo.svg'
     );
   }
-
 }

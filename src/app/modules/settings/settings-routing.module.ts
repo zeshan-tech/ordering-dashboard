@@ -8,9 +8,11 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'personal',
+        path: 'profile',
         loadChildren: () =>
-          import('./personal/personal.module').then((m) => m.PersonalModule),
+          import('./profile-settings/profile-settings.module').then(
+            (m) => m.ProfileSettingsModule
+          ),
       },
     ],
   },

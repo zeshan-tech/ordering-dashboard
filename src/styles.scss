@@ -17,11 +17,15 @@ body {
   flex: 1 1 auto;
 }
 
+.spacer-vertical {
+  flex: auto 1 1;
+}
+
 .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field
   .mdc-notched-outline__notch {
   border-right-style: hidden;
 }
-mat-divider{
-  margin-top: 0.5rem/* 8px */ !important;
-  margin-bottom: 0.5rem/* 8px */ !important;
+mat-divider {
+  margin-top: 0.5rem /* 8px */ !important;
+  margin-bottom: 0.5rem /* 8px */ !important;
 }

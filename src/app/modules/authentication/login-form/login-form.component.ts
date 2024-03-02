@@ -30,48 +30,31 @@ export class LoginFormComponent {
       '../../../../assets/company-logo.svg'
     );
 
-    /* this._authenticationService.getCurrentUser().subscribe((user) => {
+    this._authenticationService.getCurrentUser().subscribe((user) => {
       if (user) {
-        this._router.navigateByUrl('/dashboard');
+        this._router.navigateByUrl('/home');
       }
-    }); */
-  }
-
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
+    });
   }
 
   async login(event: Event) {
     event.preventDefault();
 
-    const result = await this._authenticationService.signIn(
+    await this._authenticationService.signIn(
       this.loginCredentials.getRawValue()
     );
-
-    if (result.error) {
-      this.openSnackBar(result.error.message, 'Close');
-    }
   }
 
   async continueWithFacebook() {
-    const result = await this._authenticationService.facebookAuth();
-    if (result.error) {
-      this.openSnackBar(result.error.message, 'Close');
-    }
+    await this._authenticationService.facebookAuth();
   }
 
   async continueWithGoogle() {
-    const result = await this._authenticationService.googleAuth();
-    if (result.error) {
-      this.openSnackBar(result.error.message, 'Close');
-    }
+    await this._authenticationService.googleAuth();
   }
 
   async continueWithApple() {
-    const result = await this._authenticationService.googleAuth();
-    if (result.error) {
-      this.openSnackBar(result.error.message, 'Close');
-    }
+    await this._authenticationService.googleAuth();
   }
 
   ngOnInit() {}

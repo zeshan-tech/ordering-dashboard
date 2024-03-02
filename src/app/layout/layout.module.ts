@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AppbarComponent } from './main-layout/appbar/appbar.component';
+import { AppbarComponent } from './appbar/appbar.component';
 import { RouterModule } from '@angular/router';
-import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MenuComponent } from './main-layout/appbar/menu/menu.component';
+import { MenuComponent } from './appbar/menu/menu.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { LayoutComponent } from './layout.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
-  declarations: [AppbarComponent, MainLayoutComponent, MenuComponent],
+  declarations: [AppbarComponent, MenuComponent, SidebarComponent, LayoutComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -22,7 +24,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatIconModule,
     MatMenuModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSidenavModule
   ],
 })
 export class LayoutModule {}

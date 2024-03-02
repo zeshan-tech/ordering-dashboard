@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SupabaseClient, User, createClient } from '@supabase/supabase-js';
+import {
+  AuthError,
+  SupabaseClient,
+  User,
+  createClient,
+} from '@supabase/supabase-js';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,13 +23,11 @@ export class AuthenticationService {
     );
 
     this.supabase.auth.onAuthStateChange((event, sess) => {
-      console.log(sess?.user);
-
       if (
         (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') &&
         sess?.user
       ) {
-        this.currentUser.next(sess?.user);
+        this.currentUser.next(sess.user);
       } else {
         this.currentUser.next(null);
       }
@@ -50,61 +53,124 @@ export class AuthenticationService {
   }
 
   async signUp(credentials: { email: string; password: string }) {
-    return this.supabase.auth.signUp(credentials);
+    try {
+      const result = await this.supabase.auth.signUp(credentials);
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      this._router.navigate(['/auth/mail-sent']);
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
+    }
   }
 
   async signIn(credentials: { email: string; password: string }) {
-    return this.supabase.auth.signInWithPassword(credentials);
+    try {
+      const result = await this.supabase.auth.signInWithPassword(credentials);
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      this._router.navigate(['/home']);
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
+    }
   }
 
   async googleAuth() {
-    return this.supabase.auth.signInWithOAuth({
-      provider: 'google',
-    });
+    try {
+      const result = await this.supabase.auth.signInWithOAuth({
+        provider: 'google',
+      });
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      // this._router.navigate(['/home']);
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
+    }
   }
 
   async appleAuth() {
-    return this.supabase.auth.signInWithOAuth({
-      provider: 'apple',
-    });
+    try {
+      const result = await this.supabase.auth.signInWithOAuth({
+        provider: 'apple',
+      });
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      // this._router.navigate(['/home']);
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
+    }
   }
 
   async facebookAuth() {
-    console.log('working');
+    try {
+      console.log('working');
 
-    return this.supabase.auth.signInWithOAuth({
-      provider: 'facebook',
-    });
+      const result = await this.supabase.auth.signInWithOAuth({
+        provider: 'facebook',
+      });
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      // this._router.navigate(['/home']);
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
+    }
   }
 
   async sendPasswordReset(email: string) {
-    const result = await this.supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `http://localhost:4200/settings/personal/update-password`,
-    });
+    try {
+      const result = await this.supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/settings/personal/update-password`,
+      });
 
-    if (result.data) {
+      if (result.error) {
+        throw result.error;
+      }
+
       this._router.navigate(['/auth/mail-sent']);
-    }
-
-    if (result.error) {
-      this.openSnackBar(result.error.message, 'Close');
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
     }
   }
 
   async signOut() {
-    await this.supabase.auth.signOut();
-    this._router.navigateByUrl('/', { replaceUrl: true });
+    try {
+      const result = await this.supabase.auth.signOut();
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      this._router.navigateByUrl('/', { replaceUrl: true });
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
+    }
   }
 
   async updatePassword(password: string) {
-    const result = await this.supabase.auth.updateUser({ password });
+    try {
+      const result = await this.supabase.auth.updateUser({ password });
 
-    if (result.data) {
+      if (result.error) {
+        throw result.error;
+      }
+
       this._router.navigateByUrl('/');
-    }
-
-    if (result.error) {
-      this.openSnackBar(result.error.message, 'Close');
+    } catch (error) {
+      this.openSnackBar((error as AuthError).message, 'Close');
     }
   }
 

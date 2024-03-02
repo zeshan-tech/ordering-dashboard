@@ -38,33 +38,20 @@ export class RegisterFormComponent {
   async register(event: Event) {
     event.preventDefault();
 
-    const result = await this._authenticationService.signUp(
+    await this._authenticationService.signUp(
       this.registerCredentials.getRawValue()
     );
-
-    if (result.error) {
-      this.openSnackBar(result.error.message, 'Close');
-    }
   }
 
   async continueWithFacebook() {
-    const result = await this._authenticationService.facebookAuth();
-    if (result.error) {
-      this.openSnackBar(result.error.message, 'Close');
-    }
+    await this._authenticationService.facebookAuth();
   }
 
   async continueWithGoogle() {
-    const result = await this._authenticationService.googleAuth();
-    if (result.error) {
-      this.openSnackBar(result.error.message, 'Close');
-    }
+    await this._authenticationService.googleAuth();
   }
 
   async continueWithApple() {
-    const result = await this._authenticationService.googleAuth();
-    if (result.error) {
-      this.openSnackBar(result.error.message, 'Close');
-    }
+    await this._authenticationService.googleAuth();
   }
 }

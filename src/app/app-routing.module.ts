@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, mapToCanActivate } from '@angular/router';
-import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import { AuthGuard } from './guards/auth.guard';
+import { RouterModule, Routes } from '@angular/router';
+import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
   {
@@ -17,26 +16,36 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'dashboard',
-    component: MainLayoutComponent,
-    canActivate: mapToCanActivate([AuthGuard]),
+    path: '',
+    component: LayoutComponent,
+    canActivate: [],
     children: [
       {
-        path: '',
+        path: 'home',
         loadChildren: () =>
-          import('./modules/dashboard/dashboard.module').then(
-            (m) => m.DashboardModule
+          import('./modules/home/home.module').then((m) => m.HomeModule),
+      },
+      {
+        path: 'delivery',
+        loadChildren: () =>
+          import('./modules/delivery/delivery.module').then(
+            (m) => m.DeliveryModule
           ),
       },
-    ],
-  },
-  {
-    path: 'settings',
-    component: MainLayoutComponent,
-    canActivate: mapToCanActivate([AuthGuard]),
-    children: [
       {
-        path: '',
+        path: 'messages',
+        loadChildren: () =>
+          import('./modules/messages/messages.module').then(
+            (m) => m.MessagesModule
+          ),
+      },
+      {
+        path: 'orders',
+        loadChildren: () =>
+          import('./modules/orders/orders.module').then((m) => m.OrdersModule),
+      },
+      {
+        path: 'settings',
         loadChildren: () =>
           import('./modules/settings/settings.module').then(
             (m) => m.SettingsModule

@@ -190,7 +190,7 @@ export class AuthenticationService {
     try {
       const result = await this.supabase.auth.updateUser(
         { email },
-        { emailRedirectTo: `${window.location.origin}/home` }
+        { emailRedirectTo: `${window.location.origin}` }
       );
 
       if (result.error) {

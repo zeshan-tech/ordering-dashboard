@@ -95,9 +95,6 @@ export class AuthenticationService {
     try {
       const result = await this.supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/#/home`,
-        },
       });
 
       if (result.error) {
@@ -112,9 +109,6 @@ export class AuthenticationService {
     try {
       const result = await this.supabase.auth.signInWithOAuth({
         provider: 'apple',
-        options: {
-          redirectTo: `${window.location.origin}/#/home`,
-        },
       });
 
       if (result.error) {
@@ -129,9 +123,6 @@ export class AuthenticationService {
     try {
       const result = await this.supabase.auth.signInWithOAuth({
         provider: 'facebook',
-        options: {
-          redirectTo: `${window.location.origin}/#/home`,
-        },
       });
 
       if (result.error) {

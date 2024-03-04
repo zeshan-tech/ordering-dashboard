@@ -63,7 +63,7 @@ export class AuthenticationService {
           data: {
             full_name: credentials.userName,
           },
-          emailRedirectTo: `${window.location.origin}/home`,
+          emailRedirectTo: `${window.location.origin}/#/home`,
         },
       });
 
@@ -96,7 +96,7 @@ export class AuthenticationService {
       const result = await this.supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/home`,
+          redirectTo: `${window.location.origin}/#/home`,
         },
       });
 
@@ -113,7 +113,7 @@ export class AuthenticationService {
       const result = await this.supabase.auth.signInWithOAuth({
         provider: 'apple',
         options: {
-          redirectTo: `${window.location.origin}/home`,
+          redirectTo: `${window.location.origin}/#/home`,
         },
       });
 
@@ -130,7 +130,7 @@ export class AuthenticationService {
       const result = await this.supabase.auth.signInWithOAuth({
         provider: 'facebook',
         options: {
-          redirectTo: `${window.location.origin}/home`,
+          redirectTo: `${window.location.origin}/#/home`,
         },
       });
 
@@ -145,7 +145,7 @@ export class AuthenticationService {
   async sendPasswordReset(email: string) {
     try {
       const result = await this.supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/home`,
+        redirectTo: `${window.location.origin}/#/home`,
       });
 
       if (result.error) {
@@ -190,7 +190,7 @@ export class AuthenticationService {
     try {
       const result = await this.supabase.auth.updateUser(
         { email },
-        { emailRedirectTo: `${window.location.origin}/home` }
+        { emailRedirectTo: `${window.location.origin}/#/home` }
       );
 
       if (result.error) {

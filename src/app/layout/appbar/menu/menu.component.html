@@ -28,11 +28,7 @@
 
   <mat-divider></mat-divider>
 
-  <!-- <app-languages-menu></app-languages-menu> -->
-
-  <button mat-menu-item [matMenuTriggerFor]="languagesMenu">
-    <mat-icon>language</mat-icon>Languages
-  </button>
+  <app-languages-menu></app-languages-menu>
 
   <button mat-menu-item routerLink="/settings">
     <mat-icon>settings</mat-icon>Settings
@@ -43,9 +39,4 @@
   <button mat-menu-item (click)="logout()">
     <mat-icon>logout</mat-icon>Logout
   </button>
-
-  <mat-menu #languagesMenu="matMenu">
-    <button mat-menu-item>English</button>
-    <button mat-menu-item>Spanish</button>
-  </mat-menu>
 </mat-menu>

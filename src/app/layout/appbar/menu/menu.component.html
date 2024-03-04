@@ -1,27 +1,51 @@
-<div class="relative" #userMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="userMenu">
-    <button mat-icon-button [matMenuTriggerFor]="userMenu">
-        <mat-icon>more_vert</mat-icon>
-    </button>
+<div
+  class="relative"
+  #userMenuTrigger="matMenuTrigger"
+  [matMenuTriggerFor]="userMenu"
+>
+  <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
 </div>
 
 <mat-menu #userMenu="matMenu">
+  <mat-card class="example-card !shadow-none">
+    <mat-card-header *ngIf="currentUser$ | async as currentUser">
+      <img
+        mat-card-avatar
+        [src]="
+          currentUser.user_metadata['picture'] ??
+          'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1709337600&semt=ais'
+        "
+        alt="User Avatar"
+      />
+      <mat-card-title>{{
+        currentUser.user_metadata["full_name"]
+      }}</mat-card-title>
+      <mat-card-subtitle>{{ currentUser.email }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
 
-    <mat-card class="example-card !shadow-none">
-        <mat-card-header *ngIf="currentUser$ | async as currentUser">
-            <!-- TODO: this dummy image is just for client satisfaction -->
-            <img mat-card-avatar [src]="currentUser.user_metadata['picture'] ?? 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1709337600&semt=ais'" alt="User Avatar">
-            <mat-card-title>{{ currentUser.user_metadata['full_name'] }}</mat-card-title>
-            <mat-card-subtitle>{{ currentUser.email }}</mat-card-subtitle>
-        </mat-card-header>
-    </mat-card>
+  <mat-divider></mat-divider>
 
-    <mat-divider></mat-divider>
+  <!-- <app-languages-menu></app-languages-menu> -->
 
-    <app-languages-menu></app-languages-menu>
-    <button mat-menu-item routerLink="/settings"><mat-icon>settings</mat-icon>Settings</button>
+  <button mat-menu-item [matMenuTriggerFor]="languagesMenu">
+    <mat-icon>language</mat-icon>Languages
+  </button>
 
-    <mat-divider></mat-divider>
+  <button mat-menu-item routerLink="/settings">
+    <mat-icon>settings</mat-icon>Settings
+  </button>
 
-    <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>Logout</button>
+  <mat-divider></mat-divider>
 
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>Logout
+  </button>
+
+  <mat-menu #languagesMenu="matMenu">
+    <button mat-menu-item>English</button>
+    <button mat-menu-item>Spanish</button>
+  </mat-menu>
 </mat-menu>

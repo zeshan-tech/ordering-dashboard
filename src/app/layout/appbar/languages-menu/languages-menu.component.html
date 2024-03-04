@@ -1,8 +1,22 @@
-<button mat-menu-item [matMenuTriggerFor]="languagesMenu">
-  <mat-icon>language</mat-icon>Languages
-</button>
-
 <mat-menu #languagesMenu="matMenu">
-  <button mat-menu-item>English</button>
-  <button mat-menu-item>Spanish</button>
+    <button (click)="changeLanguage('en')" mat-menu-item>English</button>
+    <button (click)="changeLanguage('es')" mat-menu-item>Spanish</button>
+    <button (click)="changeLanguage('fr')" mat-menu-item>French</button>
+    <button (click)="changeLanguage('de')" mat-menu-item>German</button>
+    <button (click)="changeLanguage('zh-CN')" mat-menu-item>Chinese (Simplified)</button>
+    <button (click)="changeLanguage('ja')" mat-menu-item>Japanese</button>
+    <button (click)="changeLanguage('ru')" mat-menu-item>Russian</button>
+    <button (click)="changeLanguage('ar')" mat-menu-item>Arabic</button>
+    <button (click)="changeLanguage('pt')" mat-menu-item>Portuguese</button>
+    <button (click)="changeLanguage('it')" mat-menu-item>Italian</button>
+    <button (click)="changeLanguage('nl')" mat-menu-item>Dutch</button>
+    <button (click)="changeLanguage('ko')" mat-menu-item>Korean</button>
+    <button (click)="changeLanguage('hi')" mat-menu-item>Hindi</button>
+    <button (click)="changeLanguage('sv')" mat-menu-item>Swedish</button>
+    <button (click)="changeLanguage('el')" mat-menu-item>Greek</button>
+    <!-- Add more languages as needed -->
 </mat-menu>
+
+<button mat-menu-item [matMenuTriggerFor]="languagesMenu">
+    <mat-icon>language</mat-icon>{{ 'languages' | translate }}
+</button>

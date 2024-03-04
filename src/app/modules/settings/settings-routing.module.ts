@@ -19,6 +19,13 @@ const routes: Routes = [
             (m) => m.ProfileSettingsModule
           ),
       },
+      {
+        path: 'site',
+        loadChildren: () =>
+          import('./site-settings/site-settings.module').then(
+            (m) => m.SiteSettingsModule
+          ),
+      },
     ],
   },
 ];

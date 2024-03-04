@@ -14,6 +14,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { LayoutComponent } from './layout.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { LanguagesMenuComponent } from './appbar/languages-menu/languages-menu.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [AppbarComponent, MenuComponent, SidebarComponent, LayoutComponent, LanguagesMenuComponent],
@@ -21,6 +22,7 @@ import { LanguagesMenuComponent } from './appbar/languages-menu/languages-menu.c
     CommonModule,
     RouterModule,
     MatToolbarModule,
+    TranslateModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,

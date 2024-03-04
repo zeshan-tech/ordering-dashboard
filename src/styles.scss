@@ -35,6 +35,7 @@ body {
   height: 100%;
 }
 body {
+  user-select: none;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
@@ -42,3 +43,5 @@ body {
 .page {
   height: 90vh;
 }
+
+

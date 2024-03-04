@@ -16,4 +16,8 @@ export class SidebarComponent {
       (isSidebarOpened) => (this.isOpened = isSidebarOpened)
     );
   }
+
+  toggleSidebar() {
+    this._layoutService.toggle()
+  }
 }

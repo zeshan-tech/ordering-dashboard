@@ -1,6 +1,7 @@
 <mat-drawer-container>
     <mat-drawer #drawer mode="side" [opened]="true">
         <button mat-menu-item [routerLink]="'profile'"><mat-icon>personal</mat-icon>Personal</button>
+        <button mat-menu-item [routerLink]="'site'"><mat-icon>web</mat-icon>Site settings</button>
     </mat-drawer>
     <router-outlet></router-outlet>
 </mat-drawer-container>

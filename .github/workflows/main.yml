@@ -1,39 +1,32 @@
-# Workflow name
-name: Continuous Deployment
+name: Portfolio Deployment
 
-# This allows manual start of the pipeline as needed.
 on:
   push:
     branches:
       - master
 
-# The list of jobs to run
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
     steps:
-      # 1. Configure AWS credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # 2. Checkout Repository
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
         with:
-          ref: main
+          node-version: '20'
 
-      # 3. Setup Node
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20.11.0"
+      - name: Install Dependencies
+        run: npm install
 
-      # 4. Setup Cache
       - name: Setup Cache
         uses: actions/cache@v3
         with:
@@ -45,12 +38,11 @@ jobs:
       # 5. Build Angular
       - name: Build Angular Application
         run: |
-          ls
           npm install -g @angular/cli
           npm install
           ng build
 
-      # 6. Copy to S3 bucket.
-      - name: Copy to S3 Bucket
-        run: |
-          aws s3 cp ./dist/* s3://ordering-0.2
+
+
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync dist/ s3://ordering-0.2 --delete

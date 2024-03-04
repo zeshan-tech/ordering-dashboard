@@ -13,9 +13,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LayoutComponent } from './layout.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { LanguagesMenuComponent } from './appbar/languages-menu/languages-menu.component';
 
 @NgModule({
-  declarations: [AppbarComponent, MenuComponent, SidebarComponent, LayoutComponent],
+  declarations: [AppbarComponent, MenuComponent, SidebarComponent, LayoutComponent, LanguagesMenuComponent],
   imports: [
     CommonModule,
     RouterModule,

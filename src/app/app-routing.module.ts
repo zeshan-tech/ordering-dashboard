@@ -50,6 +50,13 @@ const routes: Routes = [
           import('./modules/orders/orders.module').then((m) => m.OrdersModule),
       },
       {
+        path: 'support',
+        loadChildren: () =>
+          import('./modules/support/support.module').then(
+            (m) => m.SupportModule
+          ),
+      },
+      {
         path: 'settings',
         loadChildren: () =>
           import('./modules/settings/settings.module').then(

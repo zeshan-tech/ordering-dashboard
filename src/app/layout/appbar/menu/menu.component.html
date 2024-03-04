@@ -1,5 +1,3 @@
-<!-- user-menu.component.html -->
-
 <div class="relative" #userMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="userMenu">
     <button mat-icon-button [matMenuTriggerFor]="userMenu">
         <mat-icon>more_vert</mat-icon>
@@ -17,10 +15,9 @@
         </mat-card-header>
     </mat-card>
 
-
-
     <mat-divider></mat-divider>
 
+    <app-languages-menu></app-languages-menu>
     <button mat-menu-item routerLink="/settings"><mat-icon>settings</mat-icon>Settings</button>
 
     <mat-divider></mat-divider>

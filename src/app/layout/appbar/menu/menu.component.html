@@ -9,7 +9,7 @@
 </div>
 
 <mat-menu #userMenu="matMenu">
-  <mat-card class="example-card !shadow-none">
+  <mat-card >
     <mat-card-header *ngIf="currentUser$ | async as currentUser">
       <img
         mat-card-avatar
@@ -26,7 +26,6 @@
     </mat-card-header>
   </mat-card>
 
-  <mat-divider></mat-divider>
 
   <app-languages-menu></app-languages-menu>
 

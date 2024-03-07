@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+  constructor(public _layoutService: LayoutService) {}
 
 }

@@ -1,7 +1,0 @@
-<mat-drawer-container autosize>
-    <mat-drawer mode="over" [opened]="_layoutService.isAddCategorySidebarOpen | async" (closed)="_layoutService.onAddCategorySidebarToggle()"  position="end" class="m-2 p-2">
-        <app-upload-box></app-upload-box>
-    </mat-drawer>
-
-    <router-outlet></router-outlet>
-</mat-drawer-container>

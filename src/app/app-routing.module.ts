@@ -45,6 +45,11 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'stores',
+        loadChildren: () =>
+          import('./modules/stores/stores.module').then((m) => m.StoresModule),
+      },
+      {
         path: 'orders',
         loadChildren: () =>
           import('./modules/orders/orders.module').then((m) => m.OrdersModule),

@@ -25,10 +25,6 @@ body {
   .mdc-notched-outline__notch {
   border-right-style: hidden;
 }
-mat-divider {
-  // margin-top: 0.5rem /* 8px */ !important;
-  // margin-bottom: 0.5rem /* 8px */ !important;
-}
 
 html,
 body {
@@ -40,8 +36,15 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.page {
+.page-level1 {
+  height: 100vh;
+}
+.page-level2 {
   height: 90vh;
 }
-
-
+.page-level3 {
+  height: 85vh;
+}
+.page-level4 {
+  height: 70vh;
+}

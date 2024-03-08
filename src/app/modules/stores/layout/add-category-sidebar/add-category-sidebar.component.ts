@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { LayoutService } from '../layout.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AllCategoriesResponse } from '../types';
-import { UploadBoxComponent } from '../../../../shared/upload-box/upload-box.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ApiService } from '../../api.service';
+import { AllCategoriesResponse } from '../../types';
 
 @Component({
   selector: 'app-add-category-sidebar',
@@ -10,13 +11,15 @@ import { UploadBoxComponent } from '../../../../shared/upload-box/upload-box.com
   styleUrl: './add-category-sidebar.component.scss',
 })
 export class AddCategorySidebarComponent implements OnInit {
+  public _snackBar: MatSnackBar = inject(MatSnackBar);
   private _formBuilder: FormBuilder = inject(FormBuilder);
   public _layoutService: LayoutService = inject(LayoutService);
-  public _uploadBoxComponent: UploadBoxComponent = inject(UploadBoxComponent);
+  public _apiService: ApiService = inject(ApiService);
 
-  public isSubCategory: boolean = false;
   public allCategories: AllCategoriesResponse[] = [];
   categoryFormGroup!: FormGroup;
+  public isSubCategory: boolean = false;
+  public newCategoryImageUrl: string = '';
 
   ngOnInit(): void {
     this.categoryFormGroup = this._formBuilder.nonNullable.group({
@@ -26,7 +29,7 @@ export class AddCategorySidebarComponent implements OnInit {
       parentCategoryId: [''],
     });
 
-    this._layoutService.onGetAllCategories().valueChanges.subscribe((res) => {
+    this._apiService.onGetAllCategories().valueChanges.subscribe((res) => {
       this.allCategories = res.data.getAllCategories;
     });
   }
@@ -34,16 +37,23 @@ export class AddCategorySidebarComponent implements OnInit {
   addCategory(event: Event) {
     event.preventDefault();
     const values = this.categoryFormGroup.getRawValue();
-    const imageUrl = this._uploadBoxComponent.imageUrl;
 
-    this._layoutService
+    this._apiService
       .onAddCategory({
         name: values.name,
-        imageUrl,
+        imageUrl: this.newCategoryImageUrl,
         parentCategory: values.parentCategoryId,
       })
       .subscribe((res) => {
-        console.log(res);
+        console.log(res.errors);
+        if (res.errors) {
+          this._snackBar.open(res.errors?.join(', '));
+        }
+        if (res.data) this._layoutService.onAddCategorySidebarToggle();
       });
+  }
+
+  onImageUrlChange(imageUrl: string) {
+    this.newCategoryImageUrl = imageUrl;
   }
 }

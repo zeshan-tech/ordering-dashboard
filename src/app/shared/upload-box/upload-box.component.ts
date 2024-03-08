@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild, inject } from '@angular/core';
 
 import { UploadBoxService } from './upload-box.service';
 
@@ -9,6 +9,8 @@ import { UploadBoxService } from './upload-box.service';
 })
 export class UploadBoxComponent {
   private _uploadBoxService: UploadBoxService = inject(UploadBoxService);
+  
+  @Output() imageUrlChange = new EventEmitter<string>();
 
   @ViewChild('fileInput') fileInput!: ElementRef;
   public imageUrl =
@@ -23,6 +25,7 @@ export class UploadBoxComponent {
     const url = await this._uploadBoxService.uploadImage(selectedFile);
     if (url) {
       this.imageUrl = url;
+      this.imageUrlChange.emit(url); // Emitting the new imageUrl
     }
   }
 }

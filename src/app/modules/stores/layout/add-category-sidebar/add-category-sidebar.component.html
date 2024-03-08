@@ -1,6 +1,6 @@
 <mat-drawer-container autosize>
-    <mat-drawer mode="over" [opened]="_layoutService.isAddCategorySidebarOpen | async" (closed)="_layoutService.onAddCategorySidebarToggle()" position="end" class="m-2 p-2">
-        <app-upload-box></app-upload-box>
+    <mat-drawer mode="over" #sidenav position="end" class="m-2 p-2">
+        <app-upload-box (imageUrlChange)="onImageUrlChange($event)"></app-upload-box>
         <form (ngSubmit)="addCategory($event)" [formGroup]="categoryFormGroup" class="flex flex-col">
             <mat-form-field appearance="outline" class="block">
                 <mat-label>Name</mat-label>

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild, inject } from '@angular/core';
 import { LayoutService } from '../layout.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-header',
@@ -8,4 +9,13 @@ import { LayoutService } from '../layout.service';
 })
 export class HeaderComponent {
   constructor(public _layoutService: LayoutService) {}
+
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+
+  private cdr = inject(ChangeDetectorRef);
+
+  toggle() {
+    this.sidenav.toggle();
+    this.cdr.detectChanges();
+  }
 }

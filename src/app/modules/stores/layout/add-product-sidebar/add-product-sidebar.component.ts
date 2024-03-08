@@ -1,11 +1,6 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { LayoutService } from '../layout.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../../api.service';
 import { AllCategoriesResponse } from '../../types';
@@ -25,13 +20,14 @@ export class AddProductSidebarComponent implements OnInit {
   @ViewChild('addProductSidebar') public storeSidebar!: MatDrawer;
   public allCategories: AllCategoriesResponse[] = [];
   public productFormGroup!: FormGroup;
-  public isSubProduct = new FormControl(false);
   public newProductImageUrl: string = '';
 
   ngOnInit(): void {
     this.productFormGroup = this._formBuilder.nonNullable.group({
       name: ['', [Validators.required]],
-      description: [''],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      categoryId: ['', [Validators.required]],
     });
 
     this._apiService.onGetAllCategories().valueChanges.subscribe((res) => {
@@ -52,8 +48,6 @@ export class AddProductSidebarComponent implements OnInit {
         name: values.name,
         description: values.description,
         price: values.price,
-        sku: values.sku,
-        status: values.status,
         categoryId: values.categoryId,
       })
       .subscribe((res) => {

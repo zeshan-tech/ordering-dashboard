@@ -1,4 +1,20 @@
-<div class="page-level3">
+<mat-drawer-container class="h-[70vh] ">
+    <mat-drawer mode="side" #storeSidebar [opened]="true" class="w-72">
+        <div *ngFor="let category of allCategories">
+            <button mat-menu-item [routerLink]="'products'" class="">
+                <mat-icon><img src="{{category.imageUrl}}"></mat-icon>
+                {{category.name}}
+            </button>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-drawer>
 
-    <p>category-list works!</p>
-</div>
+
+
+</mat-drawer-container>
+<mat-card-actions class="justify-end">
+    <button mat-icon-button color="primary" (click)="fetchCategories()">
+        <mat-icon>refresh</mat-icon>
+    </button>
+    <button mat-stroked-button color="primary">Add category</button>
+</mat-card-actions>

@@ -6,10 +6,6 @@
                 <mat-label>Name</mat-label>
                 <input matInput type="text" formControlName="name" name="name">
             </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Description (optional)</mat-label>
-                <textarea matInput name="description"></textarea>
-            </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Parent Category</mat-label>
@@ -17,7 +13,6 @@
                     <mat-option *ngFor="let category of allCategories" [value]="category.ID">{{category.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
-
 
             <mat-checkbox color="primary" [formControl]="isSubCategory">Mark as Subcategory</mat-checkbox>
 

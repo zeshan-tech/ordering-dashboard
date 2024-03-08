@@ -6,20 +6,27 @@
                 <mat-label>Name</mat-label>
                 <input matInput type="text" formControlName="name" name="name">
             </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Description (optional)</mat-label>
-                <textarea matInput name="description"></textarea>
+
+            <!-- Description -->
+            <mat-form-field appearance="outline" class="block">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" name="description"></textarea>
             </mat-form-field>
 
+            <!-- Price -->
+            <mat-form-field appearance="outline" class="block">
+                <mat-label>Price</mat-label>
+                <span matTextPrefix>$ &nbsp;</span>
+                <input matInput type="number" formControlName="price" name="price">
+            </mat-form-field>
+
+
             <mat-form-field appearance="outline">
-                <mat-label>Parent Product</mat-label>
-                <mat-select formControlName="{{isSubProduct.value ? 'parentProductId' : ''}}" [disabled]="!isSubProduct.value" matNativeControl>
-                    <mat-option *ngFor="let product of allCategories" [value]="product.ID">{{product.name}}</mat-option>
+                <mat-label>Parent Category</mat-label>
+                <mat-select formControlName="categoryId" matNativeControl>
+                    <mat-option *ngFor="let category of allCategories" [value]="category.ID">{{category.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
-
-
-            <mat-checkbox color="primary" [formControl]="isSubProduct">Mark as Subproduct</mat-checkbox>
 
             <div class="space-x-1 text-right">
                 <button mat-stroked-button color="primary" (click)="clearForm()">Reset</button>

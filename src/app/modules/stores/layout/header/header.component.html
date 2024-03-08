@@ -1,13 +1,13 @@
 <mat-toolbar>
-    <button mat-icon-button (click)="_layoutService.onSidebarToggle()">
+    <button mat-icon-button (click)="_layoutService.onStoreSidebarToggle()">
         <mat-icon>menu</mat-icon>
     </button>
     <span>Manage products</span>
     <span class="spacer"></span>
 
     <div class="space-x-2">
-        <button mat-stroked-button (click)="toggle()" color="primary">Add category</button>
-        <button mat-stroked-button color="primary">Add product</button>
+        <button mat-stroked-button (click)="_layoutService.onAddCategorySidebarToggle()" color="primary">Add category</button>
+        <button mat-stroked-button (click)="_layoutService.onAddProductSidebarToggle()" color="primary">Add product</button>
         <button mat-stroked-button color="primary">
             Visit store <mat-icon> open_in_new </mat-icon>
         </button>

@@ -5,9 +5,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class LayoutService {
-  isSidebarOpened = new BehaviorSubject<boolean>(false);
+  public sidebarToggleSubject: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  toggle() {
-    this.isSidebarOpened.next(!this.isSidebarOpened.value);
+  public toggle() {
+    return this.sidebarToggleSubject.next(null);
   }
 }

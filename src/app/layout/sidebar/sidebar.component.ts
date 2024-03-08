@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { LayoutService } from '../layout.service';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,17 +8,13 @@ import { LayoutService } from '../layout.service';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  isOpened: boolean = false;
+  @ViewChild('rootSidebar') public sidebav!: MatDrawer;
 
   constructor(private _layoutService: LayoutService) {}
 
   ngOnInit() {
-    this._layoutService.isSidebarOpened.subscribe(
-      (isSidebarOpened) => (this.isOpened = isSidebarOpened)
-    );
-  }
-
-  toggleSidebar() {
-    this._layoutService.toggle()
+    this._layoutService.sidebarToggleSubject.subscribe(() => {
+      this.sidebav.toggle();
+    });
   }
 }

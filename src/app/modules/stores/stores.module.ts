@@ -18,6 +18,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { UploadBoxModule } from '../../shared/upload-box/upload-box.module';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import { AddProductSidebarComponent } from './layout/add-product-sidebar/add-product-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,7 @@ import { UploadBoxModule } from '../../shared/upload-box/upload-box.module';
     SidebarComponent,
     HeaderComponent,
     AddCategorySidebarComponent,
+    AddProductSidebarComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +46,8 @@ import { UploadBoxModule } from '../../shared/upload-box/upload-box.module';
     ReactiveFormsModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatCheckboxModule,
+    MatCardModule,
   ],
 })
 export class StoresModule {}

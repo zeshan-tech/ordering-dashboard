@@ -5,14 +5,19 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class LayoutService {
-  isAddCategorySidebarOpen = new BehaviorSubject<boolean>(false);
-  isSidebarOpen = new BehaviorSubject<boolean>(false);
+  public addCategorySidebarSubject: BehaviorSubject<any> = new BehaviorSubject(null);
+  public addProductSidebarSubject: BehaviorSubject<any> = new BehaviorSubject(null);
+  public storeSidebarSubject: BehaviorSubject<any> = new BehaviorSubject(null);
 
   onAddCategorySidebarToggle() {
-    this.isAddCategorySidebarOpen.next(!this.isAddCategorySidebarOpen.value);
+    this.addCategorySidebarSubject.next(null);
   }
 
-  onSidebarToggle() {
-    this.isSidebarOpen.next(this.isSidebarOpen.value);
+  onAddProductSidebarToggle() {
+    this.addProductSidebarSubject.next(null);
+  }
+
+  onStoreSidebarToggle() {
+    this.storeSidebarSubject.next(null);
   }
 }

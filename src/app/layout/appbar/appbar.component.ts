@@ -7,9 +7,5 @@ import { LayoutService } from '../layout.service';
   styleUrl: './appbar.component.scss',
 })
 export class AppbarComponent {
-  constructor(private _layoutService: LayoutService) {}
-
-  toggleSidebar() {
-    this._layoutService.toggle();
-  }
+  constructor(public _layoutService: LayoutService) {}
 }

@@ -12,48 +12,49 @@ import { AllCategoriesResponse } from '../../types';
 import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'app-add-category-sidebar',
-  templateUrl: './add-category-sidebar.component.html',
-  styleUrl: './add-category-sidebar.component.scss',
+  selector: 'app-add-product-sidebar',
+  templateUrl: './add-product-sidebar.component.html',
+  styleUrl: './add-product-sidebar.component.scss',
 })
-export class AddCategorySidebarComponent implements OnInit {
+export class AddProductSidebarComponent implements OnInit {
   public _apiService: ApiService = inject(ApiService);
   public _matSnackBar: MatSnackBar = inject(MatSnackBar);
   private _formBuilder: FormBuilder = inject(FormBuilder);
   public _layoutService: LayoutService = inject(LayoutService);
 
-  @ViewChild('addCategorySidebar') public storeSidebar!: MatDrawer;
+  @ViewChild('addProductSidebar') public storeSidebar!: MatDrawer;
   public allCategories: AllCategoriesResponse[] = [];
-  public categoryFormGroup!: FormGroup;
-  public isSubCategory = new FormControl(false);
-  public newCategoryImageUrl: string = '';
+  public productFormGroup!: FormGroup;
+  public isSubProduct = new FormControl(false);
+  public newProductImageUrl: string = '';
 
   ngOnInit(): void {
-    this.categoryFormGroup = this._formBuilder.nonNullable.group({
+    this.productFormGroup = this._formBuilder.nonNullable.group({
       name: ['', [Validators.required]],
       description: [''],
-      isSubCategory: [false],
-      parentCategoryId: [''],
     });
 
     this._apiService.onGetAllCategories().valueChanges.subscribe((res) => {
       this.allCategories = res.data.getAllCategories;
     });
 
-    this._layoutService.addCategorySidebarSubject.subscribe(() => {
+    this._layoutService.addProductSidebarSubject.subscribe(() => {
       this.storeSidebar.toggle();
     });
   }
 
-  addCategory(event: Event) {
+  addProduct(event: Event) {
     event.preventDefault();
-    const values = this.categoryFormGroup.getRawValue();
+    const values = this.productFormGroup.getRawValue();
 
     this._apiService
-      .onAddCategory({
+      .onAddProduct({
         name: values.name,
-        imageUrl: this.newCategoryImageUrl,
-        parentCategory: this.isSubCategory.value ? values.parentCategoryId : '',
+        description: values.description,
+        price: values.price,
+        sku: values.sku,
+        status: values.status,
+        categoryId: values.categoryId,
       })
       .subscribe((res) => {
         console.log(res.errors);
@@ -65,12 +66,12 @@ export class AddCategorySidebarComponent implements OnInit {
   }
 
   clearForm() {
-    this.categoryFormGroup.reset();
-    this.categoryFormGroup.clearValidators();
-    this._layoutService.onAddCategorySidebarToggle();
+    this.productFormGroup.reset();
+    this.productFormGroup.clearValidators();
+    this._layoutService.onAddProductSidebarToggle();
   }
 
   onImageUrlChange(imageUrl: string) {
-    this.newCategoryImageUrl = imageUrl;
+    this.newProductImageUrl = imageUrl;
   }
 }

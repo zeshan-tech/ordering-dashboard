@@ -1,10 +1,9 @@
 <mat-drawer-container>
     <mat-drawer mode="side" [opened]="_layoutService.isSidebarOpen | async" (closed)="_layoutService.onSidebarToggle()" >
-        <button mat-menu-item [routerLink]="'profile'"><mat-icon>personal</mat-icon>Personal</button>
-        <button mat-menu-item [routerLink]="'site'"><mat-icon>web</mat-icon>Site settings</button>
+        <button mat-menu-item [routerLink]="'products'"><mat-icon>stores</mat-icon>Stores</button>
+        <button mat-menu-item [routerLink]="'products'"><mat-icon>shopping_bag</mat-icon>Products</button>
     </mat-drawer>
     <app-header></app-header>
-    <app-add-category-sidebar ></app-add-category-sidebar>
+    <app-add-category-sidebar></app-add-category-sidebar>
 
-    <router-outlet></router-outlet>
 </mat-drawer-container>

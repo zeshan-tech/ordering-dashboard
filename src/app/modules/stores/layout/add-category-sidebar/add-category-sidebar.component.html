@@ -1,0 +1,26 @@
+<mat-drawer-container autosize>
+    <mat-drawer mode="over" #addCategorySidebar position="end" class="m-2 p-2">
+        <app-upload-box (imageUrlChange)="onImageUrlChange($event)"></app-upload-box>
+        <form (ngSubmit)="addCategory($event)" [formGroup]="categoryFormGroup" class="flex flex-col">
+            <mat-form-field appearance="outline" class="block">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" formControlName="name" name="name">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Parent Category</mat-label>
+                <mat-select formControlName="{{isSubCategory.value ? 'parentCategoryId' : ''}}" [disabled]="!isSubCategory.value" matNativeControl>
+                    <mat-option *ngFor="let category of allCategories" [value]="category.ID">{{category.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-checkbox color="primary" [formControl]="isSubCategory">Mark as Subcategory</mat-checkbox>
+
+            <div class="space-x-1 text-right">
+                <button mat-stroked-button color="primary" (click)="clearForm()">Reset</button>
+                <button mat-flat-button color="primary" type="submit" [disabled]="categoryFormGroup.invalid">Add category</button>
+            </div>
+        </form>
+    </mat-drawer>
+    <router-outlet></router-outlet>
+</mat-drawer-container>

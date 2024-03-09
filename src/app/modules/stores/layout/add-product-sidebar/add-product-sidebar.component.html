@@ -1,0 +1,39 @@
+<mat-drawer-container autosize>
+    <mat-drawer mode="over" #addProductSidebar position="end" class="m-2 p-2">
+        <app-upload-box (imageUrlChange)="onImageUrlChange($event)"></app-upload-box>
+        <form (ngSubmit)="addProduct($event)" [formGroup]="productFormGroup" class="flex flex-col">
+            <mat-form-field appearance="outline" class="block">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" formControlName="name" name="name">
+            </mat-form-field>
+
+            <!-- Description -->
+            <mat-form-field appearance="outline" class="block">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" name="description"></textarea>
+            </mat-form-field>
+
+            <!-- Price -->
+            <mat-form-field appearance="outline" class="block">
+                <mat-label>Price</mat-label>
+                <span matTextPrefix>$ &nbsp;</span>
+                <input matInput type="number" formControlName="price" name="price">
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+                <mat-label>Parent Category</mat-label>
+                <mat-select formControlName="categoryId" matNativeControl>
+                    <mat-option *ngFor="let category of allCategories" [value]="category.ID">{{category.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div class="space-x-1 text-right">
+                <button mat-stroked-button color="primary" (click)="clearForm()">Reset</button>
+                <button mat-flat-button color="primary" type="submit" [disabled]="productFormGroup.invalid">Add product</button>
+            </div>
+        </form>
+    </mat-drawer>
+
+    <app-add-category-sidebar></app-add-category-sidebar>
+</mat-drawer-container>

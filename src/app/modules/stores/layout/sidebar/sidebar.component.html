@@ -1,0 +1,9 @@
+<mat-drawer-container>
+    <mat-drawer mode="side" #storeSidebar>
+        <button mat-menu-item [routerLink]="'products'"><mat-icon>stores</mat-icon>Stores</button>
+        <button mat-menu-item [routerLink]="'products'"><mat-icon>shopping_bag</mat-icon>Products</button>
+    </mat-drawer>
+    <app-header></app-header>
+    <app-add-product-sidebar></app-add-product-sidebar>
+
+</mat-drawer-container>

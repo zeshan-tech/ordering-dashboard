@@ -8,13 +8,13 @@ import { MatDrawer } from '@angular/material/sidenav';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  @ViewChild('rootSidebar') public sidebav!: MatDrawer;
+  @ViewChild('storeSidebar') public storeSidebar!: MatDrawer;
 
   constructor(private _layoutService: LayoutService) {}
 
   ngOnInit() {
-    this._layoutService.sidebarToggleSubject.subscribe(() => {
-      this.sidebav.toggle();
+    this._layoutService.storeSidebarSubject.subscribe(() => {
+      this.storeSidebar.toggle();
     });
   }
 }

@@ -1,0 +1,13 @@
+<mat-card class="h-52 w-96 justify-center items-center relative mb-12" (click)="openFileSelection()">
+    <mat-card-header>
+        <mat-card-title class="text-center">Darg and drop file</mat-card-title>
+        <mat-card-subtitle class="text-center">or</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="text-center">
+        <button mat-flat-button color="primary">Click to select</button>
+    </mat-card-content>
+    <input type="file" accept=".png, .jpg" #fileInput (change)="onFileSelected($event)" hidden>
+    
+    <img mat-card-sm-image src="{{imageUrl}}" class="!absolute bottom-0 left-10 translate-y-1/2 mat-elevation-z1">
+</mat-card>

@@ -3,7 +3,7 @@
         <div *ngFor="let category of allCategories">
             <button mat-menu-item [routerLink]="'products'" class="">
                 <mat-icon><img src="{{category.imageUrl}}"></mat-icon>
-                {{category.name}}
+                {{category.name}} 
             </button>
             <mat-divider></mat-divider>
         </div>

@@ -1,5 +1,5 @@
 <mat-drawer-container class="h-[70vh] ">
-    <mat-drawer mode="side" #storeSidebar [opened]="true" class="w-72">
+    <mat-drawer mode="side" #storeSidebar [opened]="true">
         <div *ngFor="let category of allCategories">
             <button mat-menu-item [routerLink]="'products'" class="">
                 <mat-icon><img src="{{category.imageUrl}}"></mat-icon>
@@ -9,9 +9,9 @@
         </div>
     </mat-drawer>
 
-
-
+    <app-products-table></app-products-table>
 </mat-drawer-container>
+
 <mat-card-actions class="justify-end">
     <button mat-icon-button color="primary" (click)="fetchCategories()">
         <mat-icon>refresh</mat-icon>

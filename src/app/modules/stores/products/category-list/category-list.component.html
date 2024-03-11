@@ -1,20 +1,21 @@
-<mat-drawer-container class="h-[70vh] ">
-    <mat-drawer mode="side" #storeSidebar [opened]="true">
-        <div *ngFor="let category of allCategories">
-            <button mat-menu-item [routerLink]="'products'" class="">
-                <mat-icon><img src="{{category.imageUrl}}"></mat-icon>
-                {{category.name}} 
-            </button>
-            <mat-divider></mat-divider>
+<div class="flex w-full space-x-4 items-start">
+    <div class="mat-elevation-z1">
+        <div class="w-96  h-[40rem] overflow-auto">
+            <div *ngFor="let category of allCategories">
+                <button mat-menu-item [routerLink]="'products'" class="!p-4">
+                    <mat-icon><img src="{{category.imageUrl}}"></mat-icon>
+                    {{category.name}}
+                </button>
+                <mat-divider></mat-divider>
+            </div>
         </div>
-    </mat-drawer>
-
-    <app-products-table></app-products-table>
-</mat-drawer-container>
-
-<mat-card-actions class="justify-end">
-    <button mat-icon-button color="primary" (click)="fetchCategories()">
-        <mat-icon>refresh</mat-icon>
-    </button>
-    <button mat-stroked-button color="primary">Add category</button>
-</mat-card-actions>
+        <mat-card-actions class="justify-end space-x-1">
+            <button mat-icon-button color="primary" (click)="fetchCategories()">
+                <mat-icon>refresh</mat-icon>
+            </button>
+            <button mat-stroked-button color="primary">Add category</button>
+            <button mat-stroked-button color="primary">Add Product</button>
+        </mat-card-actions>
+    </div>
+    <app-products-table class="mat-elevation-z1 "></app-products-table>
+</div>

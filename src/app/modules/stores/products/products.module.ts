@@ -16,6 +16,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProductsTableComponent } from './products-table/products-table.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MatTableModule } from '@angular/material/table';
     MatSidenavModule,
     MatMenuModule,
     MatTableModule,
+    MatPaginatorModule,
   ],
 })
 export class ProductsModule {}

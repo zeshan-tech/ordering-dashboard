@@ -6,19 +6,90 @@ import { Component } from '@angular/core';
   styleUrl: './products-table.component.scss',
 })
 export class ProductsTableComponent {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['Product', 'Price', 'Status'];
   dataSource = ELEMENT_DATA;
 }
 
 const ELEMENT_DATA = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+  {
+    price: 1,
+    name: 'Nike shoe 1',
+    description:
+      'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.',
+    status: 'enable',
+    imageUrl:
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f23e9b8-01a7-48a2-af35-705489e8f2de/jordan-1-mid-alt-younger-shoes-7DtswX.png',
+  },
+  {
+    price: 2,
+    name: 'Nike shoe 2',
+    description:
+      'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.',
+    status: 'enable',
+    imageUrl:
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f23e9b8-01a7-48a2-af35-705489e8f2de/jordan-1-mid-alt-younger-shoes-7DtswX.png',
+  },
+  {
+    price: 3,
+    name: 'Nike shoe 3',
+    description:
+      'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.',
+    status: 'enable',
+    imageUrl:
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f23e9b8-01a7-48a2-af35-705489e8f2de/jordan-1-mid-alt-younger-shoes-7DtswX.png',
+  },
+  {
+    price: 4,
+    name: 'Nike shoe 4',
+    description:
+      'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.',
+    status: 'enable',
+    imageUrl:
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f23e9b8-01a7-48a2-af35-705489e8f2de/jordan-1-mid-alt-younger-shoes-7DtswX.png',
+  },
+  {
+    price: 5,
+    name: 'Nike shoe 5',
+    description:
+      'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.',
+    status: 'enable',
+    imageUrl:
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f23e9b8-01a7-48a2-af35-705489e8f2de/jordan-1-mid-alt-younger-shoes-7DtswX.png',
+  },
+  {
+    price: 6,
+    name: 'Nike shoe 6',
+    description:
+      'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.',
+    status: 'enable',
+    imageUrl:
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f23e9b8-01a7-48a2-af35-705489e8f2de/jordan-1-mid-alt-younger-shoes-7DtswX.png',
+  },
+  {
+    price: 7,
+    name: 'Nike shoe 7',
+    description:
+      'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.',
+    status: 'enable',
+    imageUrl:
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f23e9b8-01a7-48a2-af35-705489e8f2de/jordan-1-mid-alt-younger-shoes-7DtswX.png',
+  },
+  {
+    price: 8,
+    name: 'Nike shoe 8',
+    description:
+      'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.',
+    status: 'enable',
+    imageUrl:
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f23e9b8-01a7-48a2-af35-705489e8f2de/jordan-1-mid-alt-younger-shoes-7DtswX.png',
+  },
+  {
+    price: 9,
+    name: 'Nike shoe 9',
+    description:
+      'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.',
+    status: 'enable',
+    imageUrl:
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7f23e9b8-01a7-48a2-af35-705489e8f2de/jordan-1-mid-alt-younger-shoes-7DtswX.png',
+  },
 ];

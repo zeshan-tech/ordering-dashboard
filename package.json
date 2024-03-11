@@ -46,8 +46,7 @@
     "react-pro-sidebar": "1.1.0-alpha.1",
     "react-router-dom": "^6.21.2",
     "react-youtube": "^10.1.0",
-    "yup": "^1.3.3",
-    "zgaya.hub-client-types": "^1.0.8"
+    "yup": "^1.3.3"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.5.8",

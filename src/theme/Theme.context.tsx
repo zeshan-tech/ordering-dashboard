@@ -7,9 +7,9 @@ import { darkTheme, lightTheme } from "./theme";
 interface ThemeContextProps {
   theme: Theme;
   isDarkMode: boolean;
-  handleOnToggleTheme: () => void;
-  handleOnToDarkTheme: () => void;
-  handleOnToLightTheme: () => void;
+  handleToggleTheme: () => void;
+  handleToDarkTheme: () => void;
+  handleToLightTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
@@ -21,7 +21,7 @@ interface ThemeProviderProps {
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [currentTheme, setCurrentTheme] = useState<Theme>(lightTheme);
 
-  const handleOnToggleTheme = () => {
+  const handleToggleTheme = () => {
     if (currentTheme.palette.mode === "light") {
       setCurrentTheme(darkTheme);
     } else {
@@ -29,11 +29,11 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
   };
 
-  const handleOnToDarkTheme = () => {
+  const handleToDarkTheme = () => {
     setCurrentTheme(darkTheme);
   };
 
-  const handleOnToLightTheme = () => {
+  const handleToLightTheme = () => {
     setCurrentTheme(lightTheme);
   };
 
@@ -42,9 +42,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       value={{
         theme: currentTheme,
         isDarkMode: currentTheme.palette.mode === "dark",
-        handleOnToggleTheme,
-        handleOnToDarkTheme,
-        handleOnToLightTheme,
+        handleToggleTheme,
+        handleToDarkTheme,
+        handleToLightTheme,
       }}
     >
       <MuiThemeProvider theme={currentTheme}>

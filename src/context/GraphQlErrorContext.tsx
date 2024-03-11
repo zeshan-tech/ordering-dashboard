@@ -20,13 +20,13 @@ export function GraphQlErrorProvider({ children }: { children: ReactNode }) {
     setErrorMessage(error);
   };
 
-  const handleOnClose = () => {
+  const handleClose = () => {
     setErrorMessage(null);
   };
 
   return (
     <GraphQlErrorContext.Provider value={{ showGraphQlError, showSnackbar }}>
-      <Snackbar open={!!errorMessage} message={errorMessage} onClose={handleOnClose} action={<ClearIcon  onClick={handleOnClose} />} />
+      <Snackbar open={!!errorMessage} message={errorMessage} onClose={handleClose} action={<ClearIcon  onClick={handleClose} />} />
       {children}
     </GraphQlErrorContext.Provider>
   );

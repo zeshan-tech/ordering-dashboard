@@ -3,76 +3,75 @@ import React, { Fragment, useState } from "react";
 import Avatar from "@/components/Avatar";
 import { useAuthContext } from "@/context/AuthContext";
 import useUserDetail from "@/context/UserDetail.context";
-
+import UserMenu from "./UserMenu";
 import AppearanceMenu from "./AppearanceMenu";
 import TranslationMenu from "./TranslationMenu";
-import UserMenu from "./UserMenu";
 
 export default function UserAvatar() {
   const { imageUrl } = useUserDetail();
-  const { handleOnLogout } = useAuthContext();
+  const { handleLogout } = useAuthContext();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [appearanceMenuAnchorEl, setAppearanceMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [translationMenuAnchorEl, setTranslationMenuAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleOnMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleOnMenuClose = () => {
+  const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
-  const handleOnAppearanceMenuClose = () => {
+  const handleAppearanceMenuClose = () => {
     setAnchorEl(appearanceMenuAnchorEl);
     setAppearanceMenuAnchorEl(null);
   };
 
-  const handleOnAppearance = () => {
+  const handleAppearance = () => {
     setAppearanceMenuAnchorEl(anchorEl);
   };
 
-  const handleOnTranslationMenuClose = () => {
+  const handleTranslationMenuClose = () => {
     setAnchorEl(translationMenuAnchorEl);
     setTranslationMenuAnchorEl(null);
   };
 
-  const handleOnTranslation = () => {
+  const handleTranslation = () => {
     setTranslationMenuAnchorEl(anchorEl);
   };
 
-  const handleOnSwitchAccount = () => {
-    alert("handleOnSwitchAccount");
+  const handleSwitchAccount = () => {
+    alert("handleSwitchAccount");
   };
 
-  const handleOnSetting = () => {
-    alert("handleOnSetting");
+  const handleSetting = () => {
+    alert("handleSetting");
   };
 
-  const handleOnShareFeedback = () => {
-    alert("handleOnShareFeedback");
+  const handleShareFeedback = () => {
+    alert("handleShareFeedback");
   };
 
   return (
     <Fragment>
-      <Avatar src={imageUrl} onClick={handleOnMenuOpen} />
+      <Avatar src={imageUrl} onClick={handleMenuOpen} />
       <UserMenu
         anchorEl={anchorEl}
         isVisible={Boolean(anchorEl)}
-        onClose={handleOnMenuClose}
-        onSwitchAccount={handleOnSwitchAccount}
-        onSetting={handleOnSetting}
-        onLogout={handleOnLogout}
-        onAppearance={handleOnAppearance}
-        onTranslation={handleOnTranslation}
-        onShareFeedback={handleOnShareFeedback}
+        onClose={handleMenuClose}
+        onSwitchAccount={handleSwitchAccount}
+        onSetting={handleSetting}
+        onLogout={handleLogout}
+        onAppearance={handleAppearance}
+        onTranslation={handleTranslation}
+        onShareFeedback={handleShareFeedback}
         onClickProfile={function (): void {
           throw new Error("Function not implemented.");
         }}
       />
 
-      <AppearanceMenu anchorEl={appearanceMenuAnchorEl} isVisible={Boolean(appearanceMenuAnchorEl)} onClose={handleOnAppearanceMenuClose} />
-      <TranslationMenu anchorEl={translationMenuAnchorEl} isVisible={Boolean(translationMenuAnchorEl)} onClose={handleOnTranslationMenuClose} />
+      <AppearanceMenu anchorEl={appearanceMenuAnchorEl} isVisible={Boolean(appearanceMenuAnchorEl)} onClose={handleAppearanceMenuClose} />
+      <TranslationMenu anchorEl={translationMenuAnchorEl} isVisible={Boolean(translationMenuAnchorEl)} onClose={handleTranslationMenuClose} />
     </Fragment>
   );
 }

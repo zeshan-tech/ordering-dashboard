@@ -1,4 +1,4 @@
-export const handleOnGetImageBackgroundColor = async (
+export const handleGetImageBackgroundColor = async (
   imageUrl: string
 ): Promise<string | null> => {
   return new Promise((resolve, reject) => {

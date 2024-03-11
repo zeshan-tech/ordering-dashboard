@@ -1,20 +1,20 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { setAuthenticationHeaders } from "@/api/queryClient";
-import { handleOnGetItemFromStorage, handleOnRemoveItemFromStorage, handleOnSetItemInStorage } from "@/utils/localStorage";
+import { handleGetItemFromStorage, handleRemoveItemFromStorage, handleSetItemInStorage } from "@/utils/localStorage";
 
 interface AuthContextProps {
-  handleOnAuthenticate: (authToken: string) => void;
+  handleAuthenticate: (authToken: string) => void;
   isAuthenticated: boolean;
   authToken: string | undefined;
   setAuthToken: (authToken: string) => void;
-  handleOnLogout: () => void;
+  handleLogout: () => void;
 }
 
 const defaultContextValue: AuthContextProps = {
-  handleOnAuthenticate: () => {},
+  handleAuthenticate: () => {},
   isAuthenticated: false,
   authToken: undefined,
-  handleOnLogout: () => {},
+  handleLogout: () => {},
   setAuthToken: () => {},
 };
 
@@ -29,7 +29,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   useEffect(() => {
     async function getAuthenticationToken() {
-      const authToken = await handleOnGetItemFromStorage("authToken");
+      const authToken = await handleGetItemFromStorage("authToken");
       if (authToken) {
         setState({ ...state, authToken, isAuthenticated: true });
       }
@@ -44,27 +44,27 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     });
   }, [state.authToken]);
 
-  const handleOnLogout = () => {
+  const handleLogout = () => {
     setState(defaultContextValue);
     setAuthenticationHeaders({});
-    handleOnRemoveItemFromStorage("authToken");
+    handleRemoveItemFromStorage("authToken");
   };
 
-  const handleOnAuthenticate = (authToken: string = "") => {
+  const handleAuthenticate = (authToken: string = "") => {
     setState({ ...defaultContextValue, authToken, isAuthenticated: true });
-    handleOnSetItemInStorage("authToken", authToken!);
+    handleSetItemInStorage("authToken", authToken!);
   };
 
   const setAuthToken = (authToken: string = "") => {
     setState((prev) => ({ ...prev, authToken, isAuthenticated: true }));
-    handleOnSetItemInStorage("authToken", authToken);
+    handleSetItemInStorage("authToken", authToken);
   };
 
   const contextValue = useMemo(
     () => ({
       ...state,
-      handleOnAuthenticate: handleOnAuthenticate,
-      handleOnLogout,
+      handleAuthenticate: handleAuthenticate,
+      handleLogout,
       setAuthToken,
     }),
     [state]

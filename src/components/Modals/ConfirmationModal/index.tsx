@@ -21,7 +21,7 @@ interface ConfirmationModalProps {
 export default function ConfirmationModal({ isOpen, onClose, onConfirm, cancelButtonText, footerText, confirmButtonText, children, title, disabledCancelButton, disabledConfirmButton, variant = "primary" }: ConfirmationModalProps) {
   const { t } = useTranslation();
 
-  const handleOnConfirm = () => {
+  const handleConfirm = () => {
     onConfirm();
     onClose();
   };
@@ -32,7 +32,7 @@ export default function ConfirmationModal({ isOpen, onClose, onConfirm, cancelBu
 
   return (
     <Dialog isDraggable open={isOpen} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle variant="h5">{title ?? t("Components.Modals.ConfirmationModal.title")}</DialogTitle>
+      <DialogTitle variant="h5">{title ?? t("title")}</DialogTitle>
       <DialogContent sx={dialogContentStyle}>
         {children}
 
@@ -45,10 +45,10 @@ export default function ConfirmationModal({ isOpen, onClose, onConfirm, cancelBu
 
       <DialogActions>
         <Button onClick={onClose} variant="text" color={variant} disabled={disabledCancelButton} size="small">
-          {cancelButtonText ?? t("Components.Modals.ConfirmationModal.cancel")}
+          {cancelButtonText ?? t("cancel")}
         </Button>
-        <Button onClick={handleOnConfirm} variant="contained" color={variant} disabled={disabledConfirmButton} size="small">
-          {confirmButtonText ?? t("Components.Modals.ConfirmationModal.confirm")}
+        <Button onClick={handleConfirm} variant="contained" color={variant} disabled={disabledConfirmButton} size="small">
+          {confirmButtonText ?? t("confirm")}
         </Button>
       </DialogActions>
     </Dialog>

@@ -63,7 +63,7 @@ export const lightThemeComponents: ThemeOptions["components"] = {
         },
       },
     },
-    MuiAppBar: {
+    MuiAppbar: {
       defaultProps: {
         elevation: 1,
       },
@@ -147,7 +147,7 @@ export const darkThemeComponents: ThemeOptions["components"] = {
        },
      },
    },
-   MuiAppBar: {
+   MuiAppbar: {
      defaultProps: {
        elevation: 1,
      },

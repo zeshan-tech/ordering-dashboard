@@ -18,7 +18,7 @@ interface UserMenuProps {
   onShareFeedback: () => void;
 }
 
-export default function UserMenu({ anchorEl, isVisible, onClose, onSwitchAccount, onSetting, onClickProfile, onLogout, onAppearance, onTranslation, onShareFeedback }: UserMenuProps) {
+export default function UserMenu({ anchorEl, isVisible, onClose, onSwitchAccount, onSetting, onClickProfile, onLogout, onAppearance, onTranslation, onShareFeedback }: Readonly<UserMenuProps>) {
   const { t } = useTranslation();
 
   const menuItemStyle = useThemeStyles<SxProps>((theme) => ({
@@ -38,13 +38,13 @@ export default function UserMenu({ anchorEl, isVisible, onClose, onSwitchAccount
     <Menu anchorEl={anchorEl} open={isVisible} onClose={onClose} onClick={onClose}>
       <UserCardForMenu onClick={onClickProfile} onLogout={onLogout} />
       <Divider />
-      {createMenuItem(<SwitchAccountIcon isListIcon />, t("Layout.AppBar.UserMenu.switchAccount"), onSwitchAccount)}
-      {createMenuItem(<SettingIcon isListIcon />, t("Layout.AppBar.UserMenu.settings"), onSetting)}
-      {createMenuItem(<LogoutIcon isListIcon />, t("Layout.AppBar.UserMenu.logout"), onLogout)}
+      {createMenuItem(<SwitchAccountIcon isListIcon />, t("switchApp"), onSwitchAccount)}
+      {createMenuItem(<SettingIcon isListIcon />, t("settings"), onSetting)}
+      {createMenuItem(<LogoutIcon isListIcon />, t("logout"), onLogout)}
       <Divider />
-      {createMenuItem(<MoonIcon isListIcon />, t("Layout.AppBar.UserMenu.appearance"), onAppearance, true)}
-      {createMenuItem(<TranslateIcon isListIcon />, t("Layout.AppBar.UserMenu.translation"), onTranslation, true)}
-      {createMenuItem(<FeedbackIcon isListIcon />, t("Layout.AppBar.UserMenu.shareFeedback"), onShareFeedback)}
+      {createMenuItem(<MoonIcon isListIcon />, t("appearance"), onAppearance, true)}
+      {createMenuItem(<TranslateIcon isListIcon />, t("translation"), onTranslation, true)}
+      {createMenuItem(<FeedbackIcon isListIcon />, t("shareFeedback"), onShareFeedback)}
     </Menu>
   );
 }

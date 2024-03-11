@@ -1,22 +1,22 @@
-export async function handleOnSetItemInStorage(key: string, value: string) {
+export async function handleSetItemInStorage(key: string, value: string) {
   localStorage.setItem(key, value);
 }
 
-export async function handleOnRemoveItemFromStorage(key: string) {
+export async function handleRemoveItemFromStorage(key: string) {
   localStorage.removeItem(key);
   return true;
 }
 
-export async function handleOnGetItemFromStorage(key: string) {
+export async function handleGetItemFromStorage(key: string) {
   const data = localStorage.getItem(key);
   return data ?? null;
 }
 
-export async function handleOnHasItemInStorage(key: string) {
+export async function handleHasItemInStorage(key: string) {
   const data = localStorage.getItem(key);
   return data ? true : false;
 }
 
-export async function handleOnClearStorage() {
+export async function handleClearStorage() {
   localStorage.clear();
 }

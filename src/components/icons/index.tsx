@@ -6,7 +6,6 @@ import { default as MuiChevronRightOutlinedIcon } from "@mui/icons-material/Chev
 import { default as MuiChevronLeftOutlinedIcon } from "@mui/icons-material/ChevronLeftOutlined";
 import { default as MuiComputerOutlinedIcon } from "@mui/icons-material/ComputerOutlined";
 import { default as MuiFeedbackOutlinedIcon } from "@mui/icons-material/FeedbackOutlined";
-import { default as FileUploadOutlinedIcon } from "@mui/icons-material/FileUploadOutlined";
 import { default as InsertLinkOutlinedIcon } from "@mui/icons-material/InsertLinkOutlined";
 import { default as MuiLightModeOutlinedIcon } from "@mui/icons-material/LightModeOutlined";
 import { default as MuiLogoutOutlinedIcon } from "@mui/icons-material/LogoutOutlined";
@@ -56,17 +55,26 @@ import { default as AttachMoneyOutlinedIcon } from "@mui/icons-material/AttachMo
 import { default as MuiReportProblemOutlineIcon } from "@mui/icons-material/ReportProblemOutlined";
 import { default as MuiCheckOutlineIcon } from "@mui/icons-material/CheckOutlined";
 import { default as MuiStopOutlinedIcon } from "@mui/icons-material/StopOutlined";
-import {default as MuiHourglassFullOutlinedIcon} from '@mui/icons-material/HourglassFullOutlined';
-import {default as MuiNewReleasesOutlinedIcon} from '@mui/icons-material/NewReleasesOutlined';
-import {default as MuiCheckCircleOutlineIcon} from '@mui/icons-material/CheckCircleOutline';
+import { default as MuiHourglassFullOutlinedIcon } from "@mui/icons-material/HourglassFullOutlined";
+import { default as MuiNewReleasesOutlinedIcon } from "@mui/icons-material/NewReleasesOutlined";
+import { default as MuiCheckCircleOutlineIcon } from "@mui/icons-material/CheckCircleOutline";
+import { default as MuiViewStreamOutlineIcon } from "@mui/icons-material/ViewStreamOutlined";
+import { default as MuiInboxIconOutlined } from "@mui/icons-material/InboxOutlined";
+import { default as MuiStoreOutlineIcon } from "@mui/icons-material/StoreOutlined";
+import { default as MuiPersonOutlineIcon } from "@mui/icons-material/PersonOutline";
+import { default as MuiWebOutlineIcon } from "@mui/icons-material/WebOutlined";
 
+import { default as MuiWebIcon } from "@mui/icons-material/Web";
+import { default as MuiPersonIcon } from "@mui/icons-material/Person";
+import { default as MuiStoreIcon } from "@mui/icons-material/Store";
+import { default as MuiInboxIcon } from "@mui/icons-material/Inbox";
+import { default as MuiViewStreamIcon } from "@mui/icons-material/ViewStream";
 import { default as MuiAddIcon } from "@mui/icons-material/Add";
 import { default as MuiBrightness4Icon } from "@mui/icons-material/Brightness4";
 import { default as MuiChevronRightIcon } from "@mui/icons-material/ChevronRight";
 import { default as MuiChevronLeftIcon } from "@mui/icons-material/ChevronLeft";
 import { default as MuiComputerIcon } from "@mui/icons-material/Computer";
 import { default as MuiFeedbackIcon } from "@mui/icons-material/Feedback";
-import { default as FileUploadIcon } from "@mui/icons-material/FileUpload";
 import { default as InsertLinkIcon } from "@mui/icons-material/InsertLink";
 import { default as MuiLightModeIcon } from "@mui/icons-material/LightMode";
 import { default as MuiLogoutIcon } from "@mui/icons-material/Logout";
@@ -118,9 +126,9 @@ import { default as AttachMoneyIcon } from "@mui/icons-material/AttachMoney";
 import { default as MuiReportProblemIcon } from "@mui/icons-material/ReportProblem";
 import { default as MuiCheckIcon } from "@mui/icons-material/Check";
 import { default as MuiStopIcon } from "@mui/icons-material/Stop";
-import {default as MuiHourglassFullIcon} from '@mui/icons-material/HourglassFull';
-import {default as MuiNewReleasesIcon} from '@mui/icons-material/NewReleases';
-import {default as MuiCheckCircleIcon} from '@mui/icons-material/CheckCircle';
+import { default as MuiHourglassFullIcon } from "@mui/icons-material/HourglassFull";
+import { default as MuiNewReleasesIcon } from "@mui/icons-material/NewReleases";
+import { default as MuiCheckCircleIcon } from "@mui/icons-material/CheckCircle";
 
 export interface IconWrapperProps extends SvgIconProps {
   iconButton?: boolean;
@@ -145,7 +153,7 @@ const withIconWrapper = (WrappedOutlinedIcon: ComponentType<IconWrapperProps>, W
 
     if ((onClick || iconButton) && iconButton !== false) {
       return (
-        <IconButton disableRipple={disableRipple} sx={sx} disabled={loading || disabled} onClick={onClick} color="inherit" {...iconButtonProps}>
+        <IconButton disableRipple={disableRipple} sx={sx} disabled={loading || disabled} onClick={onClick} color='inherit' {...iconButtonProps}>
           <Tooltip title={tooltip} placement={tooltipPlacement}>
             {loading ? <CircularProgress size={25} /> : renderIcon()}
           </Tooltip>
@@ -172,7 +180,6 @@ export const PlayDoubleIcon = withIconWrapper(MuiVideoLibraryOutlinedIcon, MuiVi
 export const LinkIcon = withIconWrapper(InsertLinkOutlinedIcon, InsertLinkIcon);
 export const SettingIcon = withIconWrapper(MuiSettingsInputvideoOutlinedIcon, MuiSettingsInputvideoIcon);
 export const QuestionAnswerIcon = withIconWrapper(MuiQuestionAnswerOutlinedIcon, MuiQuestionAnswerIcon);
-export const UploadIcon = withIconWrapper(FileUploadOutlinedIcon, FileUploadIcon);
 export const SwitchAccountIcon = withIconWrapper(MuiSwitchAccountOutlinedIcon, MuiSwitchAccountIcon);
 export const LogoutIcon = withIconWrapper(MuiLogoutOutlinedIcon, MuiLogoutIcon);
 export const MoonIcon = withIconWrapper(MuiNightsStayOutlinedIcon, MuiNightsStayIcon);
@@ -181,7 +188,7 @@ export const ChevronRightIcon = withIconWrapper(MuiChevronRightOutlinedIcon, Mui
 export const ChevronLeftIcon = withIconWrapper(MuiChevronLeftOutlinedIcon, MuiChevronLeftIcon);
 export const LightModeIcon = withIconWrapper(MuiLightModeOutlinedIcon, MuiLightModeIcon);
 export const LaptopIcon = withIconWrapper(MuiComputerOutlinedIcon, MuiComputerIcon);
-export const SolidUploadIcon = withIconWrapper(MuiFileUploadOutlinedIcon, MuiFileUploadIcon);
+export const UploadIcon = withIconWrapper(MuiFileUploadOutlinedIcon, MuiFileUploadIcon);
 export const AirplaneIcon = withIconWrapper(MuiAirplanemodeActiveOutlinedIcon, MuiAirplanemodeActiveIcon);
 export const ClearIcon = withIconWrapper(MuiClearOutlinedIcon, MuiClearIcon);
 export const TranslateIcon = withIconWrapper(MuiTranslateOutlinedIcon, MuiTranslateIcon);
@@ -221,4 +228,8 @@ export const StopIcon = withIconWrapper(MuiStopOutlinedIcon, MuiStopIcon);
 export const HourglassIcon = withIconWrapper(MuiHourglassFullOutlinedIcon, MuiHourglassFullIcon);
 export const NewReleasesIcon = withIconWrapper(MuiNewReleasesOutlinedIcon, MuiNewReleasesIcon);
 export const CheckCircleIcon = withIconWrapper(MuiCheckCircleOutlineIcon, MuiCheckCircleIcon);
-
+export const ViewStreamIcon = withIconWrapper(MuiViewStreamOutlineIcon, MuiViewStreamIcon);
+export const InboxIcon = withIconWrapper(MuiInboxIconOutlined, MuiInboxIcon);
+export const StoreIcon = withIconWrapper(MuiStoreOutlineIcon, MuiStoreIcon);
+export const PersonIcon = withIconWrapper(MuiPersonOutlineIcon, MuiPersonIcon);
+export const WebIcon = withIconWrapper(MuiWebOutlineIcon, MuiWebIcon);

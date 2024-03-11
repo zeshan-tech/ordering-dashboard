@@ -1,4 +1,4 @@
-export const handleOnGetTextColorForBackground = (
+export const handleGetTextColorForBackground = (
   backgroundColor: string
 ): "black" | "white" => {
   const hexToRgb = (hex: string): number[] => {

@@ -9,7 +9,7 @@ interface DataGridEmptyComponentProps {
   height?: number;
   sx?: SxProps;
 }
-export default function DataGridEmptyComponent({ message, height, sx, width }: DataGridEmptyComponentProps) {
+export default function DataGridEmptyComponent({ message, height, sx, width }: Readonly<DataGridEmptyComponentProps>) {
   const { t } = useTranslation();
 
   const containerStyle = useThemeStyles<SxProps>((theme) => ({
@@ -21,7 +21,7 @@ export default function DataGridEmptyComponent({ message, height, sx, width }: D
   return (
     <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} sx={containerStyle}>
       <NoRecordFoundIllustration />
-      <Typography>{message ?? t("Components.DataGridPro.DataGridEmptyComponent.message")}</Typography>
+      <Typography>{message ?? t("message")}</Typography>
     </Box>
   );
 }

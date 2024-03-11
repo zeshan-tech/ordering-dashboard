@@ -35,11 +35,11 @@ const TranslationMenu: React.FC<TranslationMenuProps> = ({ anchorEl, isVisible, 
     return supportedLanguages.filter((language) => language.languageName.toLowerCase().includes(searchText.toLowerCase()) || language.countryName.toLowerCase().includes(searchText.toLowerCase()));
   }, [searchText]);
 
-  const handleOnSearchChange = useCallback((text: string) => {
+  const handleSearchChange = useCallback((text: string) => {
     setSearchText(text);
   }, []);
 
-  const handleOnToggleSearchInput = () => {
+  const handleToggleSearchInput = () => {
     setIsSearchInputVisible(!isSearchInputVisible);
     setSearchText("");
   };
@@ -56,8 +56,8 @@ const TranslationMenu: React.FC<TranslationMenuProps> = ({ anchorEl, isVisible, 
 
   const renderHeader = (
     <ListSubheader sx={menuItemHeader}>
-      <>{t("Layout.AppBar.TranslationMenu.title")}</>
-      <SearchIcon onClick={handleOnToggleSearchInput} />
+      <>{t("title")}</>
+      <SearchIcon onClick={handleToggleSearchInput} />
     </ListSubheader>
   );
 
@@ -73,7 +73,7 @@ const TranslationMenu: React.FC<TranslationMenuProps> = ({ anchorEl, isVisible, 
     <Menu anchorEl={anchorEl} open={isVisible} onClose={onClose}>
       {renderHeader}
       <Divider />
-      {isSearchInputVisible ? <SearchInput autoFocus onChange={handleOnSearchChange} placeholder={t("Layout.AppBar.TranslationMenu.search")} /> : null}
+      {isSearchInputVisible ? <SearchInput autoFocus onChange={handleSearchChange} placeholder={t("search")} /> : null}
       {filteredLanguages.map((language) => createMenuItem(<TranslateIcon isListIcon />, `${language.languageName} - ${language.countryName}`, () => i18n.changeLanguage(language.code)))}
     </Menu>
   );

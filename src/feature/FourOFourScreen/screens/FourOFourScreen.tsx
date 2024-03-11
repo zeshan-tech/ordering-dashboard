@@ -14,4 +14,6 @@ export default function FourOFourScreen() {
       navigation.navigate("/sign-in");
     }
   }, [isAuthenticated, navigation]);
+
+  return <></>;
 }

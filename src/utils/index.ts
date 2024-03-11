@@ -1,3 +1,3 @@
-export { default as handleOnTruncateText } from "./truncateText";
-export { default as handleOnFormatPrice } from "./formatPrice";
-export { default as handleOnParsePrice } from "./parsePrice";
+export { default as handleTruncateText } from "./truncateText";
+export { default as handleFormatPrice } from "./formatPrice";
+export { default as handleParsePrice } from "./parsePrice";

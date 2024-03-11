@@ -2,7 +2,7 @@ import { InputAdornment, TextField as MuiTextField, TextFieldProps as MuiTextFie
 import { DollarIcon, ErrorIcon } from "../icons";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import { ReactNode } from "react";
-import { handleOnFormatPrice, handleOnParsePrice } from "@/utils";
+import { handleFormatPrice, handleParsePrice } from "@/utils";
 
 interface PriceFieldProps<T extends FieldValues> extends Omit<MuiTextFieldProps, "name"> {
   startIcon?: ReactNode;
@@ -20,10 +20,10 @@ export default function PriceField<T extends FieldValues>({ name, startIcon, end
         <MuiTextField
           {...restProps}
           name={name}
-          value={handleOnFormatPrice(value)}
+          value={handleFormatPrice(value)}
           onChange={(e) => {
             const inputValue = e.target.value;
-            onChange(handleOnParsePrice(inputValue));
+            onChange(handleParsePrice(inputValue));
           }}
           autoFocus
           type="text"

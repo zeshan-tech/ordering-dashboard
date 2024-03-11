@@ -1,6 +1,6 @@
 import { round } from "lodash";
 
-export default function handleOnFormatPrice(value: number | undefined): string {
+export default function handleFormatPrice(value: number | undefined): string {
   if (value === undefined) {
     return "";
   }

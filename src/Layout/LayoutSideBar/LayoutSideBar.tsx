@@ -1,12 +1,11 @@
-import { Drawer, List, Stack, SxProps, useMediaQuery } from "@mui/material";
+/* import { Drawer, List, Stack, SxProps } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { AnalyticsIcon, DashboardIcon, LinkIcon, PlayDoubleIcon, PlaySquareIcon, QuestionAnswerIcon, SettingIcon, UploadIcon } from "@/components/icons";
+import { AnalyticsIcon, DashboardIcon, InboxIcon, LinkIcon, PersonIcon, QuestionAnswerIcon, SettingIcon, StoreIcon, ViewStreamIcon, WebIcon } from "@/components/icons";
 import { useEffect, useState } from "react";
 import useNavigation from "@/navigation/useNavigation";
 import { SidebarItem, SidebarItemProps } from ".";
 import { AuthenticatedRouteParams, useLocation } from "@/navigation";
 import { useSidebarContext } from "@/context/SidebarContext";
-import useTheme from "@/theme/Theme.context";
 
 interface SidebarSectionProps {
   listItems: SidebarItemProps[];
@@ -26,9 +25,7 @@ export default function LayoutSidebar() {
   const { t } = useTranslation();
   const location = useLocation();
   const navigation = useNavigation();
-  const { isRootSidebarOpen, handleOnToggleRootSidebar } = useSidebarContext();
-  const { theme } = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const { isRootSidebarOpen, handleToggleRootSidebar } = useSidebarContext();
 
   const [activeItem, setActiveItem] = useState<keyof AuthenticatedRouteParams>("/home");
 
@@ -40,87 +37,85 @@ export default function LayoutSidebar() {
     sidebar: [
       {
         icon: <DashboardIcon />,
-        label: t("Layout.Sidebar.home"),
+        label: t("home"),
         onClick: () => {
           navigation.navigate("/home");
         },
         isActive: activeItem.startsWith("/home"),
       },
       {
+        icon: <ViewStreamIcon />,
+        label: t("orders"),
+        onClick: () => {
+          console.log("orders");
+        },
+        isActive: activeItem.startsWith("/orders"),
+      },
+      {
+        icon: <InboxIcon />,
+        label: t("messages"),
+        onClick: () => {
+          console.log("messages");
+        },
+        isActive: activeItem.startsWith("/messages"),
+      },
+      {
+        icon: <StoreIcon />,
+        label: t("stores"),
+        onClick: () => {
+          console.log("stores");
+        },
+        isActive: activeItem.startsWith("/stores"),
+      },
+      {
         icon: <AnalyticsIcon />,
-        label: t("Layout.Sidebar.analytics"),
-        onClick: () => {
-          console.log("Analytics");
-        },
-        isActive: activeItem === t("Layout.Sidebar.analytics"),
-      },
-      {
-        icon: <PlaySquareIcon />,
-        label: t("Layout.Sidebar.movies"),
-        onClick: () => {
-          navigation.navigate("/movie");
-        },
-        isActive: activeItem.startsWith("/movie"),
-      },
-      {
-        icon: <PlayDoubleIcon />,
-        label: t("Layout.Sidebar.series"),
-        onClick: () => {
-          navigation.navigate("/series");
-        },
-        isActive: activeItem.startsWith("/series"),
+        label: t("analytics"),
+        onClick: () => alert(t("analytics")),
+        isActive: activeItem.startsWith("/analytics"),
       },
       {
         icon: <LinkIcon />,
-        label: t("Layout.Sidebar.links"),
-        onClick: () => alert(t("Layout.Sidebar.links")),
-        isActive: activeItem === t("Layout.Sidebar.links"),
+        label: t("deliveries"),
+        onClick: () => alert(t("deliveries")),
+        isActive: activeItem.startsWith("/deliveries"),
       },
       {
-        icon: <UploadIcon />,
-        label: t("Layout.Sidebar.uploads"),
-        onClick: () => {},
-        isActive: activeItem === t("Layout.Sidebar.uploads"),
-        childrens: [
-          {
-            icon: <UploadIcon />,
-            label: t("Layout.Sidebar.movie"),
-            onClick: () => {
-              navigation.navigate("/upload/movie");
-            },
-            isActive: activeItem.startsWith("/upload/movie"),
-          },
-          {
-            icon: <UploadIcon />,
-            label: t("Layout.Sidebar.trailer"),
-            onClick: () => {
-              navigation.navigate("/upload/trailer");
-            },
-            isActive: activeItem.startsWith("/upload/trailer"),
-          },
-          {
-            icon: <UploadIcon />,
-            label: t("Layout.Sidebar.episode"),
-            onClick: () => {
-              navigation.navigate("/upload/episode");
-            },
-            isActive: activeItem.startsWith("/upload/episode"),
-          },
-        ],
+        icon: <LinkIcon />,
+        label: t("support"),
+        onClick: () => alert(t("support")),
+        isActive: activeItem.startsWith("/support"),
       },
     ],
     footer: [
       {
         icon: <SettingIcon />,
-        label: t("Layout.Sidebar.settings"),
-        onClick: () => alert(t("Layout.Sidebar.settings")),
-        isActive: activeItem === t("Layout.Sidebar.settings"),
+        label: t("settings"),
+        onClick: () => alert(t("settings")),
+        isActive: activeItem.startsWith("/settings"),
+        childrens: [
+          {
+            icon: <PersonIcon />,
+            label: t("personal"),
+            onClick: () => {
+              console.log("Child 1");
+            },
+            isActive: activeItem.startsWith("/settings/personal"),
+          },
+          {
+            icon: <WebIcon />,
+            label: t("trailer"),
+            onClick: () => {
+              console.log("Child 1");
+            },
+            isActive: activeItem.startsWith("/upload/site"),
+          },
+        ],
       },
       {
         icon: <QuestionAnswerIcon />,
-        label: t("Layout.Sidebar.feedback"),
-        onClick: () => alert(t("Layout.Sidebar.feedback")),
-        isActive: activeItem === t("Layout.Sidebar.feedback"),
+        label: t("feedback"),
+        onClick: () => alert(t("feedback")),
+        isActive: activeItem.startsWith("/feedback"),
       },
     ],
   };
@@ -133,13 +128,146 @@ export default function LayoutSidebar() {
   };
 
   return (
-    <Drawer variant={isSmallScreen ? "persistent" : "permanent"} sx={containerStyle} open={isRootSidebarOpen} onClose={handleOnToggleRootSidebar}>
+    <Drawer variant='temporary' sx={containerStyle} open={isRootSidebarOpen} onClose={handleToggleRootSidebar}>
       <Stack justifyContent={"space-between"} height={"100vh"}>
         <SidebarSection listItems={sections.sidebar} />
         <Stack pb={8}>
           <SidebarSection listItems={sections.footer} />
         </Stack>
       </Stack>
+    </Drawer>
+  );
+}
+ */
+
+import { useTranslation } from "react-i18next";
+import { AnalyticsIcon, DashboardIcon, InboxIcon, LinkIcon, PersonIcon, QuestionAnswerIcon, SettingIcon, StoreIcon, ViewStreamIcon, WebIcon } from "@/components/icons";
+import { useState } from "react";
+import useNavigation from "@/navigation/useNavigation";
+import { SidebarItem, SidebarItemProps } from ".";
+import { AuthenticatedRouteParams, useLocation } from "@/navigation";
+import { useSidebarContext } from "@/context/SidebarContext";
+import { Box, Drawer, Button, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack } from "@mui/material";
+
+import MailIcon from "@mui/icons-material/Mail";
+
+export default function TemporaryDrawer() {
+  const { t } = useTranslation();
+  const location = useLocation();
+  const navigation = useNavigation();
+  const { isRootSidebarOpen, handleToggleRootSidebar } = useSidebarContext();
+
+  const [activeItem, setActiveItem] = useState<keyof AuthenticatedRouteParams>("/home");
+
+  const sections: { sidebar: SidebarItemProps[]; footer: SidebarItemProps[] } = {
+    sidebar: [
+      {
+        icon: <DashboardIcon />,
+        label: t("home"),
+        onClick: () => {
+          navigation.navigate("/home");
+        },
+        isActive: activeItem.startsWith("/home"),
+      },
+      {
+        icon: <ViewStreamIcon />,
+        label: t("orders"),
+        onClick: () => {
+          console.log("orders");
+        },
+        isActive: activeItem.startsWith("/orders"),
+      },
+      {
+        icon: <InboxIcon />,
+        label: t("messages"),
+        onClick: () => {
+          console.log("messages");
+        },
+        isActive: activeItem.startsWith("/messages"),
+      },
+      {
+        icon: <StoreIcon />,
+        label: t("stores"),
+        onClick: () => {
+          console.log("stores");
+        },
+        isActive: activeItem.startsWith("/stores"),
+      },
+      {
+        icon: <AnalyticsIcon />,
+        label: t("analytics"),
+        onClick: () => alert(t("analytics")),
+        isActive: activeItem.startsWith("/analytics"),
+      },
+      {
+        icon: <LinkIcon />,
+        label: t("deliveries"),
+        onClick: () => alert(t("deliveries")),
+        isActive: activeItem.startsWith("/deliveries"),
+      },
+      {
+        icon: <LinkIcon />,
+        label: t("support"),
+        onClick: () => alert(t("support")),
+        isActive: activeItem.startsWith("/support"),
+      },
+    ],
+    footer: [
+      {
+        icon: <SettingIcon />,
+        label: t("settings"),
+        onClick: () => alert(t("settings")),
+        isActive: activeItem.startsWith("/settings"),
+        childrens: [
+          {
+            icon: <PersonIcon />,
+            label: t("personal"),
+            onClick: () => {
+              console.log("Child 1");
+            },
+            isActive: activeItem.startsWith("/settings/personal"),
+          },
+          {
+            icon: <WebIcon />,
+            label: t("trailer"),
+            onClick: () => {
+              console.log("Child 1");
+            },
+            isActive: activeItem.startsWith("/upload/site"),
+          },
+        ],
+      },
+      {
+        icon: <QuestionAnswerIcon />,
+        label: t("feedback"),
+        onClick: () => alert(t("feedback")),
+        isActive: activeItem.startsWith("/feedback"),
+      },
+    ],
+  };
+
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role='presentation' onClick={handleToggleRootSidebar}>
+      <List>
+        {sections.sidebar.map((item) => (
+          <SidebarItem key={item.label} label={item.label} onClick={item.onClick} isActive={item.isActive} icon={item.icon} />
+        ))}
+      </List>
+
+      <Divider />
+      <Stack pb={8}>
+        <List>
+          {sections.footer.map((item) => (
+            <SidebarItem key={item.label} label={item.label} onClick={item.onClick} isActive={item.isActive} icon={item.icon} />
+          ))}
+        </List>
+      </Stack>
+    </Box>
+  );
+
+  return (
+    <Drawer open={isRootSidebarOpen} onClose={handleToggleRootSidebar}>
+      {DrawerList}
     </Drawer>
   );
 }

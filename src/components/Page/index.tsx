@@ -8,7 +8,7 @@ interface PageProps extends PaperProps {
   isSuspense?: boolean;
 }
 
-export default function Page({ children, isSuspense }: PageProps) {
+export default function Page({ children, isSuspense }: Readonly<PageProps>) {
   const pageStyle = useThemeStyles<SxProps>((theme) => ({
     background: theme.palette.background.paper,
     [theme.breakpoints.up("md")]: {

@@ -3,16 +3,16 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 
 interface SidebarContextProps {
   isFeedbackSidebarOpen: boolean;
-  handleOnToggleFeedbackSidebar: () => void;
+  handleToggleFeedbackSidebar: () => void;
   isRootSidebarOpen: boolean;
-  handleOnToggleRootSidebar: () => void;
+  handleToggleRootSidebar: () => void;
 }
 
 const defaultContextValue: SidebarContextProps = {
   isFeedbackSidebarOpen: false,
   isRootSidebarOpen: false,
-  handleOnToggleRootSidebar: noop,
-  handleOnToggleFeedbackSidebar: noop,
+  handleToggleRootSidebar: noop,
+  handleToggleFeedbackSidebar: noop,
 };
 
 const SidebarContext = createContext<SidebarContextProps>(defaultContextValue);
@@ -21,22 +21,22 @@ interface SidebarContextProviderProps {
   children: React.ReactNode;
 }
 
-export function SidebarContextProvider({ children }: SidebarContextProviderProps) {
+export function SidebarContextProvider({ children }: Readonly<SidebarContextProviderProps>) {
   const [state, setState] = useState<SidebarContextProps>(defaultContextValue);
 
-  const handleOnToggleFeedbackSidebar = () => {
+  const handleToggleFeedbackSidebar = () => {
     setState({ ...state, isFeedbackSidebarOpen: !state.isFeedbackSidebarOpen });
   };
 
-  const handleOnToggleRootSidebar = () => {
+  const handleToggleRootSidebar = () => {
     setState({ ...state, isRootSidebarOpen: !state.isRootSidebarOpen });
   };
 
   const contextValue = useMemo(
     () => ({
       ...state,
-      handleOnToggleFeedbackSidebar,
-      handleOnToggleRootSidebar,
+      handleToggleFeedbackSidebar,
+      handleToggleRootSidebar,
     }),
     [state]
   );

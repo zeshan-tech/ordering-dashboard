@@ -14,7 +14,7 @@ interface SearchInputProps extends Omit<OutlinedInputProps, "sx" | "onChange"> {
 export default function SearchInput({ onChange, sx, tooltip, onClose, ...restProps }: SearchInputProps) {
   const { t } = useTranslation();
 
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newText = event.target.value;
     if (onChange) {
       onChange(newText);
@@ -34,16 +34,16 @@ export default function SearchInput({ onChange, sx, tooltip, onClose, ...restPro
         fullWidth
         {...restProps}
         sx={inputStyle}
-        onChange={handleOnChange}
+        onChange={handleChange}
         startAdornment={
           <InputAdornment position="start">
-            <SearchIcon tooltip={t("Components.Form.SearchInput.search")} />
+            <SearchIcon tooltip={t("search")} />
           </InputAdornment>
         }
         endAdornment={
           onClose ? (
             <InputAdornment position="end">
-              <ClearIcon iconButton={false} onClick={onClose} tooltip={t("Components.Form.SearchInput.close")} />
+              <ClearIcon iconButton={false} onClick={onClose} tooltip={t("close")} />
             </InputAdornment>
           ) : null
         }

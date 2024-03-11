@@ -12,9 +12,9 @@ interface AppearanceMenuProps {
   onClose: () => void;
 }
 
-export default function AppearanceMenu({ anchorEl, isVisible, onClose }: AppearanceMenuProps) {
+export default function AppearanceMenu({ anchorEl, isVisible, onClose }: Readonly<AppearanceMenuProps>) {
   const { t } = useTranslation();
-  const {handleOnToDarkTheme, handleOnToLightTheme} = useTheme();
+  const {handleToDarkTheme, handleToLightTheme} = useTheme();
 
   const menuItemStyle = useThemeStyles<SxProps>((theme) => ({
     width: theme.spacing(48),
@@ -30,11 +30,11 @@ export default function AppearanceMenu({ anchorEl, isVisible, onClose }: Appeara
 
   return (
     <Menu anchorEl={anchorEl} open={isVisible} onClose={onClose} onClick={onClose}>
-      <ListSubheader>{t("Layout.AppBar.AppearanceMenu.title")}</ListSubheader>
+      <ListSubheader>{t("appearance")}</ListSubheader>
       <Divider />
-      {createMenuItem(<LaptopIcon isListIcon />, t("Layout.AppBar.AppearanceMenu.systemDefault"), handleOnToDarkTheme)}
-      {createMenuItem(<MoonIcon isListIcon />, t("Layout.AppBar.AppearanceMenu.darkTheme"), handleOnToDarkTheme)}
-      {createMenuItem(<LightModeIcon isListIcon />, t("Layout.AppBar.AppearanceMenu.lightTheme"), handleOnToLightTheme)}
+      {createMenuItem(<LaptopIcon isListIcon />, t("systemDefault"), handleToDarkTheme)}
+      {createMenuItem(<MoonIcon isListIcon />, t("darkTheme"), handleToDarkTheme)}
+      {createMenuItem(<LightModeIcon isListIcon />, t("lightTheme"), handleToLightTheme)}
     </Menu>
   );
 }

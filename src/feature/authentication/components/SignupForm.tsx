@@ -8,18 +8,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import useFirebase from "@/context/FirebaseContext";
 import { useTranslation } from "react-i18next";
+import { useAuthContext } from "@/context/AuthContext";
 
 export default function SignupForm() {
   const { t } = useTranslation();
   const { auth } = useFirebase();
+  const { handleAuthenticate } = useAuthContext();
 
   const { handleSubmit, register: formRegister } = useForm<SignupFormDataInterface>({
     resolver: yupResolver(validationSchema),
   });
 
-  const handleCallSignIn = async (formData: SignupFormDataInterface) => {
+  const handleSignup = async (formData: SignupFormDataInterface) => {
     const result = await createUserWithEmailAndPassword(auth!, formData.email, formData.password);
-    console.log(result);
+    handleAuthenticate(await result.user.getIdToken());
   };
 
   return (
@@ -31,9 +33,9 @@ export default function SignupForm() {
       <Typography variant='caption' align='center' mb={4}>
         {t("signupSubtitle")}
       </Typography>
-      <Stack component='form' noValidate onSubmit={handleSubmit(handleCallSignIn)} spacing={2}>
-        <TextField register={formRegister} fullWidth id='email' label={t("emailLabel")} name='email' autoComplete='email' autoFocus />
-        <TextField register={formRegister} fullWidth name='password' label={t("passwordLabel")} type='password' id='password' autoComplete='current-password' />
+      <Stack component='form' noValidate onSubmit={handleSubmit(handleSignup)} spacing={2}>
+        <TextField register={formRegister} fullWidth id='email' label={t("emailAddress")} name='email' autoComplete='email' autoFocus />
+        <TextField register={formRegister} fullWidth name='password' label={t("password")} type='password' id='password' autoComplete='current-password' />
         <Button type='submit' variant='contained' fullWidth>
           {t("signUp")}
         </Button>

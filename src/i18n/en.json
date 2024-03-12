@@ -28,5 +28,7 @@
   "signupSubtitle": "We suggest using the email address you use at work",
   "signupTitle": "Signup with your email",
   "signinTitle": "Sign in to your account",
-  "forgotPassword?": "Forgot password?"
+  "forgotPassword?": "Forgot password?",
+  "emailAddress": "Email address",
+  "password": "Password"
 }

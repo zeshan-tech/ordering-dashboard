@@ -42,7 +42,7 @@ export default function SigninForm() {
           {t("signIn")}
         </Button>
       </Form>
-      <Link to='/authentication' color='primary'>
+      <Link to='/authentication' color='primary' style={{ textAlign: "end" }}>
         {t("forgotPassword?")}
       </Link>
     </Stack>

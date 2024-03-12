@@ -1,17 +1,18 @@
-import { ListItem, ListItemAvatar, ListItemText,  SxProps } from "@mui/material";
+import { ListItem, ListItemAvatar, ListItemText, SxProps } from "@mui/material";
 import { LogoutIcon } from "@/components/icons";
-import useUserDetail from "@/context/UserDetail.context";
+import useUserDetails from "@/context/UserDetails.context";
 import Avatar from "@/components/Avatar";
 import useThemeStyles from "@/theme/hooks/useThemeStyles";
 import { ListSubheader } from "@/components/Tags";
+import { useAuthContext } from "@/context/AuthContext";
 
 interface UserCardForMenuProps {
   onClick: () => void;
-  onLogout: () => void;
 }
 
-export default function UserCardForMenu({ onClick, onLogout }: UserCardForMenuProps) {
-  const { fullName, imageUrl, userName } = useUserDetail();
+export default function UserCardForMenu({ onClick }: UserCardForMenuProps) {
+  const { handleLogout } = useAuthContext();
+  const { fullName, imageUrl, userName } = useUserDetails();
 
   const avatarStyle = useThemeStyles<SxProps>((theme) => ({
     width: 56,
@@ -21,9 +22,9 @@ export default function UserCardForMenu({ onClick, onLogout }: UserCardForMenuPr
 
   return (
     <ListSubheader onClick={onClick} disableGutters>
-      <ListItem secondaryAction={<LogoutIcon onClick={onLogout} />}>
+      <ListItem secondaryAction={<LogoutIcon onClick={handleLogout} />}>
         <ListItemAvatar>
-          <Avatar sizes="small" src={imageUrl} sx={avatarStyle} />
+          <Avatar sizes='small' src={imageUrl} sx={avatarStyle} />
         </ListItemAvatar>
         <ListItemText
           primary={fullName}

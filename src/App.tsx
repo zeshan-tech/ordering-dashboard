@@ -2,7 +2,7 @@ import MainStack from "./navigation/Main.routes";
 import { I18nextProvider } from "react-i18next";
 import { i18n } from "./i18n";
 import { ThemeProvider } from "./theme/Theme.context";
-import { UserDetailProvider } from "./context/UserDetail.context";
+import { UserDetailsProvider } from "./context/UserDetails.context";
 import { AuthContextProvider } from "./context/AuthContext";
 import { GraphQlErrorProvider } from "./context/GraphQlErrorContext";
 import { LocalizationProvider, LicenseInfo as DatePickerLicenseInfo } from "@mui/x-date-pickers-pro";
@@ -26,7 +26,7 @@ function App() {
             <I18nextProvider i18n={i18n}>
               <AuthContextProvider>
                 <ThemeProvider>
-                  <UserDetailProvider>
+                  <UserDetailsProvider>
                     <GraphQlErrorProvider>
                       <SidebarContextProvider>
                         <KeyboardShortcutsContext>
@@ -34,7 +34,7 @@ function App() {
                         </KeyboardShortcutsContext>
                       </SidebarContextProvider>
                     </GraphQlErrorProvider>
-                  </UserDetailProvider>
+                  </UserDetailsProvider>
                 </ThemeProvider>
               </AuthContextProvider>
             </I18nextProvider>

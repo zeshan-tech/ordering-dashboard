@@ -11,14 +11,7 @@ interface PageProps extends PaperProps {
 export default function Page({ children, isSuspense }: Readonly<PageProps>) {
   const pageStyle = useThemeStyles<SxProps>((theme) => ({
     background: theme.palette.background.paper,
-    [theme.breakpoints.up("md")]: {
-      py: theme.spacing(12),
-      pl: theme.spacing(14),
-      pr: theme.spacing(4),
-    },
-    [theme.breakpoints.down("md")]: {
-      py: theme.spacing(12),
-    },
+    py: theme.spacing(8),
     minHeight: "100vh",
     width: "100vw",
   }));

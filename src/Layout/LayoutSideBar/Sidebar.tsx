@@ -53,11 +53,11 @@ export default function LayoutSidebar() {
       },
       {
         icon: <InboxIcon />,
-        label: t("messages"),
+        label: t("index"),
         onClick: () => {
-          console.log("messages");
+          console.log("index");
         },
-        isActive: activeItem.startsWith("/messages"),
+        isActive: activeItem.startsWith("/index"),
       },
       {
         icon: <StoreIcon />,
@@ -97,15 +97,15 @@ export default function LayoutSidebar() {
             icon: <PersonIcon />,
             label: t("personal"),
             onClick: () => {
-              console.log("Child 1");
+              navigation.navigate('/settings')
             },
             isActive: activeItem.startsWith("/settings/personal"),
           },
           {
             icon: <WebIcon />,
-            label: t("trailer"),
+            label: t("site"),
             onClick: () => {
-              console.log("Child 1");
+              navigation.navigate('/settings')
             },
             isActive: activeItem.startsWith("/upload/site"),
           },
@@ -141,23 +141,62 @@ export default function LayoutSidebar() {
  */
 
 import { useTranslation } from "react-i18next";
-import { AnalyticsIcon, DashboardIcon, InboxIcon, LinkIcon, PersonIcon, QuestionAnswerIcon, SettingIcon, StoreIcon, ViewStreamIcon, WebIcon } from "@/components/icons";
-import { useState } from "react";
+import { AnalyticsIcon, DashboardIcon, InboxIcon, LinkIcon, QuestionAnswerIcon, SettingIcon, StoreIcon, ViewStreamIcon } from "@/components/icons";
+import { useEffect, useState } from "react";
 import useNavigation from "@/navigation/useNavigation";
 import { SidebarItem, SidebarItemProps } from ".";
 import { AuthenticatedRouteParams, useLocation } from "@/navigation";
 import { useSidebarContext } from "@/context/SidebarContext";
-import { Box, Drawer, Button, List, Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack } from "@mui/material";
+import { Box, Drawer, List, Divider, Stack, Collapse } from "@mui/material";
 
-import MailIcon from "@mui/icons-material/Mail";
+interface SidebarSectionProps {
+  listItems: SidebarItemProps[];
+}
 
-export default function TemporaryDrawer() {
+function SidebarSection({ listItems }: Readonly<SidebarSectionProps>) {
+  const [expandItemIndex, setExpandItemIndex] = useState(-1);
+
+  const handleExpand = (index: number) => {
+    if (expandItemIndex === index) setExpandItemIndex(-1);
+    else setExpandItemIndex(index);
+  };
+
+  return (
+    <Stack component={List}>
+      {listItems.map((item, index) => {
+        if (item.childrens) {
+          return (
+            <>
+              <SidebarItem key={item.label} label={item.label} onClick={() => handleExpand(index)} isActive={item.isActive} icon={item.icon} hasSubmenu />
+              <Collapse in={expandItemIndex === index} unmountOnExit>
+                <List sx={{ pl: 2 }} disablePadding>
+                  {item.childrens.map((subItem) => {
+                    return <SidebarItem key={subItem.label} label={subItem.label} onClick={subItem.onClick} isActive={subItem.isActive} icon={subItem.icon} />;
+                  })}
+                </List>
+              </Collapse>
+            </>
+          );
+        }
+
+        return <SidebarItem key={item.label} label={item.label} onClick={item.onClick} isActive={item.isActive} icon={item.icon} />;
+      })}
+    </Stack>
+  );
+}
+
+export default function Sidebar() {
   const { t } = useTranslation();
   const location = useLocation();
   const navigation = useNavigation();
+
   const { isRootSidebarOpen, handleToggleRootSidebar } = useSidebarContext();
 
   const [activeItem, setActiveItem] = useState<keyof AuthenticatedRouteParams>("/home");
+
+  useEffect(() => {
+    setActiveItem(location.pathname);
+  }, [location]);
 
   const sections: { sidebar: SidebarItemProps[]; footer: SidebarItemProps[] } = {
     sidebar: [
@@ -173,42 +212,49 @@ export default function TemporaryDrawer() {
         icon: <ViewStreamIcon />,
         label: t("orders"),
         onClick: () => {
+          navigation.navigate("/orders");
           console.log("orders");
         },
         isActive: activeItem.startsWith("/orders"),
       },
       {
         icon: <InboxIcon />,
-        label: t("messages"),
+        label: t("inbox"),
         onClick: () => {
-          console.log("messages");
+          navigation.navigate("/inbox");
         },
-        isActive: activeItem.startsWith("/messages"),
+        isActive: activeItem.startsWith("/inbox"),
       },
       {
         icon: <StoreIcon />,
         label: t("stores"),
         onClick: () => {
-          console.log("stores");
+          navigation.navigate("/stores");
         },
         isActive: activeItem.startsWith("/stores"),
       },
       {
         icon: <AnalyticsIcon />,
         label: t("analytics"),
-        onClick: () => alert(t("analytics")),
+        onClick: () => {
+          navigation.navigate("/analytics");
+        },
         isActive: activeItem.startsWith("/analytics"),
       },
       {
         icon: <LinkIcon />,
         label: t("deliveries"),
-        onClick: () => alert(t("deliveries")),
+        onClick: () => {
+          navigation.navigate("/deliveries");
+        },
         isActive: activeItem.startsWith("/deliveries"),
       },
       {
         icon: <LinkIcon />,
         label: t("support"),
-        onClick: () => alert(t("support")),
+        onClick: () => {
+          navigation.navigate("/support");
+        },
         isActive: activeItem.startsWith("/support"),
       },
     ],
@@ -218,24 +264,6 @@ export default function TemporaryDrawer() {
         label: t("settings"),
         onClick: () => alert(t("settings")),
         isActive: activeItem.startsWith("/settings"),
-        childrens: [
-          {
-            icon: <PersonIcon />,
-            label: t("personal"),
-            onClick: () => {
-              console.log("Child 1");
-            },
-            isActive: activeItem.startsWith("/settings/personal"),
-          },
-          {
-            icon: <WebIcon />,
-            label: t("trailer"),
-            onClick: () => {
-              console.log("Child 1");
-            },
-            isActive: activeItem.startsWith("/upload/site"),
-          },
-        ],
       },
       {
         icon: <QuestionAnswerIcon />,
@@ -247,21 +275,10 @@ export default function TemporaryDrawer() {
   };
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role='presentation' onClick={handleToggleRootSidebar}>
-      <List>
-        {sections.sidebar.map((item) => (
-          <SidebarItem key={item.label} label={item.label} onClick={item.onClick} isActive={item.isActive} icon={item.icon} />
-        ))}
-      </List>
-
+    <Box sx={{ width: 250 }} role='presentation'>
+      <SidebarSection listItems={sections.sidebar} />
       <Divider />
-      <Stack pb={8}>
-        <List>
-          {sections.footer.map((item) => (
-            <SidebarItem key={item.label} label={item.label} onClick={item.onClick} isActive={item.isActive} icon={item.icon} />
-          ))}
-        </List>
-      </Stack>
+      <SidebarSection listItems={sections.footer} />
     </Box>
   );
 

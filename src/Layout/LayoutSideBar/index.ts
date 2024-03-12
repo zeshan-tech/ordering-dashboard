@@ -1,3 +1,3 @@
-export { default as LayoutSidebar } from "./LayoutSidebar";
-export { default as SidebarItem } from "./SidebarItem";
-export type { SidebarItemProps } from "./SidebarItem";
+export { default as LayoutSidebar } from "./Sidebar";
+export { default as SidebarItem } from "./Item";
+export type { SidebarItemProps } from "./Item";

@@ -3,17 +3,19 @@ import { ReactNode, Suspense } from "react";
 
 import useThemeStyles from "@/theme/hooks/useThemeStyles";
 
-interface PageProps extends PaperProps {
+interface PageProps extends Omit<PaperProps, "sx"> {
   children: ReactNode;
   isSuspense?: boolean;
+  sx?: SxProps;
 }
 
-export default function Page({ children, isSuspense }: Readonly<PageProps>) {
+export default function Page({ children, isSuspense, sx }: Readonly<PageProps>) {
   const pageStyle = useThemeStyles<SxProps>((theme) => ({
     background: theme.palette.background.paper,
     py: theme.spacing(8),
     minHeight: "100vh",
     width: "100vw",
+    ...sx,
   }));
 
   if (isSuspense) {

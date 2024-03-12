@@ -63,7 +63,11 @@ import { default as MuiInboxIconOutlined } from "@mui/icons-material/InboxOutlin
 import { default as MuiStoreOutlineIcon } from "@mui/icons-material/StoreOutlined";
 import { default as MuiPersonOutlineIcon } from "@mui/icons-material/PersonOutline";
 import { default as MuiWebOutlineIcon } from "@mui/icons-material/WebOutlined";
+import {default as MuiFacebookOutlineIcon} from '@mui/icons-material/FacebookOutlined';
 
+import {default as MuiMicrosoftIcon} from '@mui/icons-material/Microsoft';
+import {default as MuiGoogleIcon} from '@mui/icons-material/Google';
+import {default as MuiFacebookIcon} from '@mui/icons-material/Facebook';
 import { default as MuiWebIcon } from "@mui/icons-material/Web";
 import { default as MuiPersonIcon } from "@mui/icons-material/Person";
 import { default as MuiStoreIcon } from "@mui/icons-material/Store";
@@ -233,3 +237,6 @@ export const InboxIcon = withIconWrapper(MuiInboxIconOutlined, MuiInboxIcon);
 export const StoreIcon = withIconWrapper(MuiStoreOutlineIcon, MuiStoreIcon);
 export const PersonIcon = withIconWrapper(MuiPersonOutlineIcon, MuiPersonIcon);
 export const WebIcon = withIconWrapper(MuiWebOutlineIcon, MuiWebIcon);
+export const MicrosoftIcon = withIconWrapper(MuiMicrosoftIcon, MuiMicrosoftIcon);
+export const GoogleIcon = withIconWrapper(MuiGoogleIcon, MuiGoogleIcon);
+export const FacebookIcon = withIconWrapper(MuiFacebookOutlineIcon, MuiFacebookIcon);

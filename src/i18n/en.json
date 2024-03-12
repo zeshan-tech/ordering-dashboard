@@ -21,5 +21,12 @@
   "stores": "Stores",
   "deliveries": "Deliveries",
   "support": "Support",
-  "feedback": "Feedback"
+  "feedback": "Feedback",
+  "continueWithFacebook": "Continue with facebook",
+  "continueWithGoogle": "Continue with google",
+  "continueWithMicrosoft": "Continue with microsoft",
+  "signupSubtitle": "We suggest using the email address you use at work",
+  "signupTitle": "Signup with your email",
+  "signinTitle": "Sign in to your account",
+  "forgotPassword?": "Forgot password?"
 }

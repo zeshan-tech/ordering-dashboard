@@ -1,1 +1,0 @@
-export { useManagerSignIn } from "./queryHooks";

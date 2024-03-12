@@ -6,12 +6,14 @@ import { Path, Link as RouterDomLink, LinkProps as RouterDomLinkProps } from "re
 
 interface LinkProps extends Omit<RouterDomLinkProps, "to"> {
   to: keyof AuthenticatedRouteParams | keyof UnAuthenticatedRouteParams | Partial<Path>;
+  style?: CSSProperties;
 }
 
-export default function Link({ to, children, ...restProps }: LinkProps) {
+export default function Link({ to, children, style, ...restProps }: Readonly<LinkProps>) {
   const linkStyle = useThemeStyles<CSSProperties>((theme) => ({
     textDecoration: "none",
     ...theme.typography.body1,
+    ...style,
   }));
 
   return (

@@ -8,10 +8,10 @@ export default function FourOFourScreen() {
   const { isAuthenticated } = useAuthContext();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isAuthenticated) {
       navigation.navigate("/home");
     } else {
-      navigation.navigate("/sign-in");
+      navigation.navigate("/authentication");
     }
   }, [isAuthenticated, navigation]);
 

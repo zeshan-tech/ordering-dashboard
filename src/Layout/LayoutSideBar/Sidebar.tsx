@@ -36,7 +36,7 @@ export default function LayoutSidebar() {
   const sections: { sidebar: SidebarItemProps[]; footer: SidebarItemProps[] } = {
     sidebar: [
       {
-        icon: <DashboardIcon />,
+        icon: <DashboardIcon isListIcon />,
         label: t("home"),
         onClick: () => {
           navigation.navigate("/home");
@@ -44,7 +44,7 @@ export default function LayoutSidebar() {
         isActive: activeItem.startsWith("/home"),
       },
       {
-        icon: <ViewStreamIcon />,
+        icon: <ViewStreamIcon isListIcon />,
         label: t("orders"),
         onClick: () => {
           console.log("orders");
@@ -52,7 +52,7 @@ export default function LayoutSidebar() {
         isActive: activeItem.startsWith("/orders"),
       },
       {
-        icon: <InboxIcon />,
+        icon: <InboxIcon isListIcon />,
         label: t("index"),
         onClick: () => {
           console.log("index");
@@ -60,7 +60,7 @@ export default function LayoutSidebar() {
         isActive: activeItem.startsWith("/index"),
       },
       {
-        icon: <StoreIcon />,
+        icon: <StoreIcon isListIcon />,
         label: t("stores"),
         onClick: () => {
           console.log("stores");
@@ -68,19 +68,19 @@ export default function LayoutSidebar() {
         isActive: activeItem.startsWith("/stores"),
       },
       {
-        icon: <AnalyticsIcon />,
+        icon: <AnalyticsIcon isListIcon />,
         label: t("analytics"),
         onClick: () => alert(t("analytics")),
         isActive: activeItem.startsWith("/analytics"),
       },
       {
-        icon: <LinkIcon />,
+        icon: <LinkIcon isListIcon />,
         label: t("deliveries"),
         onClick: () => alert(t("deliveries")),
         isActive: activeItem.startsWith("/deliveries"),
       },
       {
-        icon: <LinkIcon />,
+        icon: <LinkIcon isListIcon />,
         label: t("support"),
         onClick: () => alert(t("support")),
         isActive: activeItem.startsWith("/support"),
@@ -88,13 +88,13 @@ export default function LayoutSidebar() {
     ],
     footer: [
       {
-        icon: <SettingIcon />,
+        icon: <SettingIcon isListIcon />,
         label: t("settings"),
         onClick: () => alert(t("settings")),
         isActive: activeItem.startsWith("/settings"),
         childrens: [
           {
-            icon: <PersonIcon />,
+            icon: <PersonIcon isListIcon />,
             label: t("personal"),
             onClick: () => {
               navigation.navigate('/settings')
@@ -102,7 +102,7 @@ export default function LayoutSidebar() {
             isActive: activeItem.startsWith("/settings/personal"),
           },
           {
-            icon: <WebIcon />,
+            icon: <WebIcon isListIcon />,
             label: t("site"),
             onClick: () => {
               navigation.navigate('/settings')
@@ -112,7 +112,7 @@ export default function LayoutSidebar() {
         ],
       },
       {
-        icon: <QuestionAnswerIcon />,
+        icon: <QuestionAnswerIcon isListIcon />,
         label: t("feedback"),
         onClick: () => alert(t("feedback")),
         isActive: activeItem.startsWith("/feedback"),
@@ -141,8 +141,8 @@ export default function LayoutSidebar() {
  */
 
 import { useTranslation } from "react-i18next";
-import { AnalyticsIcon, DashboardIcon, InboxIcon, LinkIcon, QuestionAnswerIcon, SettingIcon, StoreIcon, ViewStreamIcon } from "@/components/icons";
-import { useEffect, useState } from "react";
+import { AnalyticsIcon, DashboardIcon, InboxIcon, LinkIcon, QuestionAnswerIcon, SearchIcon, SettingIcon, StoreIcon, ViewStreamIcon } from "@/components/icons";
+import { Fragment, useEffect, useState } from "react";
 import useNavigation from "@/navigation/useNavigation";
 import { SidebarItem, SidebarItemProps } from ".";
 import { AuthenticatedRouteParams, useLocation } from "@/navigation";
@@ -201,7 +201,7 @@ export default function Sidebar() {
   const sections: { sidebar: SidebarItemProps[]; footer: SidebarItemProps[] } = {
     sidebar: [
       {
-        icon: <DashboardIcon />,
+        icon: <DashboardIcon isListIcon />,
         label: t("home"),
         onClick: () => {
           navigation.navigate("/home");
@@ -209,7 +209,7 @@ export default function Sidebar() {
         isActive: activeItem.startsWith("/home"),
       },
       {
-        icon: <ViewStreamIcon />,
+        icon: <ViewStreamIcon isListIcon />,
         label: t("orders"),
         onClick: () => {
           navigation.navigate("/orders");
@@ -218,7 +218,7 @@ export default function Sidebar() {
         isActive: activeItem.startsWith("/orders"),
       },
       {
-        icon: <InboxIcon />,
+        icon: <InboxIcon isListIcon />,
         label: t("inbox"),
         onClick: () => {
           navigation.navigate("/inbox");
@@ -226,7 +226,7 @@ export default function Sidebar() {
         isActive: activeItem.startsWith("/inbox"),
       },
       {
-        icon: <StoreIcon />,
+        icon: <StoreIcon isListIcon />,
         label: t("stores"),
         onClick: () => {
           navigation.navigate("/stores");
@@ -234,7 +234,7 @@ export default function Sidebar() {
         isActive: activeItem.startsWith("/stores"),
       },
       {
-        icon: <AnalyticsIcon />,
+        icon: <AnalyticsIcon isListIcon />,
         label: t("analytics"),
         onClick: () => {
           navigation.navigate("/analytics");
@@ -242,7 +242,7 @@ export default function Sidebar() {
         isActive: activeItem.startsWith("/analytics"),
       },
       {
-        icon: <LinkIcon />,
+        icon: <LinkIcon isListIcon />,
         label: t("deliveries"),
         onClick: () => {
           navigation.navigate("/deliveries");
@@ -250,7 +250,7 @@ export default function Sidebar() {
         isActive: activeItem.startsWith("/deliveries"),
       },
       {
-        icon: <LinkIcon />,
+        icon: <LinkIcon isListIcon />,
         label: t("support"),
         onClick: () => {
           navigation.navigate("/support");
@@ -260,13 +260,19 @@ export default function Sidebar() {
     ],
     footer: [
       {
-        icon: <SettingIcon />,
+        icon: <SearchIcon isListIcon />,
+        label: t("search"),
+        onClick: () => alert(t("search")),
+        isActive: activeItem.startsWith("/search"),
+      },
+      {
+        icon: <SettingIcon isListIcon />,
         label: t("settings"),
         onClick: () => alert(t("settings")),
         isActive: activeItem.startsWith("/settings"),
       },
       {
-        icon: <QuestionAnswerIcon />,
+        icon: <QuestionAnswerIcon isListIcon />,
         label: t("feedback"),
         onClick: () => alert(t("feedback")),
         isActive: activeItem.startsWith("/feedback"),
@@ -274,17 +280,13 @@ export default function Sidebar() {
     ],
   };
 
-  const DrawerList = (
-    <Box sx={{ width: 250 }} role='presentation'>
-      <SidebarSection listItems={sections.sidebar} />
-      <Divider />
-      <SidebarSection listItems={sections.footer} />
-    </Box>
-  );
-
   return (
     <Drawer open={isRootSidebarOpen} onClose={handleToggleRootSidebar}>
-      {DrawerList}
+      <Box sx={{ width: 250 }} role='presentation'>
+        <SidebarSection listItems={sections.sidebar} />
+        <Divider />
+        <SidebarSection listItems={sections.footer} />
+      </Box>
     </Drawer>
   );
 }

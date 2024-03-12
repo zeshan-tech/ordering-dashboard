@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { StoreScreen } from "./screens";
+import { Sidebar } from "./components";
 
 export type StoresRoutesParams = {
   "/stores": undefined;
@@ -8,7 +9,9 @@ export type StoresRoutesParams = {
 const StoresRoutes = () => {
   return (
     <Routes>
-      <Route path='/' Component={StoreScreen} />
+      <Route element={[<Sidebar key={1} />]}>
+        <Route path='/' Component={StoreScreen} />
+      </Route>
     </Routes>
   );
 };

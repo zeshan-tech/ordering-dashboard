@@ -12,13 +12,13 @@ interface FirebaseProviderProps {
 }
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDBe4Ae_910_0DQwUN4rLP0aeyfT3nlB30",
-  authDomain: "zgayahub-b1734.firebaseapp.com",
-  projectId: "zgayahub-b1734",
-  storageBucket: "zgayahub-b1734.appspot.com",
-  messagingSenderId: "29411977017",
-  appId: "1:29411977017:web:414a6868fd0a51b426aae8",
-  measurementId: "G-4C2NTMFTV4",
+  apiKey: "AIzaSyAct8ayK5dWpCpeVyJjvGrZXNDrq9RK7Pk",
+  authDomain: "ordering-416218.firebaseapp.com",
+  projectId: "ordering-416218",
+  storageBucket: "ordering-416218.appspot.com",
+  messagingSenderId: "434574436112",
+  appId: "1:434574436112:web:ba8b6177ba8696cc8d6795",
+  measurementId: "G-X0BJCYHBPS"
 };
 
 const defaultValue = {

@@ -2,7 +2,7 @@ import { SxProps } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import Stack from "@mui/material/Stack";
-import { MenuOpenIcon, SearchIcon } from "@/components/icons";
+import { MenuOpenIcon } from "@/components/icons";
 import UserAvatar from "./UserAvatar";
 import { AppBar } from "@mui/material";
 import { useSidebarContext } from "@/context/SidebarContext";
@@ -20,7 +20,6 @@ export default function LayoutAppbar() {
       <CssBaseline />
       <Toolbar>
         <MenuOpenIcon onClick={handleToggleRootSidebar} />
-        <SearchIcon iconButton />
         <Stack sx={{ flexGrow: 1 }} />
         <UserAvatar />
       </Toolbar>

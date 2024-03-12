@@ -24,7 +24,7 @@ interface AuthContextProviderProps {
   children: React.ReactNode;
 }
 
-export function AuthContextProvider({ children }: AuthContextProviderProps) {
+export function AuthContextProvider({ children }: Readonly<AuthContextProviderProps>) {
   const [state, setState] = useState<AuthContextProps>(defaultContextValue);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   const handleAuthenticate = (authToken: string = "") => {
     setState({ ...defaultContextValue, authToken, isAuthenticated: true });
-    handleSetItemInStorage("authToken", authToken!);
+    handleSetItemInStorage("authToken", authToken);
   };
 
   const setAuthToken = (authToken: string = "") => {

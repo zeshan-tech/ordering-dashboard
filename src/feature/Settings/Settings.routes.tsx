@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import { PersonalSettingsScreen, SettingsScreen, SiteSettingsScreen } from "./screens";
-import { Sidebar } from "./components";
 
 export type SettingsRoutesParams = {
   "/settings": undefined;
@@ -11,11 +10,9 @@ export type SettingsRoutesParams = {
 const SettingsRoutes = () => {
   return (
     <Routes>
-      <Route element={[<Sidebar key={1} />]}>
-        <Route path='/' Component={SettingsScreen} />
-        <Route path='/personal' Component={PersonalSettingsScreen} />
-        <Route path='/site' Component={SiteSettingsScreen} />
-      </Route>
+      <Route path='/' Component={SettingsScreen} />
+      <Route path='/personal' Component={PersonalSettingsScreen} />
+      <Route path='/site' Component={SiteSettingsScreen} />
     </Routes>
   );
 };

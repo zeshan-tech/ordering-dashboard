@@ -1,5 +1,5 @@
 <mat-drawer-container autosize>
-    <mat-drawer mode="over" #addProductSidebar position="end" class="m-2 p-2">
+    <mat-drawer mode="over" #addProductSidebar position="end" class="p-2 m-2 !w-full relative">
         <app-upload-box (imageUrlChange)="onImageUrlChange($event)"></app-upload-box>
         <form (ngSubmit)="addProduct($event)" [formGroup]="productFormGroup" class="flex flex-col">
             <mat-form-field appearance="outline" class="block">
@@ -33,6 +33,9 @@
                 <button mat-flat-button color="primary" type="submit" [disabled]="productFormGroup.invalid">Add product</button>
             </div>
         </form>
+        <button class="!absolute bottom-2" mat-stroked-button color="primary" (click)="addProductSidebar.close()">
+            Close
+        </button>
     </mat-drawer>
 
     <app-add-category-sidebar></app-add-category-sidebar>

@@ -19,7 +19,7 @@ export default function SignupScreen() {
   }));
 
   return (
-    <Page sx={pageStyle}>
+    <Page sx={pageStyle} variant='one'>
       <SignupForm />
 
       <Stack component={Paper} p={2} gap={1} sx={{ width: 500 }}>

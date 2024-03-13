@@ -142,7 +142,7 @@ export default function LayoutSidebar() {
 
 import { useTranslation } from "react-i18next";
 import { AnalyticsIcon, DashboardIcon, InboxIcon, LinkIcon, QuestionAnswerIcon, SearchIcon, SettingIcon, StoreIcon, ViewStreamIcon } from "@/components/icons";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useNavigation from "@/navigation/useNavigation";
 import { SidebarItem, SidebarItemProps } from ".";
 import { AuthenticatedRouteParams, useLocation } from "@/navigation";

@@ -19,7 +19,7 @@ export default function SigninScreen() {
   }));
 
   return (
-    <Page sx={pageStyle}>
+    <Page sx={pageStyle} variant="one">
       <SigninForm />
 
       <Stack component={Paper} p={2} gap={1} sx={{ width: 500 }}>

@@ -4,9 +4,12 @@ import { Fragment } from "react";
 import { UploadIcon } from "@/components/icons";
 import Button from "@/components/Button";
 import { Outlet } from "react-router-dom";
-import { AppBar } from "@mui/material";
+import { AppBar, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function LayoutHeader() {
+  const { t } = useTranslation();
+
   const appbarStyle: SxProps = {
     zIndex: 1,
   };
@@ -19,6 +22,9 @@ export default function LayoutHeader() {
     <Fragment>
       <AppBar sx={appbarStyle}>
         <Toolbar sx={toolbarStyle}>
+          <Typography variant='h5' sx={{ flexGrow: 1 }}>
+            {t("J Dashboard")}
+          </Typography>
           <Button startIcon={<UploadIcon />}></Button>
         </Toolbar>
       </AppBar>

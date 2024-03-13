@@ -30,5 +30,6 @@
   "signinTitle": "Sign in to your account",
   "forgotPassword?": "Forgot password?",
   "emailAddress": "Email address",
-  "password": "Password"
+  "password": "Password",
+  "totalStores": "Total stores"
 }

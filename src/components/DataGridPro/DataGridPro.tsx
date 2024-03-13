@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import useThemeStyles from "@/theme/hooks/useThemeStyles";
 import { SxProps } from "@mui/material";
 
-interface DataGridProProps extends MuiDataGridProProps {}
+export interface DataGridProProps extends MuiDataGridProProps {}
 
 export default function DataGridPro({ slots, ...restProps }: DataGridProProps) {
   const dataGridProStyle = useThemeStyles<SxProps>((theme) => ({

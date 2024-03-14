@@ -7,14 +7,14 @@ export async function handleRemoveItemFromStorage(key: string) {
   return true;
 }
 
-export async function handleGetItemFromStorage(key: string) {
+export function handleGetItemFromStorage(key: string) {
   const data = localStorage.getItem(key);
   return data ?? null;
 }
 
 export async function handleHasItemInStorage(key: string) {
   const data = localStorage.getItem(key);
-  return data ? true : false;
+  return !!data;
 }
 
 export async function handleClearStorage() {

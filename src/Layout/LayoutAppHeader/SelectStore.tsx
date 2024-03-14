@@ -1,4 +1,4 @@
-import { Divider, ListItemText, MenuItem, Stack, SxProps, TextField } from "@mui/material";
+import { CircularProgress, Divider, LinearProgress, ListItemText, MenuItem, Stack, SxProps, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { SearchInput } from "@/components/Form";
 import useThemeStyles from "@/theme/hooks/useThemeStyles";
@@ -7,15 +7,18 @@ import { AddIcon } from "@/components/icons";
 import { useStore } from "@/context/StoreContext";
 import StoreCreateModal from "./StoreCreateModal";
 import { useState } from "react";
+import { useGetAllUserStores } from "./hooks/queryHooks";
 
 export default function SelectStore() {
   const { t } = useTranslation();
-  const { activeStoreId, setActiveStoreId } = useStore();
+  const { activeStoreId, handleSetActiveStoreId } = useStore();
 
-  const [createStoreModalVisible, setSreateStoreModalVisible] = useState(false);
+  const [createStoreModalVisible, setCreateStoreModalVisible] = useState(false);
+
+  const { data, isLoading } = useGetAllUserStores();
 
   const handleToggleCreateStoreModal = () => {
-    setSreateStoreModalVisible(!createStoreModalVisible);
+    setCreateStoreModalVisible(!createStoreModalVisible);
   };
 
   const selectInputStyle = useThemeStyles<SxProps>((theme) => ({
@@ -23,16 +26,22 @@ export default function SelectStore() {
   }));
 
   return (
-    <TextField sx={selectInputStyle} select size='small' value={activeStoreId} onChange={(e) => setActiveStoreId(e.target.value)}>
+    <TextField sx={selectInputStyle} select size='small' value={activeStoreId} onChange={(e) => handleSetActiveStoreId(e.target.value)}>
       <SearchInput autoFocus placeholder={t("search")} />
-      {storeList.map((store) => {
-        return (
-          <MenuItem value={store}>
-            <ListItemText>{store}</ListItemText>
-          </MenuItem>
-        );
-      })}
+      {isLoading ? (
+        <LinearProgress />
+      ) : (
+        (data ?? []).map((store) => {
+          return (
+            <MenuItem value={store.ID}>
+              <ListItemText>{store.name}</ListItemText>
+            </MenuItem>
+          );
+        })
+      )}
+
       <Divider />
+
       <Stack p={1}>
         <Button startIcon={<AddIcon />} fullWidth onClick={handleToggleCreateStoreModal}>
           Create store

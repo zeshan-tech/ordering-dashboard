@@ -1,12 +1,14 @@
 import { Dialog, DialogActions, DialogTitle } from "@/components/Dialog";
 import Button from "@/components/Button";
-import { DialogContent, Divider, Stack } from "@mui/material";
+import { DialogContent, Divider, Typography } from "@mui/material";
 import { AddIcon } from "@/components/icons";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { Form, TextField } from "@/components/Form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import UploadWidget from "@/components/UploadWidget";
+import { useAddNewStore } from "./hooks/queryHooks";
+import { IAddNewStoreInput } from "./hooks/types";
 
 interface StoreCreateModalProps {
   isVisible: boolean;
@@ -14,6 +16,8 @@ interface StoreCreateModalProps {
 }
 
 export default function StoreCreateModal({ isVisible, onClose }: Readonly<StoreCreateModalProps>) {
+  const { mutateAsync } = useAddNewStore();
+
   const {
     formState: { errors },
     handleSubmit: submitForm,
@@ -21,22 +25,17 @@ export default function StoreCreateModal({ isVisible, onClose }: Readonly<StoreC
     getValues: getFormValues,
     resetField: resetFormField,
     setValue: setFormValue,
-  } = useForm<{ name: string; logoUrl: string; backgroundImageUrl: string }>({
+  } = useForm<IAddNewStoreInput>({
     resolver: yupResolver(validationSchema),
   });
 
-  const handleSignin = async (input: { name: string; logoUrl: string; backgroundImageUrl: string }) => {
-    console.log(input);
+  const handleSignin = async (input: IAddNewStoreInput) => {
+    mutateAsync(input);
+    onClose();
   };
 
   const handleLogoUpload = (url: string) => {
     setFormValue("logoUrl", url);
-  };
-
-  console.log(getFormValues("logoUrl"));
-
-  const handleUploadBackgroundImage = (url: string) => {
-    setFormValue("backgroundImageUrl", url);
   };
 
   return (
@@ -46,9 +45,7 @@ export default function StoreCreateModal({ isVisible, onClose }: Readonly<StoreC
         <Form onSubmit={submitForm(handleSignin)} rowGap={1}>
           {getFormValues("logoUrl") ? <img src={getFormValues("logoUrl")} alt='Logo' style={{ maxWidth: "100px", maxHeight: "100px" }} /> : null}
           {getFormValues("logoUrl") ? <Button onClick={() => resetFormField("logoUrl")}>Remove</Button> : <UploadWidget onUpload={handleLogoUpload}>Upload Logo</UploadWidget>}
-          <Divider />
-          {getFormValues("backgroundImageUrl") ? <img src={getFormValues("backgroundImageUrl")} alt='backgroundImageUrl' style={{ maxWidth: "100px", maxHeight: "100px" }} /> : null}
-          {getFormValues("backgroundImageUrl") ? <Button onClick={() => resetFormField("backgroundImageUrl")}>Remove</Button> : <UploadWidget onUpload={handleUploadBackgroundImage}>Background image</UploadWidget>}
+          <Typography>{errors.logoUrl?.message}</Typography>
 
           <Divider />
 
@@ -70,5 +67,4 @@ export default function StoreCreateModal({ isVisible, onClose }: Readonly<StoreC
 const validationSchema = yup.object().shape({
   name: yup.string().required("name is required"),
   logoUrl: yup.string().required("logoUrl is required"),
-  backgroundImageUrl: yup.string(),
 });

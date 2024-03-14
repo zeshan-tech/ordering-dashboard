@@ -9,7 +9,7 @@ import AnalyticsRoutes from "@/feature/Analytics/Analytics.routes";
 import DeliveriesRoutes from "@/feature/Deliveries/Deliveries.routes";
 import InboxRoutes from "@/feature/Inbox/Inbox.routes";
 import OrdersRoutes from "@/feature/orders/Orders.routes";
-import StoresRoutes from "@/feature/stores/Store.routes";
+import CategoriesRoutes from "@/feature/categories/Category.routes";
 import SupportRoutes from "@/feature/support/Support.routes";
 
 const AuthenticatedRoutes = () => {
@@ -22,7 +22,7 @@ const AuthenticatedRoutes = () => {
         <Route path='deliveries/*' Component={DeliveriesRoutes} />
         <Route path='inbox/*' Component={InboxRoutes} />
         <Route path='orders/*' Component={OrdersRoutes} />
-        <Route path='stores/*' Component={StoresRoutes} />
+        <Route path='categories/*' Component={CategoriesRoutes} />
         <Route path='support/*' Component={SupportRoutes} />
       </Route>
       <Route path='*' Component={FourOFourRoutes} />

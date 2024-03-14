@@ -5,15 +5,15 @@ import { Box, Hidden, Menu, MenuItem, Paper, Stack, Typography } from "@mui/mate
 import Button from "@/components/Button";
 import { AddIcon, CachedIcon, DeleteIcon, EditIcon, MoreVertIcon, SearchIcon } from "@/components/icons";
 import Page from "@/components/Page";
-import StoreTable from "../components/StoreTable";
+import CategoryTable from "../components/CategoryTable";
 
-export default function StoreScreen() {
+export default function CategoryScreen() {
   const { t } = useTranslation();
   const seriesTableRef = useRef<any>(null); // MovieTableRefInterface
   const [actionMenuEnchorEl, setActionMenuEnchorEl] = useState<HTMLElement | null>(null);
 
   const handleOnCreateMovieClick = () => {
-    alert("This is create store request");
+    alert("This is create category request");
   };
 
   const actionMenu = (
@@ -34,7 +34,7 @@ export default function StoreScreen() {
   );
 
   return (
-    <StoreTable />
+    <CategoryTable />
     );
   }
   

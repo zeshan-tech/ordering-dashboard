@@ -4,8 +4,9 @@ import { Fragment } from "react";
 import { UploadIcon } from "@/components/icons";
 import Button from "@/components/Button";
 import { Outlet } from "react-router-dom";
-import { AppBar, Typography } from "@mui/material";
+import { AppBar, Stack, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import SelectStore from "./SelectStore";
 
 export default function LayoutHeader() {
   const { t } = useTranslation();
@@ -15,16 +16,16 @@ export default function LayoutHeader() {
   };
 
   const toolbarStyle: SxProps = {
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
   };
 
   return (
     <Fragment>
       <AppBar sx={appbarStyle}>
         <Toolbar sx={toolbarStyle}>
-          <Typography variant='h5' sx={{ flexGrow: 1 }}>
-            {t("J Dashboard")}
-          </Typography>
+          <Stack>
+            <SelectStore  />
+          </Stack>
           <Button startIcon={<UploadIcon />}></Button>
         </Toolbar>
       </AppBar>

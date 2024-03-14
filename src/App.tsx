@@ -14,6 +14,7 @@ import { SidebarContextProvider } from "./context/SidebarContext";
 import { FirebaseProvider } from "./context/FirebaseContext";
 import KeyboardShortcutsContext from "./context/KeyboardShortcutsContext";
 import { BrowserRouter } from "react-router-dom";
+import { StoreProvider } from "./context/StoreContext";
 
 DataGridLicenseInfo.setLicenseKey("76c34ab47f811b623345476a6f326e4aTz01NzA5OSxFPTE3MDQ0NzYyNjQyODMsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI=");
 DatePickerLicenseInfo.setLicenseKey("76c34ab47f811b623345476a6f326e4aTz01NzA5OSxFPTE3MDQ0NzYyNjQyODMsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI=");
@@ -25,17 +26,19 @@ function App() {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <I18nextProvider i18n={i18n}>
               <AuthContextProvider>
-                <ThemeProvider>
-                  <UserDetailsProvider>
-                    <GraphQlErrorProvider>
-                      <SidebarContextProvider>
-                        <KeyboardShortcutsContext>
-                          <MainStack />
-                        </KeyboardShortcutsContext>
-                      </SidebarContextProvider>
-                    </GraphQlErrorProvider>
-                  </UserDetailsProvider>
-                </ThemeProvider>
+                <StoreProvider>
+                  <ThemeProvider>
+                    <UserDetailsProvider>
+                      <GraphQlErrorProvider>
+                        <SidebarContextProvider>
+                          <KeyboardShortcutsContext>
+                            <MainStack />
+                          </KeyboardShortcutsContext>
+                        </SidebarContextProvider>
+                      </GraphQlErrorProvider>
+                    </UserDetailsProvider>
+                  </ThemeProvider>
+                </StoreProvider>
               </AuthContextProvider>
             </I18nextProvider>
           </LocalizationProvider>

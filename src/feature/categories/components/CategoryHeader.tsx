@@ -11,13 +11,13 @@ export default function StoreHeader() {
     <Page>
       <Toolbar>
         <Typography variant='h5' sx={{ flexGrow: 1 }}>
-          {t("totalStores")}
+          {t("totalCategories")}
         </Typography>
         <Box display='flex' gap={1}>
-          <Button>Create store</Button>
+          <Button>Create category</Button>
           <Button>Add product</Button>
           <Button>Create category</Button>
-          <Button>Visit store</Button>
+          <Button>Visit category</Button>
         </Box>
       </Toolbar>
       <Outlet />

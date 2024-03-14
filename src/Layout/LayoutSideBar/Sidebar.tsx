@@ -61,11 +61,11 @@ export default function LayoutSidebar() {
       },
       {
         icon: <StoreIcon isListIcon />,
-        label: t("stores"),
+        label: t("categories"),
         onClick: () => {
-          console.log("stores");
+          console.log("categories");
         },
-        isActive: activeItem.startsWith("/stores"),
+        isActive: activeItem.startsWith("/categories"),
       },
       {
         icon: <AnalyticsIcon isListIcon />,
@@ -227,11 +227,11 @@ export default function Sidebar() {
       },
       {
         icon: <StoreIcon isListIcon />,
-        label: t("stores"),
+        label: t("categories"),
         onClick: () => {
-          navigation.navigate("/stores");
+          navigation.navigate("/categories");
         },
-        isActive: activeItem.startsWith("/stores"),
+        isActive: activeItem.startsWith("/categories"),
       },
       {
         icon: <AnalyticsIcon isListIcon />,

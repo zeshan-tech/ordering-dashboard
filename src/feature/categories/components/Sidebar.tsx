@@ -9,7 +9,7 @@ export default function Sidebar() {
   const location = useLocation();
   const navigation = useNavigation();
 
-  const [activeItem, setActiveItem] = useState<keyof AuthenticatedRouteParams>("/stores");
+  const [activeItem, setActiveItem] = useState<keyof AuthenticatedRouteParams>("/categories");
 
   useEffect(() => {
     setActiveItem(location.pathname);
@@ -18,13 +18,13 @@ export default function Sidebar() {
   return (
     <Drawer anchor='left' open={false}>
       <List>
-        <ListItemButton selected={activeItem.startsWith("/stores")} onClick={() => navigation.navigate("/stores")}>
-          <StoreIcon isListIcon solid={activeItem.startsWith("/stores")} />
-          <ListItemText primary={"Stores"} />
+        <ListItemButton selected={activeItem.startsWith("/categories")} onClick={() => navigation.navigate("/categories")}>
+          <StoreIcon isListIcon solid={activeItem.startsWith("/categories")} />
+          <ListItemText primary={"Categories"} />
         </ListItemButton>
-        <ListItemButton selected={activeItem.startsWith("/search")} onClick={() => navigation.navigate("/stores/products")}>
+        <ListItemButton selected={activeItem.startsWith("/search")} onClick={() => navigation.navigate("/categories/products")}>
           <ShoppingBagIcon isListIcon solid={activeItem.startsWith("/search")} />
-          <ListItemText primary={"Stores"} />
+          <ListItemText primary={"Categories"} />
         </ListItemButton>
       </List>
     </Drawer>
@@ -35,13 +35,13 @@ export default function Sidebar() {
   /* <Drawer variant='temporary' open >
       <Toolbar />
       <List>
-        <ListItemButton selected={activeItem.startsWith("/stores")} onClick={() => navigation.navigate("/stores")}>
-          <StoreIcon isListIcon solid={activeItem.startsWith("/stores")} />
-          <ListItemText primary={"Stores"} />
+        <ListItemButton selected={activeItem.startsWith("/categories")} onClick={() => navigation.navigate("/categories")}>
+          <StoreIcon isListIcon solid={activeItem.startsWith("/categories")} />
+          <ListItemText primary={"Categories"} />
         </ListItemButton>
-        <ListItemButton selected={activeItem.startsWith("/search")} onClick={() => navigation.navigate("/stores/products")}>
+        <ListItemButton selected={activeItem.startsWith("/search")} onClick={() => navigation.navigate("/categories/products")}>
           <ShoppingBagIcon isListIcon solid={activeItem.startsWith("/search")} />
-          <ListItemText primary={"Stores"} />
+          <ListItemText primary={"Categories"} />
         </ListItemButton>
       </List>
     </Drawer> */

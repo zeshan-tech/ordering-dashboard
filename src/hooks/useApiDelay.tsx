@@ -20,7 +20,6 @@ const useDelayedApiCall = <TParam, TResult>({ apiCallFunction, delay }: UseDelay
       setValue(null);
       setIsLoading(true);
 
-      // Introduce a delay before making the actual API call
       await new Promise((resolve) => setTimeout(resolve, delay));
 
       try {

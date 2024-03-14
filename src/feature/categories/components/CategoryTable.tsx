@@ -1,19 +1,19 @@
 import { MouseEvent, Suspense, useState } from "react";
 import { lazily } from "react-lazily";
 import { Box, Paper, PopoverPosition, Rating, Switch } from "@mui/material";
-import { StoreTableRowActionMenu } from ".";
+import { CategoryTableRowActionMenu } from ".";
 import { useTranslation } from "react-i18next";
 import { GridActionsCellItem, GridColDef, GridFooterContainer, GridPagination } from "@mui/x-data-grid-pro";
 import TableCard from "./TableCard";
 import { CachedIcon, MoreVertIcon, OpenTabIcon } from "@/components/icons";
-import storeMockData from "../mock/stores";
+import CategoryMockData from "../mock/categories";
 import Button from "@/components/Button";
 
 const { DataGridPro } = lazily(() => import("@/components/DataGridPro"));
 
-export interface StoreTableRefInterface {}
+export interface CategoryTableRefInterface {}
 
-export default function StoreTable() {
+export default function CategoryTable() {
   const { t } = useTranslation();
 
   const [contextMenuAnchorPosition, setContextMenuAnchorPosition] = useState<PopoverPosition | null>(null);
@@ -78,7 +78,7 @@ export default function StoreTable() {
       <Box component={Paper}>
         <DataGridPro
           columns={TABLE_COLUMNS}
-          rows={storeMockData}
+          rows={CategoryMockData}
           getRowId={(row) => row.ID}
           pagination
           getRowHeight={() => "auto"}
@@ -95,17 +95,7 @@ export default function StoreTable() {
         />
       </Box>
 
-      <StoreTableRowActionMenu
-        isOpen={!!contextMenuAnchorPosition}
-        anchorPosition={contextMenuAnchorPosition!}
-        onClose={() => setContextMenuAnchorPosition(null)}
-        onRefresh={function (): void {
-          throw new Error("Function not implemented.");
-        }}
-        onSelect={function (): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
+      <CategoryTableRowActionMenu isOpen={!!contextMenuAnchorPosition} anchorPosition={contextMenuAnchorPosition!} onClose={() => setContextMenuAnchorPosition(null)} />
     </Suspense>
   );
 }

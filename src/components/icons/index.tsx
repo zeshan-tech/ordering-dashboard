@@ -72,7 +72,7 @@ import { default as MuiGoogleIcon } from "@mui/icons-material/Google";
 import { default as MuiFacebookIcon } from "@mui/icons-material/Facebook";
 import { default as MuiWebIcon } from "@mui/icons-material/Web";
 import { default as MuiPersonIcon } from "@mui/icons-material/Person";
-import { default as MuiStoreIcon } from "@mui/icons-material/Store";
+import { default as MuiStoreIcon } from "@mui/icons-material/Category";
 import { default as MuiInboxIcon } from "@mui/icons-material/Inbox";
 import { default as MuiViewStreamIcon } from "@mui/icons-material/ViewStream";
 import { default as MuiAddIcon } from "@mui/icons-material/Add";

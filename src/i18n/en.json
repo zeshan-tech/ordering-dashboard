@@ -18,7 +18,7 @@
   "home": "Home",
   "orders": "Orders",
   "analytics": "Analytics",
-  "stores": "Stores",
+  "categories": "Categories",
   "deliveries": "Deliveries",
   "support": "Support",
   "feedback": "Feedback",
@@ -31,5 +31,5 @@
   "forgotPassword?": "Forgot password?",
   "emailAddress": "Email address",
   "password": "Password",
-  "totalStores": "Total stores"
+  "totalCategories": "Total categories"
 }

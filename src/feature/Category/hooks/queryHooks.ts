@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/api/queryClient";
 import { useStore } from "@/context/StoreContext";
-import { IAddNewCategoryInput, ICategory } from "../types";
+import { IAddNewCategoryInput, ICategory, IUpdateCategoryInput } from "../types";
 
 export function useGetCategoriesByStoreId() {
   const { activeStoreId } = useStore();
@@ -18,7 +18,7 @@ export function useGetCategoryById(ID: string) {
   return useQuery({
     queryKey: [ID],
     queryFn: () => {
-      return apiRequest<ICategory>("GET", `category/${ID}`);
+      return apiRequest<ICategory>("GET", `category/withParentId/${ID}`);
     },
   });
 }
@@ -35,6 +35,14 @@ export function useDeleteCategory() {
   return useMutation({
     mutationFn: (ID: string) => {
       return apiRequest<ICategory[]>("DELETE", `category/${ID}`);
+    },
+  });
+}
+
+export function useUpdateCategory() {
+  return useMutation({
+    mutationFn: (input: { ID: string; input: IUpdateCategoryInput }) => {
+      return apiRequest<ICategory[]>("DELETE", `category/${input.ID}`, input.input);
     },
   });
 }

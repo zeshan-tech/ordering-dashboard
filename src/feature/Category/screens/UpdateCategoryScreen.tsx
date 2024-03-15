@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAddNewCategory, useGetCategoriesByStoreId, useGetCategoryById } from "../hooks";
+import { useGetCategoriesByStoreId, useGetCategoryById, useUpdateCategory } from "../hooks";
 import { useForm } from "react-hook-form";
-import { IAddNewCategoryInput } from "../types";
+import { IUpdateCategoryInput } from "../types";
 import { Form, SelectInput, TextField } from "@/components/Form";
 import { AppBar, FormControlLabel, LinearProgress, ListItemText, MenuItem, Stack, Switch, Toolbar, Typography, styled } from "@mui/material";
 import { useStore } from "@/context/StoreContext";
@@ -14,16 +14,15 @@ import { useParams } from "react-router-dom";
 export default function UpdateCategoryScreen() {
   const navigation = useNavigation();
   let { categoryId } = useParams();
-
   const { activeStoreId } = useStore();
 
   const [markAsSubCategory, setMarkAsSubCategory] = useState(false);
 
   const { data: categories, isLoading: isCategoriesLoading } = useGetCategoriesByStoreId();
-  const { data: category } = useGetCategoryById(categoryId!);
-  const { mutateAsync, isPending } = useAddNewCategory();
+  const { data: category, isLoading: isCategoryLoading } = useGetCategoryById(categoryId!);
+  const { mutateAsync, isPending } = useUpdateCategory();
 
-  const { register: formRegister, handleSubmit, reset: resetForm, setValue: setFormValue } = useForm<IAddNewCategoryInput>();
+  const { handleSubmit, reset: resetForm, setValue: setFormValue, control: formControl } = useForm<IUpdateCategoryInput>();
 
   useEffect(() => {
     if (category) {
@@ -31,10 +30,10 @@ export default function UpdateCategoryScreen() {
       setFormValue("parentCategoryId", category.parentCategoryId);
       setMarkAsSubCategory(!!category.parentCategoryId);
     }
-  }, []);
+  }, [category]);
 
-  const handleAddCategory = async (input: IAddNewCategoryInput) => {
-    await mutateAsync({ name: input.name, ...(markAsSubCategory ? { parentCategoryId: input.parentCategoryId } : {}), storeId: activeStoreId });
+  const handleAddCategory = async (input: IUpdateCategoryInput) => {
+    await mutateAsync({ ID: categoryId!, input: { name: input.name, parentCategoryId: input.parentCategoryId, storeId: activeStoreId } });
     handleBackNavigate();
   };
 
@@ -52,14 +51,16 @@ export default function UpdateCategoryScreen() {
       <AppBar sx={{ position: "relative" }}>
         <Toolbar>
           <ClearIcon iconButton onClick={handleBackNavigate} />
-          <Typography variant='h5'>Create category</Typography>
+          <Typography variant='h5'>Update category</Typography>
         </Toolbar>
       </AppBar>
 
-      <StyledForm onSubmit={handleSubmit(handleAddCategory)} gap={1}>
-        <TextField register={formRegister} name='name' label='Category name' />
+      {!isCategoryLoading ? <LinearProgress /> : null}
 
-        <SelectInput name='parentCategoryId' register={formRegister} disabled={!markAsSubCategory} label='Parent category'>
+      <StyledForm onSubmit={handleSubmit(handleAddCategory)} gap={1}>
+        <TextField control={formControl} name='name' label='Category name' />
+
+        <SelectInput name='parentCategoryId' control={formControl} disabled={!markAsSubCategory} label='Parent category'>
           {isCategoriesLoading ? (
             <LinearProgress />
           ) : (
@@ -73,7 +74,7 @@ export default function UpdateCategoryScreen() {
           )}
         </SelectInput>
 
-        <FormControlLabel control={<Switch onChange={() => setMarkAsSubCategory(!markAsSubCategory)} />} label={"Mark as sub category"} />
+        <FormControlLabel control={<Switch onChange={(e) => setMarkAsSubCategory(e.target.checked)} checked={markAsSubCategory} />} label={"Mark as sub category"} />
 
         <Stack flexDirection={"row"} gap={1} justifyContent={"end"}>
           <Button onClick={handleReset} variant='text'>

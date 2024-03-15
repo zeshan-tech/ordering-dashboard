@@ -10,3 +10,9 @@ export interface IAddNewCategoryInput {
   storeId: string;
   parentCategoryId?: string;
 }
+
+export interface IUpdateCategoryInput {
+  name: string;
+  storeId: string;
+  parentCategoryId?: string;
+}

@@ -1,25 +1,27 @@
 import { MouseEvent, Suspense, useRef, useState } from "react";
 import { lazily } from "react-lazily";
 import { Box, Paper, PopoverPosition, Switch } from "@mui/material";
-import { CategoryTableRowActionMenu } from ".";
+import { ProductsTableRowActionMenu } from ".";
 import { useTranslation } from "react-i18next";
 import { GridActionsCellItem, GridColDef, GridFooterContainer, GridPagination } from "@mui/x-data-grid-pro";
 import { CachedIcon, MoreVertIcon } from "@/components/icons";
 import Button from "@/components/Button";
-import { useGetCategoriesByStoreId } from "../hooks";
+import { useGetProductsByCategoryId } from "../hooks";
 
 const { DataGridPro } = lazily(() => import("@/components/DataGridPro"));
 
-export interface CategoryTableRefInterface {}
+export interface IProductsTable {
+  categoryId: string;
+}
 
-export default function CategoryTable() {
+export default function ProductsTable({ categoryId }: Readonly<IProductsTable>) {
   const { t } = useTranslation();
 
   const selectRowIdRef = useRef<string>("");
 
   const [contextMenuAnchorPosition, setContextMenuAnchorPosition] = useState<PopoverPosition | null>(null);
 
-  const { data: categories, isLoading, refetch: refetchCategories } = useGetCategoriesByStoreId();
+  const { data: products, isLoading, refetch: refetchProducts } = useGetProductsByCategoryId(categoryId);
 
   const handleOnContextMenu = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -55,7 +57,7 @@ export default function CategoryTable() {
 
   const footer = () => (
     <GridFooterContainer>
-      <Button startIcon={<CachedIcon />} onClick={() => refetchCategories()}>
+      <Button startIcon={<CachedIcon />} onClick={() => refetchProducts()}>
         {t("refetch")}
       </Button>
       <GridPagination />
@@ -68,7 +70,7 @@ export default function CategoryTable() {
         <DataGridPro
           loading={isLoading}
           columns={TABLE_COLUMNS}
-          rows={categories ?? []}
+          rows={products ?? []}
           getRowId={(row) => row.ID}
           pagination
           getRowHeight={() => "auto"}
@@ -84,7 +86,7 @@ export default function CategoryTable() {
         />
       </Box>
 
-      <CategoryTableRowActionMenu isOpen={!!contextMenuAnchorPosition} anchorPosition={contextMenuAnchorPosition!} onClose={() => setContextMenuAnchorPosition(null)} categoryId={selectRowIdRef.current} refresh={refetchCategories} />
+      <ProductsTableRowActionMenu isOpen={!!contextMenuAnchorPosition} anchorPosition={contextMenuAnchorPosition!} onClose={() => setContextMenuAnchorPosition(null)} productId={selectRowIdRef.current} refresh={refetchProducts} />
     </Suspense>
   );
 }

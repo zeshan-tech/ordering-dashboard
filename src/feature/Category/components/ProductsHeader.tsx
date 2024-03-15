@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import Button from "@/components/Button";
 import useNavigation from "@/navigation/useNavigation";
 
-export default function CategoryHeader() {
+export default function ProductsHeader() {
   const { t } = useTranslation();
   const navigation = useNavigation();
 

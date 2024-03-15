@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { ProductsScreen, CategoryScreen, AddCategoryScreen, UpdateCategoryScreen } from "./screens";
-import { Sidebar, CategoryHeader } from "./components";
+import { CategoryHeader, ProductsHeader } from "./components";
 
 export type CategoriesRoutesParams = {
   "/categories": undefined;
-  "/categories/products": undefined;
+  "/categories/products/:categoryId": undefined;
   "/categories/add": undefined;
   "/categories/update/:categoryId": undefined;
 };
@@ -12,11 +12,14 @@ export type CategoriesRoutesParams = {
 const CategoriesRoutes = () => {
   return (
     <Routes>
-      <Route element={[<Sidebar key={1} />, <CategoryHeader />]}>
+      <Route element={[<CategoryHeader />]}>
         <Route path='/' Component={CategoryScreen} />
-        <Route path='/products' Component={ProductsScreen} />
         <Route path='/add' Component={AddCategoryScreen} />
         <Route path='/update/:categoryId' Component={UpdateCategoryScreen} />
+
+        <Route element={[<ProductsHeader />]}>
+          <Route path='/products/:categoryId' Component={ProductsScreen} />
+        </Route>
       </Route>
     </Routes>
   );

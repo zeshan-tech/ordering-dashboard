@@ -57,5 +57,5 @@ export default function Page({ children, isSuspense, sx, variant = "one" }: Read
     );
   }
 
-  return <Paper sx={pageStyle}>{children}</Paper>;
+  return <Paper sx={pageStyle} elevation={0}>{children}</Paper>;
 }

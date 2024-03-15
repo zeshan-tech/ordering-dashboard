@@ -55,7 +55,7 @@ export default function UpdateCategoryScreen() {
         </Toolbar>
       </AppBar>
 
-      {!isCategoryLoading ? <LinearProgress /> : null}
+      {isCategoryLoading ? <LinearProgress /> : null}
 
       <StyledForm onSubmit={handleSubmit(handleAddCategory)} gap={1}>
         <TextField control={formControl} name='name' label='Category name' />

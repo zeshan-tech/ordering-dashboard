@@ -14,6 +14,15 @@ export function useGetCategoriesByStoreId() {
   });
 }
 
+export function useGetProductsByCategoryId(categoryId: string) {
+  return useQuery({
+    queryKey: [categoryId],
+    queryFn: () => {
+      return apiRequest<ICategory[]>("GET", `product/byCategoryId/${categoryId}`);
+    },
+  });
+}
+
 export function useGetCategoryById(ID: string) {
   return useQuery({
     queryKey: [ID],

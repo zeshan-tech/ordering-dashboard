@@ -27,6 +27,11 @@ export default function CategoryTable() {
     setContextMenuAnchorPosition({ left: event.clientX - 2, top: event.clientY - 4 });
   };
 
+  const handleRowDoubleClick = (event: MouseEvent<HTMLDivElement>) => {
+    // Navigate to another screen, you need to implement your navigation logic here
+    console.log("Double clicked row:", event.currentTarget.getAttribute("data-id")!);
+  };
+
   const TABLE_COLUMNS: GridColDef[] = [
     {
       field: "ID",
@@ -79,6 +84,7 @@ export default function CategoryTable() {
           slotProps={{
             row: {
               onContextMenu: handleOnContextMenu,
+              onDoubleClick: handleRowDoubleClick, // Attach double click event handler
             },
           }}
         />

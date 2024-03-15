@@ -8,6 +8,7 @@ import TableCard from "./TableCard";
 import { CachedIcon, MoreVertIcon, OpenTabIcon } from "@/components/icons";
 import CategoryMockData from "../mock/categories";
 import Button from "@/components/Button";
+import { useGetCategoriesByStoreId } from "../hooks";
 
 const { DataGridPro } = lazily(() => import("@/components/DataGridPro"));
 
@@ -17,6 +18,9 @@ export default function CategoryTable() {
   const { t } = useTranslation();
 
   const [contextMenuAnchorPosition, setContextMenuAnchorPosition] = useState<PopoverPosition | null>(null);
+
+  const { data: categories } = useGetCategoriesByStoreId();
+  console.log(categories);
 
   const handleOnContextMenu = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -28,7 +32,6 @@ export default function CategoryTable() {
       field: "ID",
       headerName: t("ID"),
       width: 100,
-      // renderCell: (params) => <TableCard logoUrl={params.row.logoUrl} name={params.row.name} type={params.row.type} />,
     },
     {
       field: "business",

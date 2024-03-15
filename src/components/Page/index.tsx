@@ -7,7 +7,6 @@ interface PageProps extends Omit<PaperProps, "sx" | "variant"> {
   children: ReactNode;
   isSuspense?: boolean;
   sx?: SxProps;
-  heightType?: "max" | "min" | "fixed";
   variant?: "one" | "two" | "three" | "zero";
 }
 
@@ -30,37 +29,31 @@ export default function Page({ children, isSuspense, sx, variant = "one" }: Read
 
   if (variant === "one") {
     return (
-      <>
+      <Paper sx={pageStyle} elevation={0}>
         <Toolbar></Toolbar>
-        <Paper sx={pageStyle} elevation={0}>
-          {children}
-        </Paper>
-      </>
+        {children}
+      </Paper>
     );
   }
 
   if (variant === "two") {
     return (
-      <>
+      <Paper sx={pageStyle} elevation={0}>
         <Toolbar></Toolbar>
         <Toolbar></Toolbar>
-        <Paper sx={pageStyle} elevation={0}>
-          {children}
-        </Paper>
-      </>
+        {children}
+      </Paper>
     );
   }
 
   if (variant === "three") {
     return (
-      <>
+      <Paper sx={pageStyle} elevation={0}>
         <Toolbar></Toolbar>
         <Toolbar></Toolbar>
         <Toolbar></Toolbar>
-        <Paper sx={pageStyle} elevation={0}>
-          {children}
-        </Paper>
-      </>
+        {children}
+      </Paper>
     );
   }
 

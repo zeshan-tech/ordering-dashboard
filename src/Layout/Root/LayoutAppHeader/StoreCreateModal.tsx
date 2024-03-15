@@ -6,9 +6,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { Form, TextField } from "@/components/Form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import UploadWidget from "@/components/UploadWidget";
 import { useAddNewStore } from "./hooks/queryHooks";
-import { IAddNewStoreInput } from "./hooks/types";
+import { IAddNewStoreInput } from "./types";
+import UploadWidget from "@/components/UploadWidget";
 
 interface StoreCreateModalProps {
   isVisible: boolean;

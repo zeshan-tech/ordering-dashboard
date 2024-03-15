@@ -3,12 +3,19 @@ export interface IAddNewStoreInput {
   logoUrl: string;
 }
 
-export interface IGetAllStoresOutput {
+export interface IStore {
   ID: string;
   name: string;
   type: string;
   active: boolean;
   logoUrl: string;
   hyperlink: string;
+  backgroundImageUrl: string;
+}
+
+export interface IUpdateStoreInput {
+  name: string;
+  active: boolean;
+  logoUrl: string;
   backgroundImageUrl: string;
 }

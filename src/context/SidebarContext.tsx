@@ -6,13 +6,17 @@ interface SidebarContextProps {
   handleToggleFeedbackSidebar: () => void;
   isRootSidebarOpen: boolean;
   handleToggleRootSidebar: () => void;
+  isSettingsSidebarOpen: boolean; // New setting for settings sidebar
+  handleToggleSettingsSidebar: () => void; // New handler for settings sidebar
 }
 
 const defaultContextValue: SidebarContextProps = {
   isFeedbackSidebarOpen: false,
   isRootSidebarOpen: false,
+  isSettingsSidebarOpen: false, // Initialize settings sidebar as closed
   handleToggleRootSidebar: noop,
   handleToggleFeedbackSidebar: noop,
+  handleToggleSettingsSidebar: noop, // Initialize handler for settings sidebar
 };
 
 const SidebarContext = createContext<SidebarContextProps>(defaultContextValue);
@@ -32,11 +36,16 @@ export function SidebarContextProvider({ children }: Readonly<SidebarContextProv
     setState({ ...state, isRootSidebarOpen: !state.isRootSidebarOpen });
   };
 
+  const handleToggleSettingsSidebar = () => {
+    setState({ ...state, isSettingsSidebarOpen: !state.isSettingsSidebarOpen });
+  };
+
   const contextValue = useMemo(
     () => ({
       ...state,
       handleToggleFeedbackSidebar,
       handleToggleRootSidebar,
+      handleToggleSettingsSidebar,
     }),
     [state]
   );

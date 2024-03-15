@@ -13,6 +13,7 @@
   "dependencies": {
     "@app-masters/react-cloudinary-uploader": "^0.1.42",
     "@aws-sdk/client-s3": "^3.490.0",
+    "@clerk/clerk-react": "^4.30.7",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@hookform/devtools": "^4.3.1",

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { IAddNewStoreInput, IGetAllStoresOutput } from "./types";
+import { IAddNewStoreInput, IStore } from "../types";
 import { apiRequest } from "@/api/queryClient";
 
 export function useAddNewStore() {
@@ -14,7 +14,7 @@ export function useGetAllUserStores() {
   return useQuery({
     queryKey: ["user"],
     queryFn: () => {
-      return apiRequest<IGetAllStoresOutput[]>("GET", "store");
+      return apiRequest<IStore[]>("GET", "store");
     },
   });
 }

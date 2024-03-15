@@ -268,7 +268,7 @@ export default function Sidebar() {
       {
         icon: <SettingIcon isListIcon />,
         label: t("settings"),
-        onClick: () => alert(t("settings")),
+        onClick: () => navigation.navigate("/settings"),
         isActive: activeItem.startsWith("/settings"),
       },
       {

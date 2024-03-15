@@ -5,6 +5,7 @@ import { Sidebar, CategoryHeader } from "./components";
 export type CategoriesRoutesParams = {
   "/categories": undefined;
   "/categories/products": undefined;
+  "/categories/add": undefined;
 };
 
 const CategoriesRoutes = () => {

@@ -31,5 +31,8 @@
   "forgotPassword?": "Forgot password?",
   "emailAddress": "Email address",
   "password": "Password",
-  "totalCategories": "Total categories"
+  "totalCategories": "Total categories",
+  "danger": "Danger",
+  "delete": "Delete",
+  "createCategory": "Create category"
 }

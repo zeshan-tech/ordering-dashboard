@@ -11,11 +11,11 @@ import { LicenseInfo as DataGridLicenseInfo } from "@mui/x-data-grid-pro";
 import { SidebarContextProvider } from "./context/SidebarContext";
 import { FirebaseProvider } from "./context/FirebaseContext";
 import { BrowserRouter } from "react-router-dom";
-
+import { SnackbarProvider } from "notistack";
 import { StoreProvider } from "./context/StoreContext";
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ClerkProvider } from "@clerk/clerk-react";
 import KeyboardShortcutsContext from "./context/KeyboardShortcutsContext";
+import { ClerkProvider } from "@clerk/clerk-react";
 
 DataGridLicenseInfo.setLicenseKey("76c34ab47f811b623345476a6f326e4aTz01NzA5OSxFPTE3MDQ0NzYyNjQyODMsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI=");
 DatePickerLicenseInfo.setLicenseKey("76c34ab47f811b623345476a6f326e4aTz01NzA5OSxFPTE3MDQ0NzYyNjQyODMsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI=");
@@ -37,21 +37,23 @@ function App() {
           <BrowserRouter>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <I18nextProvider i18n={i18n}>
-                <AuthContextProvider>
-                  <StoreProvider>
-                    <ThemeProvider>
-                      <UserDetailsProvider>
-                        <GraphQlErrorProvider>
-                          <SidebarContextProvider>
-                            <KeyboardShortcutsContext>
-                              <MainStack />
-                            </KeyboardShortcutsContext>
-                          </SidebarContextProvider>
-                        </GraphQlErrorProvider>
-                      </UserDetailsProvider>
-                    </ThemeProvider>
-                  </StoreProvider>
-                </AuthContextProvider>
+                <SnackbarProvider maxSnack={3}>
+                  <AuthContextProvider>
+                    <StoreProvider>
+                      <ThemeProvider>
+                        <UserDetailsProvider>
+                          <GraphQlErrorProvider>
+                            <SidebarContextProvider>
+                              <KeyboardShortcutsContext>
+                                <MainStack />
+                              </KeyboardShortcutsContext>
+                            </SidebarContextProvider>
+                          </GraphQlErrorProvider>
+                        </UserDetailsProvider>
+                      </ThemeProvider>
+                    </StoreProvider>
+                  </AuthContextProvider>
+                </SnackbarProvider>
               </I18nextProvider>
             </LocalizationProvider>
           </BrowserRouter>

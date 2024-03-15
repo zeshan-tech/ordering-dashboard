@@ -1,1 +1,1 @@
-export { useGetCategoriesByStoreId, useAddNewCategory } from "./queryHooks";
+export { useGetCategoriesByStoreId, useAddNewCategory, useDeleteCategory, useGetCategoryById } from "./queryHooks";

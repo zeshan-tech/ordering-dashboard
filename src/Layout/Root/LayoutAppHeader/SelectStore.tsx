@@ -1,4 +1,4 @@
-import { CircularProgress, Divider, LinearProgress, ListItemText, MenuItem, Stack, SxProps, TextField } from "@mui/material";
+import { Divider, LinearProgress, ListItemText, MenuItem, Stack, SxProps, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { SearchInput } from "@/components/Form";
 import useThemeStyles from "@/theme/hooks/useThemeStyles";
@@ -51,5 +51,3 @@ export default function SelectStore() {
     </TextField>
   );
 }
-
-const storeList = ["Store 1", "Store 2", "Store 3", "Store 4", "Store 5", "Store 6", "Store 7", "Store 8", "Store 9"];

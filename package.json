@@ -39,6 +39,7 @@
     "lodash": "^4.17.21",
     "metalyzer": "^1.0.13",
     "mousetrap": "^1.6.5",
+    "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-cloudinary-upload-widget": "^2.0.0",
     "react-dom": "^18.2.0",

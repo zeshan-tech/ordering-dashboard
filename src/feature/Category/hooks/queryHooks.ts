@@ -14,10 +14,27 @@ export function useGetCategoriesByStoreId() {
   });
 }
 
+export function useGetCategoryById(ID: string) {
+  return useQuery({
+    queryKey: [ID],
+    queryFn: () => {
+      return apiRequest<ICategory>("GET", `category/${ID}`);
+    },
+  });
+}
+
 export function useAddNewCategory() {
   return useMutation({
     mutationFn: (input: IAddNewCategoryInput) => {
       return apiRequest<ICategory[]>("POST", `category`, input);
+    },
+  });
+}
+
+export function useDeleteCategory() {
+  return useMutation({
+    mutationFn: (ID: string) => {
+      return apiRequest<ICategory[]>("DELETE", `category/${ID}`);
     },
   });
 }

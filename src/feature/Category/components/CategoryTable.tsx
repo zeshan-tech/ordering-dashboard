@@ -1,12 +1,10 @@
-import { MouseEvent, Suspense, useState } from "react";
+import { MouseEvent, Suspense, useRef, useState } from "react";
 import { lazily } from "react-lazily";
-import { Box, Paper, PopoverPosition, Rating, Switch } from "@mui/material";
+import { Box, Paper, PopoverPosition, Switch } from "@mui/material";
 import { CategoryTableRowActionMenu } from ".";
 import { useTranslation } from "react-i18next";
 import { GridActionsCellItem, GridColDef, GridFooterContainer, GridPagination } from "@mui/x-data-grid-pro";
-import TableCard from "./TableCard";
-import { CachedIcon, MoreVertIcon, OpenTabIcon } from "@/components/icons";
-import CategoryMockData from "../mock/categories";
+import { CachedIcon, MoreVertIcon } from "@/components/icons";
 import Button from "@/components/Button";
 import { useGetCategoriesByStoreId } from "../hooks";
 
@@ -17,13 +15,15 @@ export interface CategoryTableRefInterface {}
 export default function CategoryTable() {
   const { t } = useTranslation();
 
+  const selectRowIdRef = useRef<string>("");
+
   const [contextMenuAnchorPosition, setContextMenuAnchorPosition] = useState<PopoverPosition | null>(null);
 
-  const { data: categories } = useGetCategoriesByStoreId();
-  console.log(categories);
+  const { data: categories, isLoading, refetch: refetchCategories } = useGetCategoriesByStoreId();
 
   const handleOnContextMenu = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
+    selectRowIdRef.current = event.currentTarget.getAttribute("data-id")!;
     setContextMenuAnchorPosition({ left: event.clientX - 2, top: event.clientY - 4 });
   };
 
@@ -31,25 +31,12 @@ export default function CategoryTable() {
     {
       field: "ID",
       headerName: t("ID"),
-      width: 100,
+      width: 500,
     },
     {
-      field: "business",
-      headerName: t("business"),
-      width: 200,
-      renderCell: (params) => <TableCard logoUrl={params.row.logoUrl} name={params.row.name} type={params.row.type} />,
-    },
-    {
-      field: "hyperlink",
-      headerName: t("hyperlink"),
-      width: 150,
-      renderCell: (params) => <OpenTabIcon fontSize='small' onClick={() => window.open(params.value, "_blank")} />,
-    },
-    {
-      field: "ratings",
-      headerName: t("ratings"),
-      width: 200,
-      renderCell: (params) => <Rating value={params.row.avarageRating} precision={0.5} readOnly />,
+      field: "name",
+      headerName: t("name"),
+      width: 400,
     },
     {
       field: "active",
@@ -62,14 +49,13 @@ export default function CategoryTable() {
       type: "actions",
       width: 10,
       pinnable: true,
-      //TODO: here is a bug those is that when i'm opening context menu by clicking on icon its not detecting target row
-      getActions: () => [<GridActionsCellItem label='' onClick={(e) => handleOnContextMenu(e)} icon={<MoreVertIcon />} />],
+      getActions: (params) => [<GridActionsCellItem label='' onClick={() => handleOnContextMenu(params.row)} icon={<MoreVertIcon />} />],
     },
   ];
 
   const footer = () => (
     <GridFooterContainer>
-      <Button startIcon={<CachedIcon />} onClick={() => alert("seriesTableRef.current?.onRefresh")}>
+      <Button startIcon={<CachedIcon />} onClick={() => refetchCategories()}>
         {t("refetch")}
       </Button>
       <GridPagination />
@@ -80,8 +66,9 @@ export default function CategoryTable() {
     <Suspense>
       <Box component={Paper}>
         <DataGridPro
+          loading={isLoading}
           columns={TABLE_COLUMNS}
-          rows={CategoryMockData}
+          rows={categories ?? []}
           getRowId={(row) => row.ID}
           pagination
           getRowHeight={() => "auto"}
@@ -98,7 +85,7 @@ export default function CategoryTable() {
         />
       </Box>
 
-      <CategoryTableRowActionMenu isOpen={!!contextMenuAnchorPosition} anchorPosition={contextMenuAnchorPosition!} onClose={() => setContextMenuAnchorPosition(null)} />
+      <CategoryTableRowActionMenu isOpen={!!contextMenuAnchorPosition} anchorPosition={contextMenuAnchorPosition!} onClose={() => setContextMenuAnchorPosition(null)} categoryId={selectRowIdRef.current} refresh={refetchCategories} />
     </Suspense>
   );
 }

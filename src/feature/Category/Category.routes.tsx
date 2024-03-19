@@ -16,10 +16,10 @@ const CategoriesRoutes = () => {
         <Route path='/' Component={CategoryScreen} />
         <Route path='/add' Component={AddCategoryScreen} />
         <Route path='/update/:categoryId' Component={UpdateCategoryScreen} />
+      </Route>
 
-        <Route element={[<ProductsHeader />]}>
-          <Route path='/products/:categoryId' Component={ProductsScreen} />
-        </Route>
+      <Route element={[<ProductsHeader />]}>
+        <Route path='/products/:categoryId' Component={ProductsScreen} />
       </Route>
     </Routes>
   );

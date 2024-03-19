@@ -7,6 +7,7 @@ import { GridActionsCellItem, GridColDef, GridFooterContainer, GridPagination } 
 import { CachedIcon, MoreVertIcon } from "@/components/icons";
 import Button from "@/components/Button";
 import { useGetCategoriesByStoreId } from "../hooks";
+import useNavigation, { Routes } from "@/navigation/useNavigation";
 
 const { DataGridPro } = lazily(() => import("@/components/DataGridPro"));
 
@@ -14,6 +15,7 @@ export interface CategoryTableRefInterface {}
 
 export default function CategoryTable() {
   const { t } = useTranslation();
+  const navigation = useNavigation();
 
   const selectRowIdRef = useRef<string>("");
 
@@ -25,11 +27,6 @@ export default function CategoryTable() {
     event.preventDefault();
     selectRowIdRef.current = event.currentTarget.getAttribute("data-id")!;
     setContextMenuAnchorPosition({ left: event.clientX - 2, top: event.clientY - 4 });
-  };
-
-  const handleRowDoubleClick = (event: MouseEvent<HTMLDivElement>) => {
-    // Navigate to another screen, you need to implement your navigation logic here
-    console.log("Double clicked row:", event.currentTarget.getAttribute("data-id")!);
   };
 
   const TABLE_COLUMNS: GridColDef[] = [
@@ -84,7 +81,7 @@ export default function CategoryTable() {
           slotProps={{
             row: {
               onContextMenu: handleOnContextMenu,
-              onDoubleClick: handleRowDoubleClick, // Attach double click event handler
+              onDoubleClick: (event) => navigation.navigate(`/categories/products/${event.currentTarget.getAttribute("data-id")!}` as Routes),
             },
           }}
         />

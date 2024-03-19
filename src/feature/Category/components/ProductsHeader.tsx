@@ -13,9 +13,9 @@ export default function ProductsHeader() {
     <Page>
       <Toolbar>
         <Typography variant='h5' sx={{ flexGrow: 1 }}>
-          {t("totalCategories")}
+          {t("selectedCategoryName")}
         </Typography>
-        <Button onClick={() => navigation.navigate("/categories/add")}>{t("createCategory")}</Button>
+        <Button onClick={() => navigation.navigate("/categories/add")}>{t("addProduct")}</Button>
       </Toolbar>
       <Outlet />
     </Page>

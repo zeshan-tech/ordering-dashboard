@@ -30,7 +30,7 @@ export default function StoreTableRowActionMenu({ isOpen, onClose, anchorPositio
   const handleOnDelete = async () => {
     // Prompt the user for confirmation and ask for the ID
     const inputId = prompt(`Please enter the category ID to confirm deletion \n ID: ${categoryId}`);
-    inputId
+
     if (inputId === categoryId) {
       await deleteCategoryMutateAsync(categoryId);
       refresh();

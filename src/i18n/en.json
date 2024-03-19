@@ -34,5 +34,7 @@
   "totalCategories": "Total categories",
   "danger": "Danger",
   "delete": "Delete",
-  "createCategory": "Create category"
+  "createCategory": "Create category",
+  "addProduct": "Add product",
+  "selectedCategoryName": "Selected category name"
 }

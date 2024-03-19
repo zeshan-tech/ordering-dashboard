@@ -15,7 +15,7 @@ interface IUpdateCategoryModal {
   ID: string;
 }
 
-export default function UpdateCategoryModal({ isVisible, onClose, ID }: IUpdateCategoryModal) {
+export default function UpdateCategoryModal({ isVisible, onClose, ID }: Readonly<IUpdateCategoryModal>) {
   const { activeStoreId } = useStore();
 
   const [markAsSubCategory, setMarkAsSubCategory] = useState(false);

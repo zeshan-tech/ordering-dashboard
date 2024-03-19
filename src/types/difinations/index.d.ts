@@ -6,3 +6,7 @@ type ServerErrorResponse = {
   networkError: null | unknown;
   message: string;
 };
+
+type SuccessResponse = {
+  isSuccess: boolean;
+};

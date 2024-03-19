@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/api/queryClient";
 import { useStore } from "@/context/StoreContext";
-import { IAddNewCategoryInput, ICategory, IUpdateCategoryInput } from "../types";
+import { IAddNewCategoryInput, IAddNewProductInput, ICategory, IUpdateCategoryInput } from "../types";
 
 export function useGetCategoriesByStoreId() {
   const { activeStoreId } = useStore();
@@ -36,6 +36,14 @@ export function useAddNewCategory() {
   return useMutation({
     mutationFn: (input: IAddNewCategoryInput) => {
       return apiRequest<ICategory[]>("POST", `category`, input);
+    },
+  });
+}
+
+export function useAddNewProduct() {
+  return useMutation({
+    mutationFn: (input: IAddNewProductInput) => {
+      return apiRequest<SuccessResponse>("POST", `product`, input);
     },
   });
 }

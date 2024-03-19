@@ -80,6 +80,6 @@ const StyledForm = styled(Form)(({ theme }) => ({
   padding: theme.spacing(2),
   margin: "auto",
   [theme.breakpoints.down("md")]: {
-    width: "80%", // Adjust width for medium and smaller screens
+    width: "80%",
   },
 }));

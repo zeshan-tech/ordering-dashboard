@@ -1,4 +1,4 @@
-import { ContentCopyIcon, DeleteIcon, EditIcon } from "@/components/icons";
+import { ContentCopyIcon, DeleteIcon, EditIcon, WidgetsIcon } from "@/components/icons";
 import { useSnackbar } from "notistack";
 import { ListItemText, PopoverPosition } from "@mui/material";
 import Menu from "@mui/material/Menu";
@@ -42,6 +42,10 @@ export default function StoreTableRowActionMenu({ isOpen, onClose, anchorPositio
       <MenuItem onClick={handleCopyId}>
         <ContentCopyIcon isListIcon />
         <ListItemText>{t("copyId")}</ListItemText>
+      </MenuItem>
+      <MenuItem onClick={() => navigation.navigate(`/categories/products/${categoryId}` as Routes)}>
+        <WidgetsIcon isListIcon />
+        <ListItemText>{t("products")}</ListItemText>
       </MenuItem>
       <MenuItem onClick={() => navigation.navigate(`/categories/update/${categoryId}` as Routes)}>
         <EditIcon isListIcon color='primary' />

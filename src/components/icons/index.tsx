@@ -66,7 +66,9 @@ import { default as MuiWebOutlineIcon } from "@mui/icons-material/WebOutlined";
 import { default as MuiFacebookOutlineIcon } from "@mui/icons-material/FacebookOutlined";
 import { default as MuiShoppingBagOutlineIcon } from "@mui/icons-material/ShoppingBagOutlined";
 import { default as MuiContentCopyOutlinedIcon } from "@mui/icons-material/ContentCopyOutlined";
+import { default as MuiWidgetsOutlinedIcon } from "@mui/icons-material/WidgetsOutlined";
 
+import { default as MuiWidgetsIcon } from "@mui/icons-material/Widgets";
 import { default as MuiContentCopyIcon } from "@mui/icons-material/ContentCopy";
 import { default as MuiShoppingBagIcon } from "@mui/icons-material/ShoppingBag";
 import { default as MuiMicrosoftIcon } from "@mui/icons-material/Microsoft";
@@ -246,3 +248,4 @@ export const GoogleIcon = withIconWrapper(MuiGoogleIcon, MuiGoogleIcon);
 export const FacebookIcon = withIconWrapper(MuiFacebookOutlineIcon, MuiFacebookIcon);
 export const ShoppingBagIcon = withIconWrapper(MuiShoppingBagOutlineIcon, MuiShoppingBagIcon);
 export const ContentCopyIcon = withIconWrapper(MuiContentCopyOutlinedIcon, MuiContentCopyIcon);
+export const WidgetsIcon = withIconWrapper(MuiWidgetsOutlinedIcon, MuiWidgetsIcon);

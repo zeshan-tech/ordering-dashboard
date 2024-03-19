@@ -51,7 +51,7 @@ export function useDeleteCategory() {
 export function useUpdateCategory() {
   return useMutation({
     mutationFn: (input: { ID: string; input: IUpdateCategoryInput }) => {
-      return apiRequest<ICategory[]>("DELETE", `category/${input.ID}`, input.input);
+      return apiRequest<ICategory[]>("PUT", `category/${input.ID}`, input.input);
     },
   });
 }

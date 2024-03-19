@@ -81,7 +81,7 @@ export default function UpdateCategoryScreen() {
             Cancel
           </Button>
           <Button loading={isPending} autoFocus startIcon={<SaveIcon />} variant='contained' onClick={handleSubmit(handleAddCategory)}>
-            save
+            Update
           </Button>
         </Stack>
       </StyledForm>

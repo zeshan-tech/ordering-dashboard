@@ -5,18 +5,19 @@ import { ChevronRightIcon, FeedbackIcon, LogoutIcon, MoonIcon, SettingIcon, Sign
 import UserCardForMenu from "./UserCardForMenu";
 import useThemeStyles from "@/theme/hooks/useThemeStyles";
 import { useAuthContext } from "@/context/AuthContext";
+import useNavigation from "@/navigation/useNavigation";
 
 interface UserMenuProps {
   anchorEl: null | HTMLElement;
   isVisible: boolean;
   onClose: () => void;
-  onClickProfile: () => void;
   onAppearance: () => void;
   onTranslation: () => void;
 }
 
-export default function UserMenu({ anchorEl, isVisible, onClose, onClickProfile, onAppearance, onTranslation }: Readonly<UserMenuProps>) {
+export default function UserMenu({ anchorEl, isVisible, onClose, onAppearance, onTranslation }: Readonly<UserMenuProps>) {
   const { t } = useTranslation();
+  const navigation = useNavigation();
   const { handleLogout } = useAuthContext();
 
   const handleSwitchApp = () => {
@@ -24,7 +25,7 @@ export default function UserMenu({ anchorEl, isVisible, onClose, onClickProfile,
   };
 
   const handleSettings = () => {
-    alert("handleSetting");
+    navigation.navigate("/settings");
   };
 
   const handleShareFeedback = () => {
@@ -48,7 +49,7 @@ export default function UserMenu({ anchorEl, isVisible, onClose, onClickProfile,
 
   return (
     <Menu anchorEl={anchorEl} open={isVisible} onClose={onClose} onClick={onClose}>
-      <UserCardForMenu onClick={onClickProfile} />
+      <UserCardForMenu />
       <Divider />
       {createMenuItem(<SwitchAccountIcon isListIcon />, t("switchApp"), handleSwitchApp)}
       {createMenuItem(<SettingIcon isListIcon />, t("settings"), handleSettings)}

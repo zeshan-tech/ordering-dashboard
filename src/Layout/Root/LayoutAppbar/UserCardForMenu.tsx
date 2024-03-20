@@ -1,18 +1,14 @@
-import { ListItem, ListItemAvatar, ListItemText, SxProps } from "@mui/material";
+import { LinearProgress, ListItem, ListItemAvatar, ListItemText, SxProps } from "@mui/material";
 import { LogoutIcon } from "@/components/icons";
-import useUserDetails from "@/context/UserDetails.context";
 import Avatar from "@/components/Avatar";
 import useThemeStyles from "@/theme/hooks/useThemeStyles";
 import { ListSubheader } from "@/components/Tags";
 import { useAuthContext } from "@/context/AuthContext";
+import { useUser } from "@clerk/clerk-react";
 
-interface UserCardForMenuProps {
-  onClick: () => void;
-}
-
-export default function UserCardForMenu({ onClick }: UserCardForMenuProps) {
+export default function UserCardForMenu() {
   const { handleLogout } = useAuthContext();
-  const { fullName, imageUrl, userName } = useUserDetails();
+  const { user, isLoaded } = useUser();
 
   const avatarStyle = useThemeStyles<SxProps>((theme) => ({
     width: 56,
@@ -20,18 +16,22 @@ export default function UserCardForMenu({ onClick }: UserCardForMenuProps) {
     marginRight: theme.spacing(1),
   }));
 
+  if (!isLoaded) {
+    return <LinearProgress />;
+  }
+
   return (
-    <ListSubheader onClick={onClick} disableGutters>
+    <ListSubheader disableGutters>
       <ListItem secondaryAction={<LogoutIcon onClick={handleLogout} />}>
         <ListItemAvatar>
-          <Avatar sizes='small' src={imageUrl} sx={avatarStyle} />
+          <Avatar sizes='small' src={user?.imageUrl} sx={avatarStyle} />
         </ListItemAvatar>
         <ListItemText
-          primary={fullName}
+          primary={user?.fullName}
           primaryTypographyProps={{
             variant: "subtitle1",
           }}
-          secondary={userName}
+          secondary={user?.primaryEmailAddress?.emailAddress}
           secondaryTypographyProps={{
             variant: "subtitle2",
           }}

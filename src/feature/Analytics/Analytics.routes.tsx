@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { AnalyticsScreen } from "./screens";
+import { AnalyticsHeader } from "./components";
 
 export type AnalyticsRoutesParams = {
   "/analytics": undefined;
@@ -8,7 +9,9 @@ export type AnalyticsRoutesParams = {
 const AnalyticsRoutes = () => {
   return (
     <Routes>
-      <Route path="/" Component={AnalyticsScreen} />
+      <Route element={<AnalyticsHeader />}>
+        <Route path='/' Component={AnalyticsScreen} />
+      </Route>
     </Routes>
   );
 };

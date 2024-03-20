@@ -36,5 +36,6 @@
   "delete": "Delete",
   "createCategory": "Create category",
   "addProduct": "Add product",
-  "selectedCategoryName": "Selected category name"
+  "selectedCategoryName": "Selected category name",
+  "reviewAnalytics": "Review analytics"
 }

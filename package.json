@@ -21,6 +21,7 @@
     "@mui/icons-material": "^5.15.4",
     "@mui/material": "^5.15.4",
     "@mui/styles": "^5.15.12",
+    "@mui/x-charts": "^6.19.8",
     "@mui/x-data-grid-generator": "^6.18.7",
     "@mui/x-data-grid-pro": "^6.18.7",
     "@mui/x-date-pickers-pro": "^6.19.0",

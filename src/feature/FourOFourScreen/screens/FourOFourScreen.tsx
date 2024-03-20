@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 
-import { useAuthContext } from "@/context/AuthContext";
 import useNavigation from "@/navigation/useNavigation";
 
 export default function FourOFourScreen() {
   const navigation = useNavigation();
-  const { isAuthenticated } = useAuthContext();
+  const isAuthenticated = true;
 
   useEffect(() => {
     if (isAuthenticated) {

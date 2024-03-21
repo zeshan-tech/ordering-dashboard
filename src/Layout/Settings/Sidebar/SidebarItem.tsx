@@ -1,6 +1,6 @@
 import { cloneElement, ReactElement } from "react";
 import useThemeStyles from "@/theme/hooks/useThemeStyles";
-import { ListItemButton, ListItemText, Stack, SxProps } from "@mui/material";
+import { ListItemButton, ListItemText, Stack } from "@mui/material";
 import { IconWrapperProps } from "@/components/icons";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 

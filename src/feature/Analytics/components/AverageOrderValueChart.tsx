@@ -20,6 +20,6 @@ export default function AverageOrderValueChart() {
   );
 }
 
-const StyledCard = styled(Card)(({ theme }) => ({
-  width: "fit-content",
-}));
+const StyledCard = styled(Card)`
+  width: fit-content;
+`;

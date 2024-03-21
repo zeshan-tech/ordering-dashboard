@@ -7,7 +7,7 @@ import UserAvatar from "./UserAvatar";
 import { AppBar } from "@mui/material";
 import { useSidebarContext } from "@/context/SidebarContext";
 
-export default function LayoutAppbar() {
+export default function Appbar() {
   const { handleToggleRootSidebar } = useSidebarContext();
 
   const appbarStyle: SxProps = {

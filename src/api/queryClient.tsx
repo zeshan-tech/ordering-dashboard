@@ -30,7 +30,7 @@ export const apiRequest = async <Data,>(method: Method, query: string, body?: Re
     }
 
     return response.data as Data;
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(`HTTP error: ${error.message}`);
   }
 };

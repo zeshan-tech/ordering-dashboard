@@ -1,7 +1,7 @@
 import { EventIcon } from "@/components/icons";
 import { InputAdornment } from "@mui/material";
 import { MobileDatePicker, DatePickerProps } from "@mui/x-date-pickers-pro";
-import { Control, Controller, FieldValues, Path, UseFormRegister } from "react-hook-form";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
 interface DatePickerModalProps<T extends FieldValues> extends DatePickerProps<Date> {
   control?: Control<T>;

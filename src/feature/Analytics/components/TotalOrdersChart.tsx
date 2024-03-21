@@ -24,9 +24,9 @@ export default function TotalOrdersChart() {
   );
 }
 
-const StyledCard = styled(Card)(({ theme }) => ({
-  width: "fit-content",
-}));
+const StyledCard = styled(Card)`
+  width: fit-content;
+`
 
 const data = [
   {

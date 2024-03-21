@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { DashboardIcon, QuestionAnswerIcon, SettingIcon, WebIcon } from "@/components/icons";
+import { SettingIcon, WebIcon } from "@/components/icons";
 import { useEffect, useState } from "react";
 import useNavigation from "@/navigation/useNavigation";
 import { SidebarItem, SidebarItemProps } from "..";

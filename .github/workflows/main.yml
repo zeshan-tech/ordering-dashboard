@@ -1,4 +1,3 @@
-
 name: Portfolio Deployment
 
 on:
@@ -23,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '18'
+          node-version: '14' # Adjust to your preferred Node.js version
 
       - name: Install Dependencies
         run: yarn
@@ -32,18 +31,14 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # 5. Build Angular
-      - name: Build Angular Application
-        run: |
-          yarn -g @angular/cli
-          yarn
-          ng build
+      # Build React Application
+      - name: Build React Application
+        run: yarn build
 
-
-
+      # Deploy static site to S3 bucket
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./dist/ordering/browser s3://ordering-0.2 --delete
+        run: aws s3 sync ./build/ s3://ordering-0.2 --delete

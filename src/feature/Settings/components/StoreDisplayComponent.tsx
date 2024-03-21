@@ -80,7 +80,7 @@ export default function StoreForm() {
   );
 }
 
-const StyledBackgroundImageViewer = styled(Paper)(({ theme, imageUrl }) => ({
+const StyledBackgroundImageViewer = styled(Paper)<{imageUrl: string}>(({ theme, imageUrl }) => ({
   backgroundImage: `url("${imageUrl}")`,
   height: theme.spacing(32),
   backgroundRepeat: "no-repeat",

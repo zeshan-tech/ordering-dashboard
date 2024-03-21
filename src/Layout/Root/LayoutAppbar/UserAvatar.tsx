@@ -5,15 +5,15 @@ import AppearanceMenu from "./AppearanceMenu";
 import TranslationMenu from "./TranslationMenu";
 import { SettingIcon } from "@/components/icons";
 import Button from "@/components/Button";
-import { SignInButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
+import { SignedIn, UserButton } from "@clerk/clerk-react";
 
 export default function UserAvatar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [appearanceMenuAnchorEl, setAppearanceMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [translationMenuAnchorEl, setTranslationMenuAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleMenuOpen = (event: React.MouseEvent<EventTarget>) => {
+    setAnchorEl(event.currentTarget as any);
   };
 
   const handleMenuClose = () => {

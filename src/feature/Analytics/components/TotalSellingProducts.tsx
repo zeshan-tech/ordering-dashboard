@@ -20,6 +20,6 @@ export default function TotalSallingProducts() {
   );
 }
 
-const StyledCard = styled(Card)(({ theme }) => ({
-  width: "fit-content",
-}));
+const StyledCard = styled(Card)`
+  width: fit-content;
+`

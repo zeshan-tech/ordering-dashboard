@@ -5,8 +5,6 @@ import { ThemeProvider } from "./theme/Theme.context";
 import { UserDetailsProvider } from "./context/UserDetails.context";
 import { AuthContextProvider } from "./context/AuthContext";
 import { GraphQlErrorProvider } from "./context/GraphQlErrorContext";
-import { LocalizationProvider, LicenseInfo as DatePickerLicenseInfo } from "@mui/x-date-pickers-pro";
-import { AdapterDateFns } from "@mui/x-date-pickers-pro/AdapterDateFns";
 import { LicenseInfo as DataGridLicenseInfo } from "@mui/x-data-grid-pro";
 import { SidebarContextProvider } from "./context/SidebarContext";
 import { FirebaseProvider } from "./context/FirebaseContext";
@@ -18,7 +16,6 @@ import KeyboardShortcutsContext from "./context/KeyboardShortcutsContext";
 import { ClerkProvider } from "@clerk/clerk-react";
 
 DataGridLicenseInfo.setLicenseKey("76c34ab47f811b623345476a6f326e4aTz01NzA5OSxFPTE3MDQ0NzYyNjQyODMsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI=");
-DatePickerLicenseInfo.setLicenseKey("76c34ab47f811b623345476a6f326e4aTz01NzA5OSxFPTE3MDQ0NzYyNjQyODMsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI=");
 
 const queryClient = new QueryClient({ queryCache: new QueryCache(), mutationCache: new MutationCache() });
 
@@ -35,7 +32,6 @@ function App() {
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
         <FirebaseProvider>
           <BrowserRouter>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
               <I18nextProvider i18n={i18n}>
                 <SnackbarProvider maxSnack={3}>
                   <AuthContextProvider>
@@ -55,7 +51,6 @@ function App() {
                   </AuthContextProvider>
                 </SnackbarProvider>
               </I18nextProvider>
-            </LocalizationProvider>
           </BrowserRouter>
         </FirebaseProvider>
       </ClerkProvider>

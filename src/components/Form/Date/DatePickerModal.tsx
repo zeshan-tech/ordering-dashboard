@@ -1,6 +1,6 @@
-import { EventIcon } from "@/components/icons";
+/* import { EventIcon } from "@/components/icons";
 import { InputAdornment } from "@mui/material";
-import { MobileDatePicker, DatePickerProps } from "@mui/x-date-pickers-pro";
+import { MobileDatePicker, DatePickerProps } from "@mui/x-date-pickers";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
 interface DatePickerModalProps<T extends FieldValues> extends DatePickerProps<Date> {
@@ -30,4 +30,11 @@ export default function DatePickerModal<T extends FieldValues>({ name, control, 
   } else {
     return <MobileDatePicker readOnly slotProps={{ textField: { ...textFieldProps } }} {...restProps} />;
   }
+}
+ */
+
+export default function DatePickerModal() {
+  return (
+    <div>DatePickerModal</div>
+  )
 }

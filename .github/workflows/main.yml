@@ -23,10 +23,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '20'
+          node-version: '18'
 
       - name: Install Dependencies
-        run: npm install
+        run: yarn
 
       - name: Setup Cache
         uses: actions/cache@v3
@@ -39,8 +39,8 @@ jobs:
       # 5. Build Angular
       - name: Build Angular Application
         run: |
-          npm install -g @angular/cli
-          npm install
+          yarn -g @angular/cli
+          yarn
           ng build
 
 

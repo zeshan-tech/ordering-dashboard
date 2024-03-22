@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import { AppBar, Stack, Typography } from "@mui/material";
 import SelectStore from "./SelectStore";
-import { useUser } from "@clerk/clerk-react";
+import { OrganizationSwitcher, useUser } from "@clerk/clerk-react";
 import useNavigation from "@/navigation/useNavigation";
 
 export default function LayoutHeader() {
@@ -23,7 +23,14 @@ export default function LayoutHeader() {
             <Typography variant='h5' onClick={() => navigation.navigate("*")}>
               {user?.firstName} Dashboard
             </Typography>
-            <SelectStore />
+            {/* <SelectStore /> */ }
+            <OrganizationSwitcher
+              appearance={{
+                elements: {
+                  rootBox: "flex",
+                },
+              }}
+            />
           </Stack>
         </Toolbar>
       </AppBar>

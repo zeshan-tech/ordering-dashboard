@@ -7,6 +7,7 @@ import { CategoriesRoutesParams } from "@/feature/Category/Category.routes";
 import { SupportRoutesParams } from "@/feature/support/Support.routes";
 import { HomeRoutesParams } from "feature/Home/Home.routes";
 import { InboxRoutesParams } from "feature/Inbox/Inbox.routes";
+import { OrganizationRoutesParams } from "../feature/Organization/Organization.routes";
 
 type AuthenticatedRouteParams = 
 HomeRoutesParams 
@@ -17,5 +18,5 @@ HomeRoutesParams
 & InboxRoutesParams
 & OrdersRoutesParams
 & CategoriesRoutesParams
-& SupportRoutesParams
+& SupportRoutesParams & OrganizationRoutesParams
 export default AuthenticatedRouteParams;

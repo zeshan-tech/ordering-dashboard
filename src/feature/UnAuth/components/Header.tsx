@@ -25,8 +25,3 @@ export default function Header() {
         </AppBar>
     )
 }
-
-{/* <SignedIn>
-<Button>Login</Button>
-<UserButton afterSignOutUrl='/sign-in' />
-</SignedIn> */}

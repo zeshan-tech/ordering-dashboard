@@ -1,9 +1,7 @@
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import Header from '../components/Header';
 import Page from '../../../components/Page';
-import { Box, Container, Stack, TextField, styled } from '@mui/material';
-import { SearchInput } from '../../../components/Form';
+import { Box, Container, styled } from '@mui/material';
 
 export default function WelcomeScreen() {
   return (

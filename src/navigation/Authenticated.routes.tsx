@@ -12,23 +12,35 @@ import OrdersRoutes from "@/feature/orders/Orders.routes";
 import CategoriesRoutes from "@/feature/Category/Category.routes";
 import SupportRoutes from "@/feature/support/Support.routes";
 import { Header as SettingsHeader, Sidebar as SettingsSidebar } from "@/Layout/Settings";
+import { useAuth } from "@clerk/clerk-react";
+import OrganizationRoutes from "../feature/Organization/Organization.routes";
 
 const AuthenticatedRoutes = () => {
+  const { orgId } = useAuth()
+
+  if (!orgId) {
+    return <Routes>
+      <Route path="*" Component={ OrganizationRoutes } />
+    </Routes>
+  }
+
   return (
     <Routes>
-      <Route element={[<LayoutSidebar />, <LayoutAppbar />, <LayoutAppHeader />]}>
-        <Route path='home/*' Component={HomeRoutes} />
-        <Route path='analytics/*' Component={AnalyticsRoutes} />
-        <Route path='deliveries/*' Component={DeliveriesRoutes} />
-        <Route path='inbox/*' Component={InboxRoutes} />
-        <Route path='orders/*' Component={OrdersRoutes} />
-        <Route path='categories/*' Component={CategoriesRoutes} />
-        <Route path='support/*' Component={SupportRoutes} />
+      <Route element={ [<LayoutSidebar />, <LayoutAppbar />, <LayoutAppHeader />] }>
+        <Route path='home/*' Component={ HomeRoutes } />
+        <Route path='analytics/*' Component={ AnalyticsRoutes } />
+        <Route path='analytics/*' Component={ AnalyticsRoutes } />
+        <Route path='deliveries/*' Component={ DeliveriesRoutes } />
+        <Route path='inbox/*' Component={ InboxRoutes } />
+        <Route path='orders/*' Component={ OrdersRoutes } />
+        <Route path='categories/*' Component={ CategoriesRoutes } />
+        <Route path='support/*' Component={ SupportRoutes } />
+        <Route path="organization/*" Component={ OrganizationRoutes } />
       </Route>
-      <Route element={[<SettingsHeader />, <SettingsSidebar />]}>
-        <Route path='settings/*' Component={SettingsRoutes} />
+      <Route element={ [<SettingsHeader />, <SettingsSidebar />] }>
+        <Route path='settings/*' Component={ SettingsRoutes } />
       </Route>
-      <Route path='*' Component={FourOFourRoutes} />
+      <Route path='*' Component={ FourOFourRoutes } />
     </Routes>
   );
 };

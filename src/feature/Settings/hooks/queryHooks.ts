@@ -1,40 +1,40 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { IAddNewStoreInput, IStore, IUpdateStoreInput } from "../types";
 import { apiRequest } from "@/api/queryClient";
-import { useStore } from "@/context/StoreContext";
+import { useWorkspaceManager } from "@/context/WorkspaceManagerContext";
 import { useSnackbar } from "notistack";
 import api, { productDbId, storeCollectionId } from "@/api/Appwrite";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useOrganization } from "@clerk/clerk-react";
 import { Permission, Role } from "appwrite";
 import { useAppwriteUser } from "@/hooks/useAppwriteUser";
 
 export function useGetStoreById() {
-  const { activeStoreId } = useStore();
+  const { organization } = useOrganization();
 
   return useQuery({
     queryKey: ["user"],
     queryFn: () => {
-      return apiRequest<IStore>("GET", `store/${activeStoreId}`);
+      return api.getDocument<IStore>(productDbId, storeCollectionId, organization!.id);
     },
   });
 }
 
 export function useUpdateStore() {
-  const { activeStoreId } = useStore();
+  const { organization } = useOrganization();
 
   return useMutation({
     mutationFn: (input: IUpdateStoreInput) => {
-      return apiRequest("PUT", `store/${activeStoreId}`, input);
+      return api.updateDocument<IStore>(productDbId, storeCollectionId, organization!.id, input);
     },
   });
 }
 
 export function useDeleteStore() {
-  const { activeStoreId } = useStore();
+  const { organization } = useOrganization();
 
   return useMutation({
     mutationFn: () => {
-      return apiRequest("DELETE", `store/${activeStoreId}`);
+      return api.deleteDocument<IStore>(productDbId, storeCollectionId, organization!.id);
     },
   });
 }

@@ -4,10 +4,10 @@ import { useForm } from "react-hook-form";
 import { IAddNewCategoryInput } from "../types";
 import { Form, SelectInput, TextField } from "@/components/Form";
 import { AppBar, FormControlLabel, LinearProgress, ListItemText, MenuItem, Stack, Switch, Toolbar, Typography, styled } from "@mui/material";
-import { useStore } from "@/context/StoreContext";
 import Button from "@/components/Button";
 import { ClearIcon, SaveIcon } from "@/components/icons";
 import { Dialog } from "@/components/Dialog";
+import { useWorkspaceManager } from "@/context/WorkspaceManagerContext";
 
 interface IUpdateCategoryModal {
   isVisible: boolean;
@@ -16,7 +16,7 @@ interface IUpdateCategoryModal {
 }
 
 export default function UpdateCategoryModal({ isVisible, onClose, ID }: Readonly<IUpdateCategoryModal>) {
-  const { activeStoreId } = useStore();
+  const { storeId } = useWorkspaceManager();
 
   const [markAsSubCategory, setMarkAsSubCategory] = useState(false);
 
@@ -30,12 +30,12 @@ export default function UpdateCategoryModal({ isVisible, onClose, ID }: Readonly
     if (category) {
       setFormValue("name", category.name);
       setFormValue("parentCategoryId", category.parentCategoryId);
-      setMarkAsSubCategory(!!category.parentCategoryId)
+      setMarkAsSubCategory(!!category.parentCategoryId);
     }
   }, []);
 
   const handleAddCategory = async (input: IAddNewCategoryInput) => {
-    await mutateAsync({ name: input.name, ...(markAsSubCategory ? { parentCategoryId: input.parentCategoryId } : {}), storeId: activeStoreId });
+    await mutateAsync({ name: input.name, ...(markAsSubCategory ? { parentCategoryId: input.parentCategoryId } : {}), storeId: storeId });
     onClose();
   };
 

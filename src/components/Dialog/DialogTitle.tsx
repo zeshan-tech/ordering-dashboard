@@ -1,19 +1,13 @@
-import { DialogTitle as MuiDialogTitle, DialogTitleProps as MuiDialogTitleProps, SxProps } from "@mui/material";
-import useThemeStyles from "@/theme/hooks/useThemeStyles";
+import { DialogTitle as MuiDialogTitle, DialogTitleProps as MuiDialogTitleProps, styled } from "@mui/material";
 
-export interface DialogTitleProps extends Omit<MuiDialogTitleProps, "sx"> {
-  sx?: SxProps;
-}
-
-export default function DialogTitle({ children, sx, variant = 'h5', ...restProps }: Readonly<DialogTitleProps>) {
-  const containerStyle = useThemeStyles<SxProps>((theme) => ({
-    background: theme.palette.background.default,
-    ...sx,
-  }));
-
+export default function DialogTitle({ children, sx, variant = "h5", ...restProps }: Readonly<MuiDialogTitleProps>) {
   return (
-    <MuiDialogTitle variant={variant} sx={containerStyle} {...restProps}>
+    <StyledMuiDialogTitle variant={variant} {...restProps}>
       {children}
-    </MuiDialogTitle>
+    </StyledMuiDialogTitle>
   );
 }
+
+const StyledMuiDialogTitle = styled(MuiDialogTitle)(({ theme }) => ({
+  background: theme.palette.background.default,
+}));

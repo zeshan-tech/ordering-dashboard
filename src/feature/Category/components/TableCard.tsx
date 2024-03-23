@@ -1,40 +1,23 @@
-import { ReactNode } from "react";
-import { CardContent, SxProps, Typography, styled } from "@mui/material";
+import { CardContent, Typography, styled } from "@mui/material";
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-
-import useThemeStyles from "@/theme/hooks/useThemeStyles";
 
 interface TableCardProps {
   logoUrl: string;
   name: string;
   type: string;
-  onClickMenuIcon?: () => void;
-  children?: ReactNode;
 }
 
-export default function TableCard({ logoUrl, name, type }: TableCardProps) {
-  const cardImageStyle = useThemeStyles<SxProps>((theme) => ({
-    width: theme.spacing(8),
-    height: theme.spacing(8),
-    objectFit: "contain",
-  }));
-
-  const cardStyle = useThemeStyles<SxProps>((theme) => ({
-    p: theme.spacing(1),
-    gap: theme.spacing(2),
-  }));
-
+export default function TableCard({ logoUrl, name, type }: Readonly<TableCardProps>) {
   return (
-    <DisplayFlexCard elevation={0} sx={cardStyle}>
-      <CardMedia sx={cardImageStyle} component='img' image={logoUrl} />
+    <StyledCard elevation={0}>
+      <StyledCardMedia src={logoUrl} />
       <CardContentNoPadding>
         <Typography variant='subtitle1'>{name}</Typography>
         <Typography variant='caption' color={"InactiveCaptionText"}>
           {`(${type})`}
         </Typography>
       </CardContentNoPadding>
-    </DisplayFlexCard>
+    </StyledCard>
   );
 }
 
@@ -45,7 +28,15 @@ const CardContentNoPadding = styled(CardContent)(`
   }
 `);
 
-const DisplayFlexCard = styled(Card)(`
-  display: flex;
-  background: transparent;
-`);
+const StyledCardMedia = styled("img")(({ theme }) => ({
+  width: theme.spacing(8),
+  height: theme.spacing(8),
+  objectFit: "contain",
+}));
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  display: "flex",
+  background: "transparent",
+  p: theme.spacing(1),
+  gap: theme.spacing(2),
+}));

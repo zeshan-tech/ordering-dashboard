@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { IAddNewCategoryInput } from "../types";
 import { Form, SelectInput, TextField } from "@/components/Form";
 import { AppBar, FormControlLabel, LinearProgress, ListItemText, MenuItem, Stack, Switch, Toolbar, Typography, styled } from "@mui/material";
-import { useStore } from "@/context/StoreContext";
+import { useWorkspaceManager } from "@/context/WorkspaceManagerContext";
 import Button from "@/components/Button";
 import { ClearIcon, SaveIcon } from "@/components/icons";
 import { Dialog } from "@/components/Dialog";
@@ -12,7 +12,7 @@ import useNavigation from "@/navigation/useNavigation";
 
 export default function AddCategoryScreen() {
   const navigation = useNavigation();
-  const { activeStoreId } = useStore();
+  const { storeId } = useWorkspaceManager();
 
   const [markAsSubCategory, setMarkAsSubCategory] = useState(false);
 
@@ -22,7 +22,7 @@ export default function AddCategoryScreen() {
   const { register: formRegister, handleSubmit, reset: resetForm } = useForm<IAddNewCategoryInput>();
 
   const handleAddCategory = async (input: IAddNewCategoryInput) => {
-    await mutateAsync({ name: input.name, ...(markAsSubCategory ? { parentCategoryId: input.parentCategoryId } : {}), storeId: activeStoreId });
+    await mutateAsync({ name: input.name, ...(markAsSubCategory ? { parentCategoryId: input.parentCategoryId } : {}), storeId: storeId });
     handleBackNavigate();
   };
 

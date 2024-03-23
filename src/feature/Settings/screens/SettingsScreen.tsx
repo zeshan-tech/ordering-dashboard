@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Page from "@/components/Page";
 import { Divider, Grid, Stack, Typography, styled } from "@mui/material";
 import StoreDisplayComponent from "../components/StoreDisplayComponent";
@@ -7,19 +6,17 @@ import Button from "@/components/Button";
 import { DeleteIcon } from "@/components/icons";
 import { useDeleteStore } from "../hooks/queryHooks";
 import { StoreCreateModal } from "../components";
+import { useWorkspaceManager } from "@/context/WorkspaceManagerContext";
 
 export default function SettingsScreen() {
   const { t } = useTranslation();
+  const { storeId } = useWorkspaceManager();
+
   const { mutateAsync, isPending: isStoreDeleteLoading } = useDeleteStore();
-  const [isStoreModalVisible, setIsStoreModalVisible] = useState(true);
 
   const handleStoreDelete = async () => {
     await mutateAsync();
     window.location.reload();
-  };
-
-  const handleToggleStoreModal = () => {
-    setIsStoreModalVisible(false);
   };
 
   return (
@@ -42,13 +39,11 @@ export default function SettingsScreen() {
           </Grid>
         </Grid>
       </Stack>
-      <StoreCreateModal
-        isVisible={isStoreModalVisible}
-        onClose={handleToggleStoreModal}
-      />
+      <StoreCreateModal isVisible={!!storeId} />
     </Page>
   );
 }
+
 const StyledDivider = styled(Divider)`
   margin-top: ${({ theme }) => theme.spacing(2)};
   margin-bottom: ${({ theme }) => theme.spacing(2)};

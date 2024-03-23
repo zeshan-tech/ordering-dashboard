@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import { useGetStoreById, useUpdateStore } from "../hooks";
 import { Controller, useForm } from "react-hook-form";
 import { Form, TextField } from "@/components/Form";
-import { Card, CardMedia, Paper, Stack, SxProps, LinearProgress, styled, Switch, FormGroup, FormControlLabel } from "@mui/material";
+import { Card, Paper, Stack, LinearProgress, styled, Switch, FormGroup, FormControlLabel } from "@mui/material";
 import Button from "@/components/Button";
-import useThemeStyles from "@/theme/hooks/useThemeStyles";
 import { IUpdateStoreInput } from "../types";
 import { OpenTabIcon } from "@/components/icons";
 import UploadWidget from "@/components/UploadWidget";
@@ -29,12 +28,6 @@ export default function StoreForm() {
     await refetchStore();
   };
 
-  const cardMediaStyle = useThemeStyles<SxProps>((theme) => ({
-    height: theme.spacing(18),
-    width: theme.spacing(18),
-    mb: theme.spacing(1),
-  }));
-
   return (
     <Form gap={1}>
       {isLoading ? <LinearProgress /> : null}
@@ -51,7 +44,7 @@ export default function StoreForm() {
 
       <Stack alignItems={"start"}>
         <StyledLogoViewer>
-          <CardMedia sx={cardMediaStyle} component={"img"} src={watchForm("logoUrl")} />
+          <StyledCardMedia src={watchForm("logoUrl")} />
           <UploadWidget onUpload={(e) => setFormValue("logoUrl", e)}>Change Logo</UploadWidget>
         </StyledLogoViewer>
       </Stack>
@@ -80,7 +73,7 @@ export default function StoreForm() {
   );
 }
 
-const StyledBackgroundImageViewer = styled(Paper)<{imageUrl: string}>(({ theme, imageUrl }) => ({
+const StyledBackgroundImageViewer = styled(Paper)<{ imageUrl: string }>(({ theme, imageUrl }) => ({
   backgroundImage: `url("${imageUrl}")`,
   height: theme.spacing(32),
   backgroundRepeat: "no-repeat",
@@ -91,6 +84,12 @@ const StyledBackgroundImageViewer = styled(Paper)<{imageUrl: string}>(({ theme, 
   display: "flex",
   justifyContent: "flex-end",
   alignItems: "flex-end",
+}));
+
+const StyledCardMedia = styled("img")(({ theme }) => ({
+  height: theme.spacing(18),
+  width: theme.spacing(18),
+  mb: theme.spacing(1),
 }));
 
 const StyledLogoViewer = styled(Card)`

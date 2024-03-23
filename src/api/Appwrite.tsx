@@ -11,10 +11,11 @@ interface ApiProvider {
   getAccount: () => Promise<any>;
   createSession: (email: string, password: string) => Promise<any>;
   deleteCurrentSession: () => Promise<any>;
-  createDocument: (databaseId: string, collectionId: string, data: Record<string, any>, permissions?: any) => Promise<any>;
-  listDocuments: (databaseId: string, collectionId: string) => Promise<any>;
-  updateDocument: (databaseId: string, collectionId: string, documentId: string, data: any) => Promise<any>;
-  deleteDocument: (databaseId: string, collectionId: string, documentId: string) => Promise<any>;
+  createDocument: <T>(databaseId: string, collectionId: string, data: Record<string, any>, permissions?: any, ID?: string) => Promise<T>;
+  listDocuments: <T>(databaseId: string, collectionId: string) => Promise<T[]>;
+  getDocument: <T>(databaseId: string, collectionId: string, documentId: string) => Promise<T>;
+  updateDocument: <T>(databaseId: string, collectionId: string, documentId: string, data: Record<string, any>) => Promise<T>;
+  deleteDocument: <T>(databaseId: string, collectionId: string, documentId: string) => Promise<T>;
 }
 
 const api: ApiProvider = {
@@ -51,20 +52,24 @@ const api: ApiProvider = {
     return this.provider().account.deleteSession("current");
   },
 
-  async createDocument(databaseId, collectionId, data, permissions) {
-    return this.provider().database.createDocument(databaseId, collectionId, ID.unique(), data, permissions);
+  async createDocument<T>(databaseId: string, collectionId: string, data: Record<string, any>, permissions?: any, id?: string): Promise<T> {
+    return this.provider().database.createDocument(databaseId, collectionId, id ?? ID.unique(), data, permissions) as T;
   },
 
-  async listDocuments(databaseId, collectionId) {
-    return this.provider().database.listDocuments(databaseId, collectionId);
+  async listDocuments<T>(databaseId: string, collectionId: string): Promise<T[]> {
+    return this.provider().database.listDocuments(databaseId, collectionId) as unknown as T[];
   },
 
-  async updateDocument(databaseId, collectionId, documentId, data) {
-    return this.provider().database.updateDocument(databaseId, collectionId, documentId, data);
+  async getDocument<T>(databaseId: string, collectionId: string, documentId: string): Promise<T> {
+    return this.provider().database.getDocument(databaseId, collectionId, documentId) as T;
   },
 
-  async deleteDocument(databaseId, collectionId, documentId) {
-    return this.provider().database.deleteDocument(databaseId, collectionId, documentId);
+  async updateDocument<T>(databaseId: string, collectionId: string, documentId: string, data: Record<string, any>): Promise<T> {
+    return this.provider().database.updateDocument(databaseId, collectionId, documentId, data) as T;
+  },
+
+  async deleteDocument<T>(databaseId: string, collectionId: string, documentId: string): Promise<T> {
+    return this.provider().database.deleteDocument(databaseId, collectionId, documentId) as T;
   },
 };
 

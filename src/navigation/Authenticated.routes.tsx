@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, redirect } from "react-router-dom";
 import HomeRoutes from "@/feature/Home/Home.routes";
 import FourOFourRoutes from "@/feature/FourOFourScreen/FourOFourScreen.routes";
 import { LayoutAppHeader } from "@/Layout/Root/LayoutAppHeader";
@@ -16,12 +16,10 @@ import { useAuth } from "@clerk/clerk-react";
 import WorkspaceManagerRoutes from "../feature/WorkspaceManager/WorkspaceManager.routes";
 import { useAppwriteUser } from "@/hooks/useAppwriteUser";
 import { Backdrop, CircularProgress } from "@mui/material";
-import useNavigation from "./useNavigation";
 
 const AuthenticatedRoutes = () => {
   const { orgId } = useAuth();
   const { isLoading, user } = useAppwriteUser();
-  const navigation = useNavigation();
 
   if (isLoading) {
     return (
@@ -31,28 +29,25 @@ const AuthenticatedRoutes = () => {
     );
   }
 
-  if (user) {
-    navigation.navigate("/workspace/session");
-  }
-
-  if (!orgId) {
-    navigation.navigate("/workspace/org");
-  }
+  if (!orgId) redirect("/workspace/org");
+  if (!user) redirect("/workspace/session");
 
   return (
     <Routes>
-      <Route element={[<LayoutSidebar />, <LayoutAppbar />, <LayoutAppHeader />]}>
-        <Route path='home/*' Component={HomeRoutes} />
-        <Route path='analytics/*' Component={AnalyticsRoutes} />
-        <Route path='analytics/*' Component={AnalyticsRoutes} />
-        <Route path='deliveries/*' Component={DeliveriesRoutes} />
-        <Route path='inbox/*' Component={InboxRoutes} />
-        <Route path='orders/*' Component={OrdersRoutes} />
-        <Route path='categories/*' Component={CategoriesRoutes} />
-        <Route path='support/*' Component={SupportRoutes} />
-      </Route>
-
-      <Route path='workspace/*' Component={WorkspaceManagerRoutes} />
+      {!user || !orgId ? (
+        <Route path='workspace/*' Component={WorkspaceManagerRoutes} />
+      ) : (
+        <Route element={[<LayoutSidebar />, <LayoutAppbar />, <LayoutAppHeader />]}>
+          <Route path='home/*' Component={HomeRoutes} />
+          <Route path='analytics/*' Component={AnalyticsRoutes} />
+          <Route path='analytics/*' Component={AnalyticsRoutes} />
+          <Route path='deliveries/*' Component={DeliveriesRoutes} />
+          <Route path='inbox/*' Component={InboxRoutes} />
+          <Route path='orders/*' Component={OrdersRoutes} />
+          <Route path='categories/*' Component={CategoriesRoutes} />
+          <Route path='support/*' Component={SupportRoutes} />
+        </Route>
+      )}
 
       <Route element={[<SettingsHeader />, <SettingsSidebar />]}>
         <Route path='settings/*' Component={SettingsRoutes} />

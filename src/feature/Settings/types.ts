@@ -1,7 +1,6 @@
 export interface IAddNewStoreInput {
   name: string;
   logoUrl: string;
-  backgroundImageUrl: string;
 }
 
 export interface IStore {

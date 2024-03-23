@@ -1,8 +1,8 @@
-import AuthenticatedRouteParams from "@/navigation/Authenticated.routes.params";
-import UnAuthenticatedRouteParams from "@/navigation/UnAuthenticated.routes.params";
-import useThemeStyles from "@/theme/hooks/useThemeStyles";
+import { styled } from "@mui/system";
 import { CSSProperties } from "react";
 import { Path, Link as RouterDomLink, LinkProps as RouterDomLinkProps } from "react-router-dom";
+import { TypographyProps } from "@mui/material/Typography";
+import { AuthenticatedRouteParams, UnAuthenticatedRouteParams } from "@/navigation";
 
 interface LinkProps extends Omit<RouterDomLinkProps, "to"> {
   to: keyof AuthenticatedRouteParams | keyof UnAuthenticatedRouteParams | Partial<Path>;
@@ -10,15 +10,15 @@ interface LinkProps extends Omit<RouterDomLinkProps, "to"> {
 }
 
 export default function Link({ to, children, style, ...restProps }: Readonly<LinkProps>) {
-  const linkStyle = useThemeStyles<CSSProperties>((theme) => ({
-    textDecoration: "none",
-    ...theme.typography.body1,
-    ...style,
-  }));
-
   return (
-    <RouterDomLink style={linkStyle} to={to} {...restProps}>
+    <StyledLink to={to} style={style} {...restProps}>
       {children}
-    </RouterDomLink>
+    </StyledLink>
   );
 }
+
+const StyledLink = styled(RouterDomLink)<TypographyProps>(({ theme, style }: { theme: any; style?: CSSProperties }) => ({
+  textDecoration: "none",
+  ...theme.typography.body1,
+  ...style,
+}));

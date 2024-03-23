@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { Divider, ListItemText, Menu, MenuItem, SxProps } from "@mui/material";
+import { Divider, ListItemText, Menu, MenuItem, SxProps, styled } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { SearchIcon, SignalBarIcon, TranslateIcon } from "@/components/icons";
 import { SearchInput } from "@/components/Form";
-import useThemeStyles from "@/theme/hooks/useThemeStyles";
 import { ListSubheader } from "@/components/Tags";
+import { nanoid } from "nanoid";
 
 interface TranslationMenuProps {
   anchorEl: null | HTMLElement;
@@ -26,7 +26,7 @@ const supportedLanguages: Language[] = [
   { code: "ur", languageName: "Urdu", countryName: "Pakistan", flag: "🇵🇰" },
 ];
 
-const TranslationMenu: React.FC<TranslationMenuProps> = ({ anchorEl, isVisible, onClose }) => {
+export default function TranslationMenu({ anchorEl, isVisible, onClose }: Readonly<TranslationMenuProps>) {
   const { t, i18n } = useTranslation();
   const [isSearchInputVisible, setIsSearchInputVisible] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -44,39 +44,37 @@ const TranslationMenu: React.FC<TranslationMenuProps> = ({ anchorEl, isVisible, 
     setSearchText("");
   };
 
-  const menuItemStyle = useThemeStyles<SxProps>((theme) => ({
-    width: theme.spacing(48),
-  }));
-
-  const menuItemHeader: SxProps = {
-    display: "flex",
-    justifyContent: "space-between",
-    width: "100%",
-  };
-
   const renderHeader = (
-    <ListSubheader sx={menuItemHeader}>
+    <StyledListSubheader>
       <>{t("title")}</>
       <SearchIcon onClick={handleToggleSearchInput} />
-    </ListSubheader>
+    </StyledListSubheader>
   );
 
   const createMenuItem = (icon: React.ReactNode, label: string, onClick: () => void) => (
-    <MenuItem onClick={onClick} sx={menuItemStyle}>
+    <StyledMenuItem onClick={onClick}>
       {icon}
       <ListItemText>{label}</ListItemText>
       <SignalBarIcon iconButton />
-    </MenuItem>
+    </StyledMenuItem>
   );
 
   return (
-    <Menu anchorEl={anchorEl} open={isVisible} onClose={onClose}>
+    <Menu anchorEl={anchorEl} open={isVisible} onClose={onClose} key={nanoid()}>
       {renderHeader}
       <Divider />
       {isSearchInputVisible ? <SearchInput autoFocus onChange={handleSearchChange} placeholder={t("search")} /> : null}
       {filteredLanguages.map((language) => createMenuItem(<TranslateIcon isListIcon />, `${language.languageName} - ${language.countryName}`, () => i18n.changeLanguage(language.code)))}
     </Menu>
   );
-};
+}
 
-export default TranslationMenu;
+const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
+  width: theme.spacing(48),
+}));
+
+const StyledListSubheader = styled(ListSubheader)(`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`);

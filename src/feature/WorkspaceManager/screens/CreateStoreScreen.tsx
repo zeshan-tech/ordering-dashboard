@@ -9,12 +9,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import UploadWidget from "@/components/UploadWidget";
 import { useAddNewStore } from "../hooks/queryHooks";
 import { IAddNewStoreInput } from "../types";
+import useNavigation from "@/navigation/useNavigation";
 
-interface StoreCreateModalProps {
-  isVisible: boolean;
-}
-
-export default function StoreCreateModal({ isVisible }: Readonly<StoreCreateModalProps>) {
+export default function CreateStoreScreen() {
+  const navigation = useNavigation();
   const { mutateAsync, isPending } = useAddNewStore();
 
   const {
@@ -29,10 +27,11 @@ export default function StoreCreateModal({ isVisible }: Readonly<StoreCreateModa
 
   const handleCreateStore = async (input: IAddNewStoreInput) => {
     await mutateAsync(input);
+    navigation.navigate("/home");
   };
 
   return (
-    <Dialog open={isVisible} maxWidth='sm' fullWidth>
+    <Dialog open maxWidth='sm' fullWidth>
       <DialogTitle variant='h5'>Create store</DialogTitle>
 
       <DialogContent dividers>

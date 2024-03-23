@@ -1,15 +1,15 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/api/queryClient";
-import { useStore } from "@/context/StoreContext";
+import { useWorkspaceManager } from "@/context/WorkspaceManagerContext";
 import { IAddNewCategoryInput, IAddNewProductInput, ICategory, IUpdateCategoryInput } from "../types";
 
 export function useGetCategoriesByStoreId() {
-  const { activeStoreId } = useStore();
+  const { storeId } = useWorkspaceManager();
 
   return useQuery({
-    queryKey: [activeStoreId],
+    queryKey: [storeId],
     queryFn: () => {
-      return apiRequest<ICategory[]>("GET", `category/byStoreId/${activeStoreId}`);
+      return apiRequest<ICategory[]>("GET", `category/byStoreId/${storeId}`);
     },
   });
 }

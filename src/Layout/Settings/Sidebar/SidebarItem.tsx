@@ -1,6 +1,5 @@
 import { cloneElement, ReactElement } from "react";
-import useThemeStyles from "@/theme/hooks/useThemeStyles";
-import { ListItemButton, ListItemText, Stack } from "@mui/material";
+import { ListItemButton, ListItemText, Stack, styled } from "@mui/material";
 import { IconWrapperProps } from "@/components/icons";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 
@@ -14,14 +13,6 @@ export interface SidebarItemProps {
 }
 
 export default function SidebarItem({ icon, label, onClick, isActive, hasSubmenu }: Readonly<SidebarItemProps>) {
-  const activeLineStyle = useThemeStyles((theme) => ({
-    background: theme.palette.primary.main,
-    position: "absolute",
-    top: 0,
-    height: "100%",
-    borderRadius: theme.shape.borderRadius,
-  }));
-
   return (
     <ListItemButton selected={isActive} onClick={onClick}>
       {cloneElement(icon, {
@@ -31,7 +22,15 @@ export default function SidebarItem({ icon, label, onClick, isActive, hasSubmenu
       })}
       <ListItemText primary={label} />
       {hasSubmenu ? <ExpandLess /> : null}
-      <Stack sx={activeLineStyle} />
+      <StyledStack />
     </ListItemButton>
   );
 }
+
+const StyledStack = styled(Stack)(({ theme }) => ({
+  background: theme.palette.primary.main,
+  position: "absolute",
+  top: 0,
+  height: "100%",
+  borderRadius: theme.shape.borderRadius,
+}));

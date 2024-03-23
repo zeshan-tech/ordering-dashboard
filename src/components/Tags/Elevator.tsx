@@ -1,23 +1,19 @@
-import useThemeStyles from "@/theme/hooks/useThemeStyles";
-import { SxProps } from "@mui/material";
+import { styled } from "@mui/system";
 import { CardProps } from "@mui/material/Card";
 import Stack, { StackProps } from "@mui/material/Stack";
+import { SxProps } from "@mui/material";
 
-interface ElevatorProps extends StackProps, Omit<CardProps, "classes" | "color"> {
-  sx?: SxProps;
-}
-
-export default function Elevator({ children, elevation = 1, sx, ...restProps }: ElevatorProps) {
-  const stackStyles = useThemeStyles<SxProps>((theme) => ({
-    boxShadow: theme.shadows[elevation],
-    borderRadius: theme.shape.borderRadius / 6,
-    background: theme.palette.background.default,
-    ...sx,
-  }));
-
+export default function Elevator({ children, elevation = 1, sx, ...restProps }: CardProps) {
   return (
-    <Stack sx={stackStyles} {...restProps}>
+    <StyledStack elevation={elevation} sx={sx} {...restProps}>
       {children}
-    </Stack>
+    </StyledStack>
   );
 }
+
+const StyledStack = styled(Stack)(({ theme, elevation = 1, sx }: { theme: any; elevation?: number; sx?: SxProps }) => ({
+  boxShadow: theme.shadows[elevation],
+  borderRadius: theme.shape.borderRadius / 6,
+  background: theme.palette.background.default,
+  ...sx,
+}));

@@ -33,7 +33,7 @@ export default function StoreForm() {
       {isLoading ? <LinearProgress /> : null}
 
       <Stack alignItems={"end"}>
-        <Button onClick={() => open("https://example.com")} startIcon={<OpenTabIcon />}>
+        <Button onClick={() => open("https://glowing-marigold-3c3b5e.netlify.app/")} startIcon={<OpenTabIcon />}>
           Open
         </Button>
       </Stack>

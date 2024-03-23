@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAddNewCategory, useGetCategoriesByStoreId, useGetCategoryById } from "../hooks";
+import { useAddNewCategory, useGetCategories, useGetCategoryById } from "../hooks";
 import { useForm } from "react-hook-form";
 import { IAddNewCategoryInput } from "../types";
 import { Form, SelectInput, TextField } from "@/components/Form";
@@ -20,7 +20,7 @@ export default function UpdateCategoryModal({ isVisible, onClose, ID }: Readonly
 
   const [markAsSubCategory, setMarkAsSubCategory] = useState(false);
 
-  const { data: categories, isLoading: isCategoriesLoading } = useGetCategoriesByStoreId();
+  const { data: categories, isLoading: isCategoriesLoading } = useGetCategories();
   const { data: category } = useGetCategoryById(ID);
   const { mutateAsync, isPending } = useAddNewCategory();
 

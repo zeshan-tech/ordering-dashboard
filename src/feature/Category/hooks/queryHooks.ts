@@ -1,15 +1,18 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { apiRequest } from "@/api/queryClient";
-import { useWorkspaceManager } from "@/context/WorkspaceManagerContext";
 import { IAddNewCategoryInput, IAddNewProductInput, ICategory, IUpdateCategoryInput } from "../types";
+import api, { categoryCollectionId, productCollectionId, productDbId } from "@/api/Appwrite";
+import { Query } from "appwrite";
+import { useOrganization } from "@clerk/clerk-react";
 
-export function useGetCategoriesByStoreId() {
-  const { storeId } = useWorkspaceManager();
+export function useGetCategories() {
+  const { organization } = useOrganization();
+
+  const query = Query.equal("organizationId", organization!.id.toString());
 
   return useQuery({
-    queryKey: [storeId],
+    queryKey: [organization],
     queryFn: () => {
-      return apiRequest<ICategory[]>("GET", `category/byStoreId/${storeId}`);
+      return api.listDocuments<ICategory[]>(productDbId, categoryCollectionId, [query]);
     },
   });
 }
@@ -18,7 +21,7 @@ export function useGetProductsByCategoryId(categoryId: string) {
   return useQuery({
     queryKey: [categoryId],
     queryFn: () => {
-      return apiRequest<ICategory[]>("GET", `product/byCategoryId/${categoryId}`);
+      return api.listDocuments<ICategory[]>(productDbId, productCollectionId, [Query.equal("categoryId", categoryId)]);
     },
   });
 }
@@ -27,7 +30,7 @@ export function useGetCategoryById(ID: string) {
   return useQuery({
     queryKey: [ID],
     queryFn: () => {
-      return apiRequest<ICategory>("GET", `category/withParentId/${ID}`);
+      return api.getDocument<ICategory>(productDbId, categoryCollectionId, ID);
     },
   });
 }
@@ -35,7 +38,7 @@ export function useGetCategoryById(ID: string) {
 export function useAddNewCategory() {
   return useMutation({
     mutationFn: (input: IAddNewCategoryInput) => {
-      return apiRequest<ICategory[]>("POST", `category`, input);
+      return api.createDocument<ICategory[]>(productDbId, categoryCollectionId, input);
     },
   });
 }
@@ -43,7 +46,7 @@ export function useAddNewCategory() {
 export function useAddNewProduct() {
   return useMutation({
     mutationFn: (input: IAddNewProductInput) => {
-      return apiRequest<SuccessResponse>("POST", `product`, input);
+      return api.createDocument<SuccessResponse>(productDbId, productCollectionId, input);
     },
   });
 }
@@ -51,7 +54,7 @@ export function useAddNewProduct() {
 export function useDeleteCategory() {
   return useMutation({
     mutationFn: (ID: string) => {
-      return apiRequest<ICategory[]>("DELETE", `category/${ID}`);
+      return api.deleteDocument<ICategory[]>(productDbId, categoryCollectionId, ID);
     },
   });
 }
@@ -59,7 +62,7 @@ export function useDeleteCategory() {
 export function useUpdateCategory() {
   return useMutation({
     mutationFn: (input: { ID: string; input: IUpdateCategoryInput }) => {
-      return apiRequest<ICategory[]>("PUT", `category/${input.ID}`, input.input);
+      return api.updateDocument<ICategory[]>(productDbId, categoryCollectionId, input.ID, input.input);
     },
   });
 }

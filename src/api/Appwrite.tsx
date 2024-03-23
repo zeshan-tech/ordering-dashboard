@@ -1,5 +1,6 @@
 export const productDbId = "65fd404cef1c64d56fcd";
 export const productCollectionId = "65fd54fc2043a05deab8";
+export const categoryCollectionId = "65fd41142dfe160e9e36";
 export const storeCollectionId = "65fd549431197b971a15";
 
 import { Client, Databases, Account, ID } from "appwrite";
@@ -12,7 +13,7 @@ interface ApiProvider {
   createSession: (email: string, password: string) => Promise<any>;
   deleteCurrentSession: () => Promise<any>;
   createDocument: <T>(databaseId: string, collectionId: string, data: Record<string, any>, permissions?: any, ID?: string) => Promise<T>;
-  listDocuments: <T>(databaseId: string, collectionId: string) => Promise<T[]>;
+  listDocuments: <T>(databaseId: string, collectionId: string, queries?: string[]) => Promise<T[]>;
   getDocument: <T>(databaseId: string, collectionId: string, documentId: string) => Promise<T>;
   updateDocument: <T>(databaseId: string, collectionId: string, documentId: string, data: Record<string, any>) => Promise<T>;
   deleteDocument: <T>(databaseId: string, collectionId: string, documentId: string) => Promise<T>;
@@ -56,8 +57,8 @@ const api: ApiProvider = {
     return this.provider().database.createDocument(databaseId, collectionId, id ?? ID.unique(), data, permissions) as T;
   },
 
-  async listDocuments<T>(databaseId: string, collectionId: string): Promise<T[]> {
-    return this.provider().database.listDocuments(databaseId, collectionId) as unknown as T[];
+  async listDocuments<T>(databaseId: string, collectionId: string, queries?: string[]): Promise<T[]> {
+    return this.provider().database.listDocuments(databaseId, collectionId, queries) as unknown as T[];
   },
 
   async getDocument<T>(databaseId: string, collectionId: string, documentId: string): Promise<T> {

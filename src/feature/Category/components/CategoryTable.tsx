@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { GridActionsCellItem, GridColDef, GridFooterContainer, GridPagination } from "@mui/x-data-grid-pro";
 import { CachedIcon, MoreVertIcon } from "@/components/icons";
 import Button from "@/components/Button";
-import { useGetCategoriesByStoreId } from "../hooks";
+import { useGetCategories } from "../hooks";
 import useNavigation, { Routes } from "@/navigation/useNavigation";
 
 const { DataGridPro } = lazily(() => import("@/components/DataGridPro"));
@@ -21,7 +21,7 @@ export default function CategoryTable() {
 
   const [contextMenuAnchorPosition, setContextMenuAnchorPosition] = useState<PopoverPosition | null>(null);
 
-  const { data: categories, isLoading, refetch: refetchCategories } = useGetCategoriesByStoreId();
+  const { data: categories, isLoading, refetch: refetchCategories } = useGetCategories();
 
   const handleOnContextMenu = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();

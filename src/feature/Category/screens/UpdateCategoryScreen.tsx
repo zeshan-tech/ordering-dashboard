@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetCategoriesByStoreId, useGetCategoryById, useUpdateCategory } from "../hooks";
+import { useGetCategories, useGetCategoryById, useUpdateCategory } from "../hooks";
 import { useForm } from "react-hook-form";
 import { IUpdateCategoryInput } from "../types";
 import { Form, SelectInput, TextField } from "@/components/Form";
@@ -18,7 +18,7 @@ export default function UpdateCategoryScreen() {
 
   const [markAsSubCategory, setMarkAsSubCategory] = useState(false);
 
-  const { data: categories, isLoading: isCategoriesLoading } = useGetCategoriesByStoreId();
+  const { data: categories, isLoading: isCategoriesLoading } = useGetCategories();
   const { data: category, isLoading: isCategoryLoading } = useGetCategoryById(categoryId!);
   const { mutateAsync, isPending } = useUpdateCategory();
 

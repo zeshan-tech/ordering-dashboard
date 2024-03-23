@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAddNewCategory, useGetCategoriesByStoreId } from "../hooks";
+import { useAddNewCategory, useGetCategories } from "../hooks";
 import { useForm } from "react-hook-form";
 import { IAddNewCategoryInput } from "../types";
 import { Form, SelectInput, TextField } from "@/components/Form";
@@ -16,7 +16,7 @@ export default function AddCategoryScreen() {
 
   const [markAsSubCategory, setMarkAsSubCategory] = useState(false);
 
-  const { data: categories, isLoading: isCategoriesLoading } = useGetCategoriesByStoreId();
+  const { data: categories, isLoading: isCategoriesLoading } = useGetCategories();
   const { mutateAsync, isPending } = useAddNewCategory();
 
   const { register: formRegister, handleSubmit, reset: resetForm } = useForm<IAddNewCategoryInput>();

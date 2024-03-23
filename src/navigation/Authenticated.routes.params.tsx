@@ -7,16 +7,7 @@ import { CategoriesRoutesParams } from "@/feature/Category/Category.routes";
 import { SupportRoutesParams } from "@/feature/support/Support.routes";
 import { HomeRoutesParams } from "feature/Home/Home.routes";
 import { InboxRoutesParams } from "feature/Inbox/Inbox.routes";
-import { OrganizationRoutesParams } from "../feature/Organization/Organization.routes";
+import { WorkspaceManagerRoutesParams } from "../feature/WorkspaceManager/WorkspaceManager.routes";
 
-type AuthenticatedRouteParams = 
-HomeRoutesParams 
-& FourOFourRoutesParams 
-& SettingsRoutesParams
-& AnalyticsRoutesParams
-& DeliveriesRoutesParams
-& InboxRoutesParams
-& OrdersRoutesParams
-& CategoriesRoutesParams
-& SupportRoutesParams & OrganizationRoutesParams
+type AuthenticatedRouteParams = HomeRoutesParams & FourOFourRoutesParams & SettingsRoutesParams & AnalyticsRoutesParams & DeliveriesRoutesParams & InboxRoutesParams & OrdersRoutesParams & CategoriesRoutesParams & SupportRoutesParams & WorkspaceManagerRoutesParams;
 export default AuthenticatedRouteParams;

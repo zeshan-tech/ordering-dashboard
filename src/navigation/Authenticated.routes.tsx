@@ -13,34 +13,51 @@ import CategoriesRoutes from "@/feature/Category/Category.routes";
 import SupportRoutes from "@/feature/support/Support.routes";
 import { Header as SettingsHeader, Sidebar as SettingsSidebar } from "@/Layout/Settings";
 import { useAuth } from "@clerk/clerk-react";
-import OrganizationRoutes from "../feature/Organization/Organization.routes";
+import WorkspaceManagerRoutes from "../feature/WorkspaceManager/WorkspaceManager.routes";
+import { useAppwriteUser } from "@/hooks/useAppwriteUser";
+import { Backdrop, CircularProgress } from "@mui/material";
+import useNavigation from "./useNavigation";
 
 const AuthenticatedRoutes = () => {
-  const { orgId } = useAuth()
+  const { orgId } = useAuth();
+  const { isLoading, user } = useAppwriteUser();
+  const navigation = useNavigation();
+
+  if (isLoading) {
+    return (
+      <Backdrop open>
+        <CircularProgress color='inherit' />
+      </Backdrop>
+    );
+  }
+
+  if (user) {
+    navigation.navigate("/workspace/session");
+  }
 
   if (!orgId) {
-    return <Routes>
-      <Route path="*" Component={ OrganizationRoutes } />
-    </Routes>
+    navigation.navigate("/workspace/org");
   }
 
   return (
     <Routes>
-      <Route element={ [<LayoutSidebar />, <LayoutAppbar />, <LayoutAppHeader />] }>
-        <Route path='home/*' Component={ HomeRoutes } />
-        <Route path='analytics/*' Component={ AnalyticsRoutes } />
-        <Route path='analytics/*' Component={ AnalyticsRoutes } />
-        <Route path='deliveries/*' Component={ DeliveriesRoutes } />
-        <Route path='inbox/*' Component={ InboxRoutes } />
-        <Route path='orders/*' Component={ OrdersRoutes } />
-        <Route path='categories/*' Component={ CategoriesRoutes } />
-        <Route path='support/*' Component={ SupportRoutes } />
-        <Route path="organization/*" Component={ OrganizationRoutes } />
+      <Route element={[<LayoutSidebar />, <LayoutAppbar />, <LayoutAppHeader />]}>
+        <Route path='home/*' Component={HomeRoutes} />
+        <Route path='analytics/*' Component={AnalyticsRoutes} />
+        <Route path='analytics/*' Component={AnalyticsRoutes} />
+        <Route path='deliveries/*' Component={DeliveriesRoutes} />
+        <Route path='inbox/*' Component={InboxRoutes} />
+        <Route path='orders/*' Component={OrdersRoutes} />
+        <Route path='categories/*' Component={CategoriesRoutes} />
+        <Route path='support/*' Component={SupportRoutes} />
       </Route>
-      <Route element={ [<SettingsHeader />, <SettingsSidebar />] }>
-        <Route path='settings/*' Component={ SettingsRoutes } />
+
+      <Route path='workspace/*' Component={WorkspaceManagerRoutes} />
+
+      <Route element={[<SettingsHeader />, <SettingsSidebar />]}>
+        <Route path='settings/*' Component={SettingsRoutes} />
       </Route>
-      <Route path='*' Component={ FourOFourRoutes } />
+      <Route path='*' Component={FourOFourRoutes} />
     </Routes>
   );
 };

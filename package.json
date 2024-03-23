@@ -25,6 +25,7 @@
     "@tanstack/react-query": "^5.28.6",
     "@tauri-apps/api": "^1.5.3",
     "@types/node": "^20.11.30",
+    "appwrite": "^14.0.0",
     "axios": "^1.6.8",
     "cloudinary-react": "^1.8.1",
     "date-fns": "^3.6.0",

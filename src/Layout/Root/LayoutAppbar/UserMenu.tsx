@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { ChevronRightIcon, FeedbackIcon, LogoutIcon, MoonIcon, SettingIcon, SignalBarIcon, SwitchAccountIcon, TranslateIcon } from "@/components/icons";
 import UserCardForMenu from "./UserCardForMenu";
 import useThemeStyles from "@/theme/hooks/useThemeStyles";
-import { useAuthContext } from "@/context/AuthContext";
 import useNavigation from "@/navigation/useNavigation";
+import { useAuth } from "@clerk/clerk-react";
 
 interface UserMenuProps {
   anchorEl: null | HTMLElement;
@@ -18,7 +18,7 @@ interface UserMenuProps {
 export default function UserMenu({ anchorEl, isVisible, onClose, onAppearance, onTranslation }: Readonly<UserMenuProps>) {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const { handleLogout } = useAuthContext();
+  const { signOut } = useAuth();
 
   const handleSwitchApp = () => {
     alert("handleSwitchApp");
@@ -53,7 +53,7 @@ export default function UserMenu({ anchorEl, isVisible, onClose, onAppearance, o
       <Divider />
       {createMenuItem(<SwitchAccountIcon isListIcon />, t("switchApp"), handleSwitchApp)}
       {createMenuItem(<SettingIcon isListIcon />, t("settings"), handleSettings)}
-      {createMenuItem(<LogoutIcon isListIcon />, t("logout"), handleLogout)}
+      {createMenuItem(<LogoutIcon isListIcon />, t("logout"), signOut)}
       <Divider />
       {createMenuItem(<MoonIcon isListIcon />, t("appearance"), onAppearance, true)}
       {createMenuItem(<TranslateIcon isListIcon />, t("translation"), onTranslation, true)}

@@ -1,1 +1,0 @@
-export {default as SelectOrganizationScreen} from './SelectOrganizationScreen'

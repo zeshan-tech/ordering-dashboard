@@ -4,7 +4,6 @@ import { Stack, Typography } from '@mui/material'
 export default function SelectOrganizationScreen() {
 
     return (
-
         <Stack alignItems={ 'center' } height={ '100vh' } justifyContent={ 'center' }>
             <Typography variant='h5'>Welcome</Typography>
             <Typography >

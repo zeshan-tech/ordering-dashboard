@@ -3,7 +3,6 @@ import Toolbar from "@mui/material/Toolbar";
 import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import { AppBar, Stack, Typography } from "@mui/material";
-import SelectStore from "./SelectStore";
 import { OrganizationSwitcher, useUser } from "@clerk/clerk-react";
 import useNavigation from "@/navigation/useNavigation";
 

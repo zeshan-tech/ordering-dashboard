@@ -25,7 +25,7 @@ export default function StoreCreateModal({ isVisible, onClose }: Readonly<StoreC
     watch: watchForm,
     setValue: setFormValue,
   } = useForm<IAddNewStoreInput>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(validationSchema) as any,
   });
 
   const handleSignin = async (input: IAddNewStoreInput) => {

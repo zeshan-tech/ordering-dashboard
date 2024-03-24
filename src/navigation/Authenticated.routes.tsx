@@ -1,4 +1,4 @@
-import { Route, Routes, redirect } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import HomeRoutes from "@/feature/Home/Home.routes";
 import FourOFourRoutes from "@/feature/FourOFourScreen/FourOFourScreen.routes";
 import { LayoutAppHeader } from "@/Layout/Root/LayoutAppHeader";
@@ -16,10 +16,17 @@ import { useAuth } from "@clerk/clerk-react";
 import WorkspaceManagerRoutes from "../feature/WorkspaceManager/WorkspaceManager.routes";
 import { useAppwriteUser } from "@/hooks/useAppwriteUser";
 import { Backdrop, CircularProgress } from "@mui/material";
+import useNavigation from "./useNavigation";
+import { useEffect } from "react";
 
 const AuthenticatedRoutes = () => {
+  const navigation = useNavigation();
   const { orgId } = useAuth();
-  const { isLoading, user } = useAppwriteUser();
+  const { isLoading } = useAppwriteUser();
+
+  useEffect(() => {
+    conditionalbaseNavigation();
+  }, [orgId]);
 
   if (isLoading) {
     return (
@@ -29,12 +36,15 @@ const AuthenticatedRoutes = () => {
     );
   }
 
-  if (!orgId) redirect("/workspace/org");
-  if (!user) redirect("/workspace/session");
+  const conditionalbaseNavigation = () => {
+    if (!orgId) {
+      navigation.navigate("/workspace/org");
+    }
+  };
 
   return (
     <Routes>
-      {!user || !orgId ? (
+      {!orgId ? (
         <Route path='workspace/*' Component={WorkspaceManagerRoutes} />
       ) : (
         <Route element={[<LayoutSidebar />, <LayoutAppbar />, <LayoutAppHeader />]}>

@@ -3,13 +3,21 @@ import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 import { IAddNewStoreInput, ICreateSessionForm } from "../types";
 import { useAppwriteUser } from "@/hooks/useAppwriteUser";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { Permission, Role } from "appwrite";
 
 export function useCreateAppwriteSession() {
+  const { user } = useUser();
+
   return useMutation({
-    mutationFn: (input: ICreateSessionForm) => {
-      return api.createSession(input.email, input.id);
+    mutationFn: async () => {
+      return await api.createSession(user?.primaryEmailAddress?.emailAddress!, user!.id);
+    },
+    onError: async (err: any) => {
+      if (err.code === 401) {
+        await api.createAccount(user?.primaryEmailAddress?.emailAddress!, user!.id, "user.firstName");
+        return await api.createSession(user?.primaryEmailAddress?.emailAddress!, user!.id);
+      }
     },
   });
 }

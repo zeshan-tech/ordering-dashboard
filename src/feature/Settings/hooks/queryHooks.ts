@@ -41,12 +41,11 @@ export function useDeleteStore() {
 
 export function useAddNewStore() {
   const { enqueueSnackbar } = useSnackbar();
-  const { user } = useAppwriteUser();
   const { orgId } = useAuth();
 
   return useMutation({
     mutationFn: (input: IAddNewStoreInput) => {
-      return api.createDocument(productDbId, storeCollectionId, { ...input, id: orgId }, [Permission.update(Role.user(user!.$id)), Permission.read(Role.users()), Permission.read(Role.guests())]);
+      return api.createDocument(productDbId, storeCollectionId, input, undefined, orgId!);
     },
     onError: (err) => {
       enqueueSnackbar(err.message);

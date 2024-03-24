@@ -7,7 +7,7 @@ interface CloudinaryUploadWidgetProps {
   onUpload: (info: any) => void;
 }
 
-export default function UploadWidget({ children, onUpload }: CloudinaryUploadWidgetProps) {
+export default function UploadWidget({ children, onUpload }: Readonly<CloudinaryUploadWidgetProps>) {
   const [widget, setWidget] = useState<any>(null);
 
   useEffect(() => {

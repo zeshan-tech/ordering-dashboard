@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEventHandler, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Form } from "@/components/Form";
 import { useTranslation } from "react-i18next";
@@ -8,16 +8,21 @@ import { DialogContent, TextField } from "@mui/material";
 import Button from "@/components/Button";
 import { Dialog, DialogTitle } from "@/components/Dialog";
 import { environment } from "@/environment/environment";
+import useNavigation from "@/navigation/useNavigation";
 
 export default function SessionCreateForm() {
   const { t } = useTranslation();
   const { user } = useUser();
+  const navigation = useNavigation();
   const { mutateAsync, isPending } = useCreateAppwriteSession();
   const [recaptchaValue, setRecaptchaValue] = useState<null | string>(null);
 
-  const handleCreateSession = async () => {
-    if (recaptchaValue) {
-      await mutateAsync({ email: user?.primaryEmailAddress?.emailAddress!, id: user!.id });
+  const handleCreateSession: FormEventHandler<HTMLElement> = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    if (!recaptchaValue) {
+      await mutateAsync();
+      navigation.navigate("/")
     } else {
       alert("Please verify reCAPTCHA");
     }

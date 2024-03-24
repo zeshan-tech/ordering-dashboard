@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Page from "@/components/Page";
 import { Divider, Grid, Stack, Typography, styled } from "@mui/material";
 import StoreDisplayComponent from "../components/StoreDisplayComponent";
@@ -12,11 +13,20 @@ export default function SettingsScreen() {
   const { t } = useTranslation();
   const { storeId } = useWorkspaceManager();
 
-  const { mutateAsync, isPending: isStoreDeleteLoading } = useDeleteStore();
+  const [isStoreModalVisible, setIsStoreModalVisible] = useState(!storeId);
+  
+  const { mutateAsync, isPending: isStoreDeleteLoading, data, error } = useDeleteStore();
+
+  console.log(error);
+  
 
   const handleStoreDelete = async () => {
     await mutateAsync();
     window.location.reload();
+  };
+
+  const handleToggleStoreModal = () => {
+    setIsStoreModalVisible(false);
   };
 
   return (
@@ -39,12 +49,26 @@ export default function SettingsScreen() {
           </Grid>
         </Grid>
       </Stack>
-      <StoreCreateModal isVisible={!!storeId} />
+      <StoreCreateModal isVisible={!data} />
     </Page>
   );
 }
-
 const StyledDivider = styled(Divider)`
   margin-top: ${({ theme }) => theme.spacing(2)};
   margin-bottom: ${({ theme }) => theme.spacing(2)};
 `;
+
+
+/* import Page from "@/components/Page";
+import { OrganizationProfile } from "@clerk/clerk-react";
+import { Stack } from "@mui/material";
+
+export default function SettingsScreen() {
+  return (
+    <Page>
+      <Stack justifyContent={"center"} width={"100%"} alignItems={"center"} height={"100%"}>
+        <OrganizationProfile />;
+      </Stack>
+    </Page>
+  );
+} */

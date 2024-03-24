@@ -1,6 +1,6 @@
 import { ButtonProps as MuiButtonProps, Button as MuiButton, CircularProgress } from "@mui/material";
 
-interface ButtonProps extends MuiButtonProps {
+export interface ButtonProps extends MuiButtonProps {
   loading?: boolean;
 }
 

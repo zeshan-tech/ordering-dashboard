@@ -1,13 +1,13 @@
 // UploadWidget.tsx
 import { useState, useEffect, ReactNode } from "react";
-import Button from "./Button";
+import Button, { ButtonProps } from "./Button";
 
-interface CloudinaryUploadWidgetProps {
+interface CloudinaryUploadWidgetProps extends ButtonProps {
   children: ReactNode;
   onUpload: (info: any) => void;
 }
 
-export default function UploadWidget({ children, onUpload }: Readonly<CloudinaryUploadWidgetProps>) {
+export default function UploadWidget({ children, onUpload, ...buttonProps }: Readonly<CloudinaryUploadWidgetProps>) {
   const [widget, setWidget] = useState<any>(null);
 
   useEffect(() => {
@@ -39,5 +39,9 @@ export default function UploadWidget({ children, onUpload }: Readonly<Cloudinary
     }
   };
 
-  return <Button onClick={showWidget}>{children}</Button>;
+  return (
+    <Button onClick={showWidget} {...buttonProps}>
+      {children}
+    </Button>
+  );
 }

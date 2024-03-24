@@ -6,3 +6,4 @@ export { default as ProductsTableRowActionMenu } from "./ProductsTableRowActionM
 export { default as ProductImageList } from "./ProductImageList";
 export { default as AddProductForm } from "./AddProductForm";
 export { default as UpdateProductForm } from "./UpdateProductForm";
+export { default as AddVarientForm } from "./AddVarientForm";

@@ -11,6 +11,14 @@ export interface IAddNewProductInput {
   imageUrls: string[];
   category: string;
 }
+export interface IAddNewVariantInput {
+  type: VariantTypeEnum;
+  value: string;
+  priceAdjustment: number;
+  priceAdjustmentType: PriceAdjustmentTypeEnum;
+  imageUrls: string[];
+  product: string;
+}
 
 export interface IUpdateProductInput {
   title: string;
@@ -25,4 +33,15 @@ export interface IUpdateCategoryInput {
   name: string;
   organizationId: string;
   parentCategoryId?: string;
+}
+
+export enum PriceAdjustmentTypeEnum {
+  PLUS = "plus",
+  MINUS = "minus",
+}
+
+export enum VariantTypeEnum {
+  MATERIAL = "material",
+  COLOR = "color",
+  SIZE = "size",
 }

@@ -61,7 +61,7 @@ export default function UpdateProductForm({ productId }: IUpdateProductForm) {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit(handleUpdateProduct)} gap={1}>
+    <Form onSubmit={handleSubmit(handleUpdateProduct)} gap={1} p={2}>
       <TextField control={formControl} name='title' label='Title' />
       <TextField multiline rows={4} control={formControl} name='description' label='Description' />
       <PriceField control={formControl} name='price' label='Product price' />
@@ -97,15 +97,6 @@ export default function UpdateProductForm({ productId }: IUpdateProductForm) {
           {t("save")}
         </Button>
       </Stack>
-    </StyledForm>
+    </Form>
   );
 }
-
-const StyledForm = styled(Form)(({ theme }) => ({
-  width: "50%",
-  padding: theme.spacing(2),
-  margin: "auto",
-  [theme.breakpoints.down("md")]: {
-    width: "80%",
-  },
-}));

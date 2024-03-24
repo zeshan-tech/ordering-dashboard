@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { IAddNewCategoryInput, IAddNewProductInput, IUpdateCategoryInput, IUpdateProductInput } from "../types";
-import api, { categoryCollectionId, productCollectionId, productDbId } from "@/api/Appwrite";
+import { IAddNewCategoryInput, IAddNewProductInput, IAddNewVariantInput, IUpdateCategoryInput, IUpdateProductInput } from "../types";
+import api, { categoryCollectionId, productCollectionId, productDbId, variantCollectionId } from "@/api/Appwrite";
 import { useOrganization } from "@clerk/clerk-react";
 import { CategoryModel } from "@/models/category";
 import { ProductModel } from "@/models/Product";
@@ -60,7 +60,7 @@ export function useAddNewCategory() {
 export function useAddNewProduct() {
   return useMutation({
     mutationFn: (input: IAddNewProductInput) => {
-      return api.createDocument<SuccessResponse>(productDbId, productCollectionId, input);
+      return api.createDocument<ProductModel>(productDbId, productCollectionId, input);
     },
   });
 }
@@ -85,6 +85,14 @@ export function useDeleteProduct() {
   return useMutation({
     mutationFn: ($id: string) => {
       return api.deleteDocument<CategoryModel[]>(productDbId, productCollectionId, $id);
+    },
+  });
+}
+
+export function useAddVariant() {
+  return useMutation({
+    mutationFn: (input: IAddNewVariantInput) => {
+      return api.createDocument<CategoryModel[]>(productDbId, variantCollectionId, input);
     },
   });
 }

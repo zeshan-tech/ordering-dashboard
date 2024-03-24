@@ -4,17 +4,18 @@ import { IAddNewProductInput } from "../types";
 import { useForm } from "react-hook-form";
 import useNavigation from "@/navigation/useNavigation";
 import { Form, PriceField, SelectInput, TextField } from "@/components/Form";
-import { LinearProgress, ListItemText, MenuItem, Stack, styled } from "@mui/material";
+import { Divider, InputAdornment, LinearProgress, ListItemText, MenuItem, Stack, styled } from "@mui/material";
 import UploadWidget from "@/components/UploadWidget";
 import Button from "@/components/Button";
-import { SaveIcon } from "@/components/icons";
+import { DollarIcon, SaveIcon } from "@/components/icons";
 import { useEffect, useState } from "react";
 
 interface IAddProductForm {
   categoryId: string;
+  onProductCreate: (pId: string) => void;
 }
 
-export default function AddProductForm({ categoryId }: IAddProductForm) {
+export default function AddProductForm({ categoryId, onProductCreate }: IAddProductForm) {
   const navigation = useNavigation();
 
   const [imageUrls, setImageUrls] = useState<string[]>([]); // State for imageUrls
@@ -31,8 +32,8 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
   }, [categoryId]);
 
   const handleAddProduct = async (input: IAddNewProductInput) => {
-    await mutateAsync({ title: input.title, category: input.description, description: input.description, imageUrls: imageUrls, price: input.price });
-    handleBackNavigate();
+    const result = await mutateAsync({ title: input.title, category: input.description, description: input.description, imageUrls: imageUrls, price: input.price });
+    onProductCreate(result.$id);
   };
 
   const handleReset = () => {
@@ -45,10 +46,11 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit(handleAddProduct)} gap={1}>
+    <Form onSubmit={handleSubmit(handleAddProduct)} gap={1} p={2}>
       <TextField control={formControl} name='title' label='Title' />
       <TextField multiline rows={4} control={formControl} name='description' label='Description' />
-      <PriceField control={formControl} name='price' label='Product price' />
+
+      <PriceField control={formControl} inputProps={{ maxLength: 15, pattern: "[0-9.]*" }} name='price' label='Product price' />
 
       <SelectInput name='category' control={formControl} defaultValue={categoryId} label='Category'>
         {isCategoriesLoading ? (
@@ -63,6 +65,8 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
           })
         )}
       </SelectInput>
+
+      <Divider />
 
       <UploadWidget
         children={"Upload images"}
@@ -80,15 +84,6 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
           save
         </Button>
       </Stack>
-    </StyledForm>
+    </Form>
   );
 }
-
-const StyledForm = styled(Form)(({ theme }) => ({
-  width: "50%",
-  padding: theme.spacing(2),
-  margin: "auto",
-  [theme.breakpoints.down("md")]: {
-    width: "80%",
-  },
-}));

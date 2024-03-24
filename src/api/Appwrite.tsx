@@ -1,6 +1,7 @@
 export const productDbId = "65fd404cef1c64d56fcd";
 export const productCollectionId = "65fd54fc2043a05deab8";
 export const categoryCollectionId = "65fd41142dfe160e9e36";
+export const variantCollectionId = "65fd5605e560bcce5862";
 export const storeCollectionId = "65fd549431197b971a15";
 
 import { Client, Databases, Account, ID } from "appwrite";

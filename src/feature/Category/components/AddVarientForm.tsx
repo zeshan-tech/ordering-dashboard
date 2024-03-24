@@ -1,12 +1,15 @@
+import { useState } from "react"; // Import useState
 import { useForm, SubmitHandler, useFieldArray, Controller } from "react-hook-form";
-import { TextField, Typography, Stack, Toolbar, Card, CardContent, MenuItem, CardActions, styled } from "@mui/material";
+import { TextField, Typography, Stack, Toolbar, Card, CardContent, MenuItem, CardActions } from "@mui/material";
 import { Form } from "@/components/Form";
 import Button from "@/components/Button";
-import { DeleteIcon } from "@/components/icons";
-import { IAddNewVariantInput, VariantTypeEnum, PriceAdjustmentTypeEnum } from "../types";
+import { AddImageIcon, DeleteIcon } from "@/components/icons";
+import { IAddNewVariantInput, VariantTypeEnum } from "../types";
 import { useAddVariant } from "../hooks";
 import UploadWidget from "@/components/UploadWidget";
 import { ProductImageList } from ".";
+import useNavigation from "@/navigation/useNavigation";
+import { useTranslation } from "react-i18next";
 
 interface IFormValues {
   variants: IAddNewVariantInput[];
@@ -17,18 +20,33 @@ interface AddVariantFormProps {
 }
 
 export default function AddVariantForm({ productId }: AddVariantFormProps) {
+  const { t } = useTranslation();
+  const navigation = useNavigation();
+
+  const [imageUrls, setImageUrls] = useState<string[][]>([[]]);
+
   const { mutateAsync } = useAddVariant();
 
-  const { control, handleSubmit, setValue: setFormValue } = useForm<IFormValues>({});
+  const { control, handleSubmit } = useForm<IFormValues>({});
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "variants",
   });
 
+  // State for storing image URLs
+
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
-    console.log(data, productId);
+    const formData = data.variants.map((v, i) => {
+      v["imageUrls"] = imageUrls[i];
+      return v;
+    });
+
+    console.log(formData);
   };
+
+  console.log(imageUrls);
+  
 
   return (
     <Form component={Card} onSubmit={handleSubmit(onSubmit)}>
@@ -36,7 +54,7 @@ export default function AddVariantForm({ productId }: AddVariantFormProps) {
         <Typography variant='h5' sx={{ flexGrow: 1 }}>
           Add variant
         </Typography>
-        <Button onClick={() => append({ type: VariantTypeEnum.MATERIAL, value: "", priceAdjustment: 0, priceAdjustmentType: PriceAdjustmentTypeEnum.PLUS, imageUrls: [], product: productId })}>Add Variant</Button>
+        <Button onClick={() => append({ type: VariantTypeEnum.MATERIAL, value: "", price: 0, imageUrls: [], product: productId })}>Add Variant</Button>
       </Toolbar>
       <CardContent component={Stack} spacing={2}>
         {fields.map((field, index) => (
@@ -56,42 +74,23 @@ export default function AddVariantForm({ productId }: AddVariantFormProps) {
 
               <Controller name={`variants.${index}.value`} control={control} defaultValue='' render={({ field }) => <TextField {...field} label='Value' fullWidth />} />
 
-              <Controller
-                name={`variants.${index}.priceAdjustmentType`}
-                control={control}
-                render={({ field }) => (
-                  <TextField label='Price Adjustment Type' select {...field} fullWidth>
-                    <MenuItem value={PriceAdjustmentTypeEnum.PLUS}>Plus</MenuItem>
-                    <MenuItem value={PriceAdjustmentTypeEnum.MINUS}>Minus</MenuItem>
-                  </TextField>
-                )}
-              />
+              <Controller name={`variants.${index}.price`} control={control} defaultValue={0} render={({ field }) => <TextField {...field} type='number' label='Price Adjustment' fullWidth />} />
 
-              <Controller name={`variants.${index}.priceAdjustment`} control={control} defaultValue={0} render={({ field }) => <TextField {...field} type='number' label='Price Adjustment' fullWidth />} />
-
-              <UploadWidget
-                fullWidth
-                children={"Upload images"}
-                onUpload={(url) => {
-                  setFormValue(`variants.${index}.imageUrls`, (prev) => [...prev, url]);
-                }}
-              />
+              <UploadWidget component={<AddImageIcon solid />} onUpload={(url) => setImageUrls((prev) => [...prev, [...prev[index], url]])} />
 
               <DeleteIcon solid onClick={() => remove(index)} />
             </Stack>
 
-            <ProductImageList list={field.imageUrls} />
+            <ProductImageList list={imageUrls[index]} />
           </Stack>
         ))}
       </CardContent>
       <CardActions>
-        <Button>Skip</Button>
-        <Button type='submit' variant='contained'>
-          Save
+        <Button onClick={navigation.goBack}>{t("skip")}</Button>
+        <Button type='submit' variant='contained' onClick={handleSubmit(onSubmit)}>
+          {t("save")}
         </Button>
       </CardActions>
     </Form>
   );
 }
-
-const StyledUploadWidget = styled(UploadWidget)(({ theme }) => ({}));

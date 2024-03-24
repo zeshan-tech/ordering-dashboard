@@ -1,13 +1,15 @@
 // UploadWidget.tsx
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode, cloneElement, ReactElement } from "react";
 import Button, { ButtonProps } from "./Button";
+import { IconWrapperProps } from "./icons";
 
-interface CloudinaryUploadWidgetProps extends ButtonProps {
-  children: ReactNode;
+interface CloudinaryUploadWidgetProps extends Omit<ButtonProps, "component"> {
+  children?: ReactNode;
   onUpload: (info: any) => void;
+  component?: ReactElement<IconWrapperProps | ButtonProps>;
 }
 
-export default function UploadWidget({ children, onUpload, ...buttonProps }: Readonly<CloudinaryUploadWidgetProps>) {
+export default function UploadWidget({ children, onUpload, component, ...buttonProps }: Readonly<CloudinaryUploadWidgetProps>) {
   const [widget, setWidget] = useState<any>(null);
 
   useEffect(() => {
@@ -38,6 +40,12 @@ export default function UploadWidget({ children, onUpload, ...buttonProps }: Rea
       widget.open();
     }
   };
+
+  if (component) {
+    return cloneElement(component, {
+      onClick: showWidget,
+    });
+  }
 
   return (
     <Button onClick={showWidget} {...buttonProps}>

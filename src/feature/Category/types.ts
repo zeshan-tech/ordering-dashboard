@@ -14,8 +14,7 @@ export interface IAddNewProductInput {
 export interface IAddNewVariantInput {
   type: VariantTypeEnum;
   value: string;
-  priceAdjustment: number;
-  priceAdjustmentType: PriceAdjustmentTypeEnum;
+  price: number;
   imageUrls: string[];
   product: string;
 }

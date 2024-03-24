@@ -18,6 +18,7 @@ interface ApiProvider {
   getDocument: <T>(databaseId: string, collectionId: string, documentId: string) => Promise<T>;
   updateDocument: <T>(databaseId: string, collectionId: string, documentId: string, data: Record<string, any>) => Promise<T>;
   deleteDocument: <T>(databaseId: string, collectionId: string, documentId: string) => Promise<T>;
+  createMultipleDocuments: <T>(databaseId: string, collectionId: string, records: Record<string, any>[], permissions?: any) => Promise<T[]>;
 }
 
 const api: ApiProvider = {
@@ -72,6 +73,17 @@ const api: ApiProvider = {
 
   async deleteDocument<T>(databaseId: string, collectionId: string, documentId: string): Promise<T> {
     return this.provider().database.deleteDocument(databaseId, collectionId, documentId) as T;
+  },
+
+  async createMultipleDocuments<T>(databaseId: string, collectionId: string, records: Record<string, any>[], permissions?: any): Promise<T[]> {
+    const createdDocuments: T[] = [];
+
+    for (const record of records) {
+      const createdDocument = await api.createDocument<T>(databaseId, collectionId, record, permissions);
+      createdDocuments.push(createdDocument);
+    }
+
+    return createdDocuments;
   },
 };
 

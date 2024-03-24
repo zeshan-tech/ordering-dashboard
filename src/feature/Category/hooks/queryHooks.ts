@@ -91,8 +91,8 @@ export function useDeleteProduct() {
 
 export function useAddVariant() {
   return useMutation({
-    mutationFn: (input: IAddNewVariantInput) => {
-      return api.createDocument<CategoryModel[]>(productDbId, variantCollectionId, input);
+    mutationFn: (input: IAddNewVariantInput[]) => {
+      return api.createMultipleDocuments<CategoryModel[]>(productDbId, variantCollectionId, input);
     },
   });
 }

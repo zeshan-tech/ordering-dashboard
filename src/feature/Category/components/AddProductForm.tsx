@@ -4,10 +4,10 @@ import { IAddNewProductInput } from "../types";
 import { useForm } from "react-hook-form";
 import useNavigation from "@/navigation/useNavigation";
 import { Form, PriceField, SelectInput, TextField } from "@/components/Form";
-import { Divider, InputAdornment, LinearProgress, ListItemText, MenuItem, Stack, styled } from "@mui/material";
+import { Divider, LinearProgress, ListItemText, MenuItem, Stack } from "@mui/material";
 import UploadWidget from "@/components/UploadWidget";
 import Button from "@/components/Button";
-import { DollarIcon, SaveIcon } from "@/components/icons";
+import { SaveIcon } from "@/components/icons";
 import { useEffect, useState } from "react";
 
 interface IAddProductForm {
@@ -32,7 +32,7 @@ export default function AddProductForm({ categoryId, onProductCreate }: IAddProd
   }, [categoryId]);
 
   const handleAddProduct = async (input: IAddNewProductInput) => {
-    const result = await mutateAsync({ title: input.title, category: input.description, description: input.description, imageUrls: imageUrls, price: input.price });
+    const result = await mutateAsync({ title: input.title, category: categoryId, description: input.description, imageUrls: imageUrls, price: input.price });
     onProductCreate(result.$id);
   };
 

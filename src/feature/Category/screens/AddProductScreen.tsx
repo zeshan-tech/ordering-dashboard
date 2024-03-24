@@ -37,8 +37,8 @@ export default function AddProductScreen() {
       </Box>
 
       <StyledStack>
-        {activeStep === 1 ? <AddProductForm onProductCreate={handleProductCreate} categoryId={categoryId!} /> : null}
-        {activeStep === 0 ? <AddVarientForm productId={productIdRef.current} /> : null}
+        {activeStep === 0 ? <AddProductForm onProductCreate={handleProductCreate} categoryId={categoryId!} /> : null}
+        {activeStep === 1 ? <AddVarientForm productId={productIdRef.current} /> : null}
       </StyledStack>
     </Dialog>
   );

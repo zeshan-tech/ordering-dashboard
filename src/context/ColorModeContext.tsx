@@ -39,6 +39,11 @@ export default function ColorModeProvider({ children }: Readonly<{ children: Rea
               color: "default",
             },
           },
+          MuiTextField: {
+            defaultProps: {
+              size: "small",
+            },
+          },
         },
       }),
     [mode]

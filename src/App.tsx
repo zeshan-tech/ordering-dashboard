@@ -13,6 +13,7 @@ import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@ta
 import KeyboardShortcutsContext from "./context/KeyboardShortcutsContext";
 import { ClerkProvider } from "@clerk/clerk-react";
 import ColorModeProvider from "./context/ColorModeContext";
+import { useSnackbar } from "notistack";
 
 DataGridLicenseInfo.setLicenseKey("76c34ab47f811b623345476a6f326e4aTz01NzA5OSxFPTE3MDQ0NzYyNjQyODMsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI=");
 
@@ -24,9 +25,15 @@ if (!PUBLISHABLE_KEY) {
 }
 
 function App() {
+  const { enqueueSnackbar } = useSnackbar();
   const queryClient = new QueryClient({
     queryCache: new QueryCache(),
     mutationCache: new MutationCache(),
+    defaultOptions: {
+      mutations: {
+        onError: (err) => enqueueSnackbar(err.message),
+      },
+    },
   });
 
   return (

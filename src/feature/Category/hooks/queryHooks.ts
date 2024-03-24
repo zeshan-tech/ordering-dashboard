@@ -1,14 +1,13 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { IAddNewCategoryInput, IAddNewProductInput, ICategory, IUpdateCategoryInput } from "../types";
 import api, { categoryCollectionId, productCollectionId, productDbId } from "@/api/Appwrite";
-import { Query } from "appwrite";
 import { useOrganization } from "@clerk/clerk-react";
 
 export function useGetCategories() {
   const { organization } = useOrganization();
 
   //TODO: fix query issue
-  const query = [Query.equal("organizationId", organization!.id)];
+  // const query = [Query.equal("organizationId", organization!.id)];
 
   return useQuery({
     queryKey: [organization],
@@ -20,7 +19,7 @@ export function useGetCategories() {
 
 export function useGetProductsByCategoryId(categoryId: string) {
   //TODO: fix query issue
-  const query = [Query.equal("categoryId", [categoryId])];
+  // const query = [Query.equal("categoryId", [categoryId])];
 
   return useQuery({
     queryKey: [categoryId],

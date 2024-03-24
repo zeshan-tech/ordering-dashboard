@@ -7,7 +7,7 @@ import { AppBar, FormControlLabel, LinearProgress, ListItemText, MenuItem, Stack
 import Button from "@/components/Button";
 import { ClearIcon, SaveIcon } from "@/components/icons";
 import { Dialog } from "@/components/Dialog";
-import { useWorkspaceManager } from "@/context/WorkspaceManagerContext";
+import { useAuth } from "@clerk/clerk-react";
 
 interface IUpdateCategoryModal {
   isVisible: boolean;
@@ -16,7 +16,7 @@ interface IUpdateCategoryModal {
 }
 
 export default function UpdateCategoryModal({ isVisible, onClose, ID }: Readonly<IUpdateCategoryModal>) {
-  const { storeId } = useWorkspaceManager();
+  const { orgId } = useAuth();
 
   const [markAsChildCategory, setMarkAsChildCategory] = useState(false);
 
@@ -35,7 +35,7 @@ export default function UpdateCategoryModal({ isVisible, onClose, ID }: Readonly
   }, []);
 
   const handleAddCategory = async (input: IAddNewCategoryInput) => {
-    await mutateAsync({ name: input.name, ...(markAsChildCategory ? { parentCategoryId: input.parentCategoryId } : {}), storeId: storeId });
+    await mutateAsync({ name: input.name, ...(markAsChildCategory ? { parentCategoryId: input.parentCategoryId } : {}), organizationId: orgId! });
     onClose();
   };
 
@@ -60,9 +60,9 @@ export default function UpdateCategoryModal({ isVisible, onClose, ID }: Readonly
           {isCategoriesLoading ? (
             <LinearProgress />
           ) : (
-            (categories.documents ??  []).map((store) => {
+            (categories?.documents ??  []).map((store) => {
               return (
-                <MenuItem value={store.ID}>
+                <MenuItem value={store.$id}>
                   <ListItemText>{store.name}</ListItemText>
                 </MenuItem>
               );

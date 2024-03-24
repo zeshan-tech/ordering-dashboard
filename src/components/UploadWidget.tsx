@@ -18,6 +18,8 @@ export default function UploadWidget({ children, onUpload }: Readonly<Cloudinary
       },
       (error: any, result: any) => {
         if (!error && result && result.event === "success") {
+          console.log(result.info.url,"”””””””””””””””””””””””””””””””””””””””””””””");
+          
           onUpload(result.info.url);
         }
       }
@@ -33,8 +35,6 @@ export default function UploadWidget({ children, onUpload }: Readonly<Cloudinary
   }, []);
 
   const showWidget = () => {
-    console.log(widget);
-
     if (widget) {
       widget.open();
     }

@@ -3,10 +3,7 @@ import { ImageList, ImageListItem } from "@mui/material";
 interface IProductImageList {
   list: string[];
 }
-export default function ProductImageList({list}: IProductImageList) {
-
-    console.log(list);
-    
+export default function ProductImageList({ list }: IProductImageList) {
   return (
     <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
       {list.map((item) => (

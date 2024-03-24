@@ -1,7 +1,9 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { IAddNewCategoryInput, IAddNewProductInput, ICategory, IUpdateCategoryInput } from "../types";
+import { IAddNewCategoryInput, IAddNewProductInput, IUpdateCategoryInput } from "../types";
 import api, { categoryCollectionId, productCollectionId, productDbId } from "@/api/Appwrite";
 import { useOrganization } from "@clerk/clerk-react";
+import { CategoryModel } from "@/models/category";
+import { ProductModel } from "@/models/Product";
 
 export function useGetCategories() {
   const { organization } = useOrganization();
@@ -12,7 +14,7 @@ export function useGetCategories() {
   return useQuery({
     queryKey: [organization],
     queryFn: () => {
-      return api.listDocuments<{ total: number; documents: ICategory[] }>(productDbId, categoryCollectionId);
+      return api.listDocuments<{ total: number; documents: CategoryModel[] }>(productDbId, categoryCollectionId);
     },
   });
 }
@@ -24,7 +26,7 @@ export function useGetProductsByCategoryId(categoryId: string) {
   return useQuery({
     queryKey: [categoryId],
     queryFn: () => {
-      return api.listDocuments<{ total: number; documents: ICategory[] }>(productDbId, productCollectionId);
+      return api.listDocuments<{ total: number; documents: ProductModel[] }>(productDbId, productCollectionId);
     },
   });
 }
@@ -33,7 +35,7 @@ export function useGetCategoryById(ID: string) {
   return useQuery({
     queryKey: [ID],
     queryFn: () => {
-      return api.getDocument<ICategory>(productDbId, categoryCollectionId, ID);
+      return api.getDocument<CategoryModel>(productDbId, categoryCollectionId, ID);
     },
   });
 }
@@ -41,7 +43,7 @@ export function useGetCategoryById(ID: string) {
 export function useAddNewCategory() {
   return useMutation({
     mutationFn: (input: IAddNewCategoryInput) => {
-      return api.createDocument<ICategory[]>(productDbId, categoryCollectionId, input);
+      return api.createDocument<CategoryModel[]>(productDbId, categoryCollectionId, input);
     },
   });
 }
@@ -57,7 +59,7 @@ export function useAddNewProduct() {
 export function useDeleteCategory() {
   return useMutation({
     mutationFn: (ID: string) => {
-      return api.deleteDocument<ICategory[]>(productDbId, categoryCollectionId, ID);
+      return api.deleteDocument<CategoryModel[]>(productDbId, categoryCollectionId, ID);
     },
   });
 }
@@ -65,7 +67,7 @@ export function useDeleteCategory() {
 export function useUpdateCategory() {
   return useMutation({
     mutationFn: (input: { $id: string; input: IUpdateCategoryInput }) => {
-      return api.updateDocument<ICategory[]>(productDbId, categoryCollectionId, input.$id, input.input);
+      return api.updateDocument<CategoryModel[]>(productDbId, categoryCollectionId, input.$id, input.input);
     },
   });
 }

@@ -8,7 +8,7 @@ import { LinearProgress, ListItemText, MenuItem, Stack, styled } from "@mui/mate
 import UploadWidget from "@/components/UploadWidget";
 import Button from "@/components/Button";
 import { SaveIcon } from "@/components/icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface IAddProductForm {
   categoryId: string;
@@ -17,10 +17,12 @@ interface IAddProductForm {
 export default function AddProductForm({ categoryId }: IAddProductForm) {
   const navigation = useNavigation();
 
+  const [imageUrls, setImageUrls] = useState<string[]>([]); // State for imageUrls
+
   const { data: categories, isLoading: isCategoriesLoading } = useGetCategories();
   const { mutateAsync, isPending } = useAddNewProduct();
 
-  const { control: formControl, handleSubmit, reset: resetForm, setValue: setFormValue, watch: watchForm } = useForm<IAddNewProductInput>();
+  const { control: formControl, handleSubmit, reset: resetForm, setValue: setFormValue } = useForm<IAddNewProductInput>();
 
   useEffect(() => {
     if (categoryId) {
@@ -62,9 +64,13 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
         )}
       </SelectInput>
 
-
-      <UploadWidget children={"Upload images"} onUpload={(url) => setFormValue("imageUrls", [...watchForm("imageUrls"), url])} />
-      <ProductImageList list={watchForm("imageUrls") ?? []} />
+      <UploadWidget
+        children={"Upload images"}
+        onUpload={(url) => {
+          console.log(JSON.stringify(url), "", imageUrls);
+        }}
+      />
+      <ProductImageList list={imageUrls} />
 
       <Stack flexDirection={"row"} gap={1} justifyContent={"end"}>
         <Button onClick={handleReset} variant='text'>

@@ -2,20 +2,18 @@ import { CardContent, Typography, styled } from "@mui/material";
 import Card from "@mui/material/Card";
 
 interface TableCardProps {
-  logoUrl: string;
-  name: string;
-  type: string;
+  imageSrc: string;
+  title: string;
+  price: string;
 }
 
-export default function TableCard({ logoUrl, name, type }: Readonly<TableCardProps>) {
+export default function TableCard({ imageSrc, title, price }: Readonly<TableCardProps>) {
   return (
     <StyledCard elevation={0}>
-      <StyledCardMedia src={logoUrl} />
+      <StyledCardMedia src={imageSrc} />
       <CardContentNoPadding>
-        <Typography variant='subtitle1'>{name}</Typography>
-        <Typography variant='caption' color={"InactiveCaptionText"}>
-          {`(${type})`}
-        </Typography>
+        <Typography variant='subtitle1'>{title}</Typography>
+        <Typography variant='subtitle2'>$: {price}</Typography>
       </CardContentNoPadding>
     </StyledCard>
   );

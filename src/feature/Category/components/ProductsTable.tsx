@@ -7,6 +7,7 @@ import { GridActionsCellItem, GridColDef, GridFooterContainer, GridPagination } 
 import { CachedIcon, MoreVertIcon } from "@/components/icons";
 import Button from "@/components/Button";
 import { useGetProductsByCategoryId } from "../hooks";
+import TableCard from "./TableCard";
 
 const { DataGridPro } = lazily(() => import("@/components/DataGridPro"));
 
@@ -36,9 +37,10 @@ export default function ProductsTable({ categoryId }: Readonly<IProductsTable>) 
       width: 500,
     },
     {
-      field: "name",
+      field: "series",
       headerName: t("name"),
       width: 500,
+      renderCell: (params) => <TableCard imageSrc={params.row.imageUrls[0]} title={params.row.title} price={params.row.price} />,
     },
     {
       field: "active",

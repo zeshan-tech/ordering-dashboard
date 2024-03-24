@@ -28,7 +28,6 @@ export const WorkspaceManagerProvider = ({ children }: { children: ReactNode }) 
 
   const handleUpdateStore = async () => {
     const result = await mutateAsync();
-    console.log(result.$id);
     setStoreId(result.$id);
   };
 

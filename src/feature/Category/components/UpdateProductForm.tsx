@@ -1,20 +1,22 @@
 import { ProductImageList } from ".";
 import { useUpdateProduct, useGetCategories, useGetProductById } from "../hooks";
 import { IUpdateProductInput } from "../types";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import useNavigation from "@/navigation/useNavigation";
 import { Form, PriceField, SelectInput, TextField } from "@/components/Form";
-import { Backdrop, CircularProgress, LinearProgress, ListItemText, MenuItem, Stack, styled } from "@mui/material";
+import { Backdrop, CircularProgress, FormControlLabel, LinearProgress, ListItemText, MenuItem, Stack, Switch, styled } from "@mui/material";
 import UploadWidget from "@/components/UploadWidget";
 import Button from "@/components/Button";
 import { SaveIcon } from "@/components/icons";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface IUpdateProductForm {
   productId: string;
 }
 
 export default function UpdateProductForm({ productId }: IUpdateProductForm) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
 
   const [imageUrls, setImageUrls] = useState<string[]>([]); // State for imageUrls
@@ -30,14 +32,14 @@ export default function UpdateProductForm({ productId }: IUpdateProductForm) {
       setFormValue("category", product.category.$id);
       setFormValue("active", product.active);
       setFormValue("description", product.description);
-      setFormValue("imageUrls", product.imageUrls);
+      setImageUrls(product.imageUrls);
       setFormValue("price", product.price);
       setFormValue("title", product.title);
     }
   }, [product]);
 
   const handleUpdateProduct = async (input: IUpdateProductInput) => {
-    await mutateAsync({ $id: productId, input: { title: input.title, category: input.category!, description: input.description, imageUrls: input.imageUrls, price: input.price, active: input.active } });
+    await mutateAsync({ $id: productId, input: { title: input.title, category: input.category!, description: input.description, imageUrls: imageUrls, price: input.price, active: input.active } });
     handleBackNavigate();
   };
 
@@ -63,7 +65,6 @@ export default function UpdateProductForm({ productId }: IUpdateProductForm) {
       <TextField control={formControl} name='title' label='Title' />
       <TextField multiline rows={4} control={formControl} name='description' label='Description' />
       <PriceField control={formControl} name='price' label='Product price' />
-
       <SelectInput name='category' control={formControl} defaultValue={watchForm("category")} label='Category'>
         {isCategoriesLoading ? (
           <LinearProgress />
@@ -78,20 +79,22 @@ export default function UpdateProductForm({ productId }: IUpdateProductForm) {
         )}
       </SelectInput>
 
+      <Controller name='active' control={formControl} render={({ field: { onChange, value } }) => <FormControlLabel control={<Switch checked={value} onChange={onChange} />} label={t("active")} />} />
+
       <UploadWidget
         children={"Upload images"}
         onUpload={(url) => {
-          console.log(JSON.stringify(url), "", imageUrls);
+          setImageUrls((pre) => [...pre, url]);
         }}
       />
       <ProductImageList list={imageUrls} />
 
       <Stack flexDirection={"row"} gap={1} justifyContent={"end"}>
         <Button onClick={handleReset} variant='text'>
-          Cancel
+          {t("cancel")}
         </Button>
         <Button loading={isPending} autoFocus startIcon={<SaveIcon />} variant='contained' onClick={handleSubmit(handleUpdateProduct)}>
-          save
+          {t("save")}
         </Button>
       </Stack>
     </StyledForm>

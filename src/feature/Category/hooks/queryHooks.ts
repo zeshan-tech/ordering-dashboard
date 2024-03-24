@@ -81,6 +81,14 @@ export function useDeleteCategory() {
   });
 }
 
+export function useDeleteProduct() {
+  return useMutation({
+    mutationFn: ($id: string) => {
+      return api.deleteDocument<CategoryModel[]>(productDbId, productCollectionId, $id);
+    },
+  });
+}
+
 export function useUpdateCategory() {
   return useMutation({
     mutationFn: (input: { $id: string; input: IUpdateCategoryInput }) => {

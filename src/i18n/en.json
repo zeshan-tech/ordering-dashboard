@@ -37,5 +37,7 @@
   "createCategory": "Create category",
   "addProduct": "Add product",
   "selectedCategoryName": "Selected category name",
-  "reviewAnalytics": "Review analytics"
+  "reviewAnalytics": "Review analytics",
+  "active": "Active",
+  "save": "Save"
 }

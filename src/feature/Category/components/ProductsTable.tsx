@@ -8,6 +8,7 @@ import { CachedIcon, MoreVertIcon } from "@/components/icons";
 import Button from "@/components/Button";
 import { useGetProductsByCategoryId } from "../hooks";
 import TableCard from "./TableCard";
+import { handleFormatPrice } from "@/utils";
 
 const { DataGridPro } = lazily(() => import("@/components/DataGridPro"));
 
@@ -34,19 +35,25 @@ export default function ProductsTable({ categoryId }: Readonly<IProductsTable>) 
     {
       field: "$id",
       headerName: t("ID"),
-      width: 500,
+      width: 200,
     },
     {
       field: "series",
       headerName: t("name"),
       width: 500,
-      renderCell: (params) => <TableCard imageSrc={params.row.imageUrls[0]} title={params.row.title} price={params.row.price} />,
+      renderCell: (params) => <TableCard imageSrc={params.row.imageUrls[0]} title={params.row.title} description={params.row.description} />,
+    },
+    {
+      field: "price",
+      headerName: t("price"),
+      width: 200,
+      renderCell: (params) => handleFormatPrice(params.value),
     },
     {
       field: "active",
       headerName: t("active"),
-      width: 500,
-      renderCell: (params) => <Switch defaultChecked={params.row.active} />,
+      width: 200,
+      renderCell: (params) => <Switch  defaultChecked={params.row.active} />,
     },
     {
       field: "actions",

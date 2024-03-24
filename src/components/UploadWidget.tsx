@@ -15,11 +15,10 @@ export default function UploadWidget({ children, onUpload }: Readonly<Cloudinary
       {
         cloudName: "djvfnekle",
         uploadPreset: "fo7eztcw",
+        // cropping: true,
       },
       (error: any, result: any) => {
         if (!error && result && result.event === "success") {
-          console.log(result.info.url,"”””””””””””””””””””””””””””””””””””””””””””””");
-          
           onUpload(result.info.url);
         }
       }

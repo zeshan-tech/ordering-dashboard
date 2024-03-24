@@ -4,7 +4,7 @@ import { ListItemText, PopoverPosition } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useTranslation } from "react-i18next";
-import { useDeleteCategory } from "../hooks";
+import { useDeleteProduct } from "../hooks";
 import useNavigation, { Routes } from "@/navigation/useNavigation";
 
 interface ProductsTableRowActionMenuProps {
@@ -20,11 +20,11 @@ export default function ProductsTableRowActionMenu({ isOpen, onClose, anchorPosi
   const navigation = useNavigation();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { mutateAsync: deleteCategoryMutateAsync } = useDeleteCategory();
+  const { mutateAsync: deleteProductMutateAsync } = useDeleteProduct();
 
   const handleCopyId = () => {
     navigator.clipboard.writeText(productId);
-    enqueueSnackbar("Category ID copied to clipboard.");
+    enqueueSnackbar("Product ID copied to clipboard.");
   };
 
   const handleOnDelete = async () => {
@@ -32,7 +32,7 @@ export default function ProductsTableRowActionMenu({ isOpen, onClose, anchorPosi
     const inputId = prompt(`Please enter the product ID to confirm deletion \n ID: ${productId}`);
     inputId;
     if (inputId === productId) {
-      await deleteCategoryMutateAsync(productId);
+      await deleteProductMutateAsync(productId);
       refresh();
     }
   };

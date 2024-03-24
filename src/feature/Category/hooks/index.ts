@@ -1,1 +1,1 @@
-export { useGetCategories, useAddNewCategory, useGetProductById, useUpdateCategory, useUpdateProduct, useDeleteCategory, useGetCategoryById, useGetProductsByCategoryId, useAddNewProduct } from "./queryHooks";
+export { useGetCategories, useAddNewCategory, useGetProductById, useUpdateCategory, useUpdateProduct, useDeleteCategory, useGetCategoryById, useGetProductsByCategoryId, useAddNewProduct,useDeleteProduct } from "./queryHooks";

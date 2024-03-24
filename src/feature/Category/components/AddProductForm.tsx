@@ -31,7 +31,7 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
   }, [categoryId]);
 
   const handleAddProduct = async (input: IAddNewProductInput) => {
-    await mutateAsync({ title: input.title, category:  input.description, description: input.description, imageUrls: input.imageUrls, price: input.price });
+    await mutateAsync({ title: input.title, category: input.description, description: input.description, imageUrls: imageUrls, price: input.price });
     handleBackNavigate();
   };
 
@@ -67,7 +67,7 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
       <UploadWidget
         children={"Upload images"}
         onUpload={(url) => {
-          console.log(JSON.stringify(url), "", imageUrls);
+          setImageUrls((pre) => [...pre, url]);
         }}
       />
       <ProductImageList list={imageUrls} />

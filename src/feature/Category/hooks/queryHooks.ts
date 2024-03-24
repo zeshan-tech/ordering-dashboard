@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { IAddNewCategoryInput, IAddNewProductInput, IUpdateCategoryInput } from "../types";
+import { IAddNewCategoryInput, IAddNewProductInput, IUpdateCategoryInput, IUpdateProductInput } from "../types";
 import api, { categoryCollectionId, productCollectionId, productDbId } from "@/api/Appwrite";
 import { useOrganization } from "@clerk/clerk-react";
 import { CategoryModel } from "@/models/category";
@@ -31,11 +31,20 @@ export function useGetProductsByCategoryId(categoryId: string) {
   });
 }
 
-export function useGetCategoryById(ID: string) {
+export function useGetCategoryById($id: string) {
   return useQuery({
-    queryKey: [ID],
+    queryKey: [$id],
     queryFn: () => {
-      return api.getDocument<CategoryModel>(productDbId, categoryCollectionId, ID);
+      return api.getDocument<CategoryModel>(productDbId, categoryCollectionId, $id);
+    },
+  });
+}
+
+export function useGetProductById($id: string) {
+  return useQuery({
+    queryKey: [$id],
+    queryFn: () => {
+      return api.getDocument<ProductModel>(productDbId, productCollectionId, $id);
     },
   });
 }
@@ -56,10 +65,18 @@ export function useAddNewProduct() {
   });
 }
 
+export function useUpdateProduct() {
+  return useMutation({
+    mutationFn: (input: { $id: string; input: IUpdateProductInput }) => {
+      return api.updateDocument<SuccessResponse>(productDbId, productCollectionId, input.$id, input.input);
+    },
+  });
+}
+
 export function useDeleteCategory() {
   return useMutation({
-    mutationFn: (ID: string) => {
-      return api.deleteDocument<CategoryModel[]>(productDbId, categoryCollectionId, ID);
+    mutationFn: ($id: string) => {
+      return api.deleteDocument<CategoryModel[]>(productDbId, categoryCollectionId, $id);
     },
   });
 }

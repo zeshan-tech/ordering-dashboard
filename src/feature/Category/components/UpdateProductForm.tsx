@@ -1,37 +1,43 @@
 import { ProductImageList } from ".";
-import { useAddNewProduct, useGetCategories } from "../hooks";
-import { IAddNewProductInput } from "../types";
+import { useUpdateProduct, useGetCategories, useGetProductById } from "../hooks";
+import { IUpdateProductInput } from "../types";
 import { useForm } from "react-hook-form";
 import useNavigation from "@/navigation/useNavigation";
 import { Form, PriceField, SelectInput, TextField } from "@/components/Form";
-import { LinearProgress, ListItemText, MenuItem, Stack, styled } from "@mui/material";
+import { Backdrop, CircularProgress, LinearProgress, ListItemText, MenuItem, Stack, styled } from "@mui/material";
 import UploadWidget from "@/components/UploadWidget";
 import Button from "@/components/Button";
 import { SaveIcon } from "@/components/icons";
 import { useEffect, useState } from "react";
 
-interface IAddProductForm {
-  categoryId: string;
+interface IUpdateProductForm {
+  productId: string;
 }
 
-export default function AddProductForm({ categoryId }: IAddProductForm) {
+export default function UpdateProductForm({ productId }: IUpdateProductForm) {
   const navigation = useNavigation();
 
   const [imageUrls, setImageUrls] = useState<string[]>([]); // State for imageUrls
 
+  const { data: product, isLoading: isProductLoading } = useGetProductById(productId);
   const { data: categories, isLoading: isCategoriesLoading } = useGetCategories();
-  const { mutateAsync, isPending } = useAddNewProduct();
+  const { mutateAsync, isPending } = useUpdateProduct();
 
-  const { control: formControl, handleSubmit, reset: resetForm, setValue: setFormValue } = useForm<IAddNewProductInput>();
+  const { control: formControl, handleSubmit, reset: resetForm, setValue: setFormValue, watch: watchForm } = useForm<IUpdateProductInput>();
 
   useEffect(() => {
-    if (categoryId) {
-      setFormValue("category", categoryId);
+    if (product) {
+      setFormValue("category", product.category.$id);
+      setFormValue("active", product.active);
+      setFormValue("description", product.description);
+      setFormValue("imageUrls", product.imageUrls);
+      setFormValue("price", product.price);
+      setFormValue("title", product.title);
     }
-  }, [categoryId]);
+  }, [product]);
 
-  const handleAddProduct = async (input: IAddNewProductInput) => {
-    await mutateAsync({ title: input.title, category:  input.description, description: input.description, imageUrls: input.imageUrls, price: input.price });
+  const handleUpdateProduct = async (input: IUpdateProductInput) => {
+    await mutateAsync({ $id: productId, input: { title: input.title, category: input.category!, description: input.description, imageUrls: input.imageUrls, price: input.price, active: input.active } });
     handleBackNavigate();
   };
 
@@ -44,13 +50,21 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
     navigation.goBack();
   };
 
+  if (isProductLoading || isCategoriesLoading) {
+    return (
+      <Backdrop open>
+        <CircularProgress />
+      </Backdrop>
+    );
+  }
+
   return (
-    <StyledForm onSubmit={handleSubmit(handleAddProduct)} gap={1}>
+    <StyledForm onSubmit={handleSubmit(handleUpdateProduct)} gap={1}>
       <TextField control={formControl} name='title' label='Title' />
       <TextField multiline rows={4} control={formControl} name='description' label='Description' />
       <PriceField control={formControl} name='price' label='Product price' />
 
-      <SelectInput name='category' control={formControl} defaultValue={categoryId} label='Category'>
+      <SelectInput name='category' control={formControl} defaultValue={watchForm("category")} label='Category'>
         {isCategoriesLoading ? (
           <LinearProgress />
         ) : (
@@ -76,7 +90,7 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
         <Button onClick={handleReset} variant='text'>
           Cancel
         </Button>
-        <Button loading={isPending} autoFocus startIcon={<SaveIcon />} variant='contained' onClick={handleSubmit(handleAddProduct)}>
+        <Button loading={isPending} autoFocus startIcon={<SaveIcon />} variant='contained' onClick={handleSubmit(handleUpdateProduct)}>
           save
         </Button>
       </Stack>

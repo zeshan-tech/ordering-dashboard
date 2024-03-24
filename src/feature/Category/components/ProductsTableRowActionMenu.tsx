@@ -19,7 +19,7 @@ export default function ProductsTableRowActionMenu({ isOpen, onClose, anchorPosi
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { enqueueSnackbar } = useSnackbar();
-  
+
   const { mutateAsync: deleteCategoryMutateAsync } = useDeleteCategory();
 
   const handleCopyId = () => {
@@ -30,7 +30,7 @@ export default function ProductsTableRowActionMenu({ isOpen, onClose, anchorPosi
   const handleOnDelete = async () => {
     // Prompt the user for confirmation and ask for the ID
     const inputId = prompt(`Please enter the product ID to confirm deletion \n ID: ${productId}`);
-    inputId
+    inputId;
     if (inputId === productId) {
       await deleteCategoryMutateAsync(productId);
       refresh();
@@ -43,7 +43,7 @@ export default function ProductsTableRowActionMenu({ isOpen, onClose, anchorPosi
         <ContentCopyIcon isListIcon />
         <ListItemText>{t("copyId")}</ListItemText>
       </MenuItem>
-      <MenuItem onClick={() => navigation.navigate(`/categories/update/${productId}` as Routes)}>
+      <MenuItem onClick={() => navigation.navigate(`/categories/products/update/${productId}` as Routes)}>
         <EditIcon isListIcon color='primary' />
         <ListItemText>{t("edit")}</ListItemText>
       </MenuItem>

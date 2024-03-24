@@ -5,3 +5,4 @@ export { default as ProductsTable } from "./ProductsTable";
 export { default as ProductsTableRowActionMenu } from "./ProductsTableRowActionMenu";
 export { default as ProductImageList } from "./ProductImageList";
 export { default as AddProductForm } from "./AddProductForm";
+export { default as UpdateProductForm } from "./UpdateProductForm";

@@ -1,14 +1,10 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { IAddNewStoreInput, IStore, IUpdateStoreInput } from "../types";
-import { apiRequest } from "@/api/queryClient";
-import { useWorkspaceManager } from "@/context/WorkspaceManagerContext";
 import { useSnackbar } from "notistack";
 import api, { productDbId, storeCollectionId } from "@/api/Appwrite";
 import { useAuth, useOrganization } from "@clerk/clerk-react";
-import { Permission, Role } from "appwrite";
-import { useAppwriteUser } from "@/hooks/useAppwriteUser";
 
-export function useGetStoreById() {
+export function useGetStore() {
   const { organization } = useOrganization();
 
   return useQuery({

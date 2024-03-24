@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useGetStoreById, useUpdateStore } from "../hooks";
+import { useGetStore, useUpdateStore } from "../hooks";
 import { Controller, useForm } from "react-hook-form";
 import { Form, TextField } from "@/components/Form";
 import { Card, Paper, Stack, LinearProgress, styled, Switch, FormGroup, FormControlLabel } from "@mui/material";
@@ -7,9 +7,10 @@ import Button from "@/components/Button";
 import { IUpdateStoreInput } from "../types";
 import { OpenTabIcon } from "@/components/icons";
 import UploadWidget from "@/components/UploadWidget";
+import { StoreCreateModal } from ".";
 
 export default function StoreForm() {
-  const { data: storeData, isLoading, refetch: refetchStore } = useGetStoreById();
+  const { data: storeData, isLoading, refetch: refetchStore } = useGetStore();
   const { mutateAsync: updateStoreMutateAsync, isPending: isUpdateStoreLoading } = useUpdateStore();
 
   const { handleSubmit, setValue: setFormValue, watch: watchForm, control: formController, formState } = useForm<IUpdateStoreInput>();
@@ -69,6 +70,7 @@ export default function StoreForm() {
           </Button>
         </Stack>
       ) : null}
+      <StoreCreateModal isVisible={!storeData} onClose={() => refetchStore()} />
     </Form>
   );
 }

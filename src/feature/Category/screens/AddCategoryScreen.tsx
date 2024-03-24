@@ -4,17 +4,17 @@ import { useForm } from "react-hook-form";
 import { IAddNewCategoryInput } from "../types";
 import { Form, SelectInput, TextField } from "@/components/Form";
 import { AppBar, FormControlLabel, LinearProgress, ListItemText, MenuItem, Stack, Switch, Toolbar, Typography, styled } from "@mui/material";
-import { useWorkspaceManager } from "@/context/WorkspaceManagerContext";
 import Button from "@/components/Button";
 import { ClearIcon, SaveIcon } from "@/components/icons";
 import { Dialog } from "@/components/Dialog";
 import useNavigation from "@/navigation/useNavigation";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function AddCategoryScreen() {
   const navigation = useNavigation();
-  const { storeId } = useWorkspaceManager();
+  const { orgId } = useAuth();
 
-  const [markAsSubCategory, setMarkAsSubCategory] = useState(false);
+  const [markAsChildCategory, setMarkAsChildCategory] = useState(false);
 
   const { data: categories, isLoading: isCategoriesLoading } = useGetCategories();
   const { mutateAsync, isPending } = useAddNewCategory();
@@ -22,7 +22,7 @@ export default function AddCategoryScreen() {
   const { register: formRegister, handleSubmit, reset: resetForm } = useForm<IAddNewCategoryInput>();
 
   const handleAddCategory = async (input: IAddNewCategoryInput) => {
-    await mutateAsync({ name: input.name, ...(markAsSubCategory ? { parentCategoryId: input.parentCategoryId } : {}), storeId: storeId });
+    await mutateAsync({ name: input.name, ...(markAsChildCategory ? { parentCategoryId: input.parentCategoryId } : {}), organizationId: orgId! });
     handleBackNavigate();
   };
 
@@ -46,13 +46,13 @@ export default function AddCategoryScreen() {
       <StyledForm onSubmit={handleSubmit(handleAddCategory)} gap={1}>
         <TextField register={formRegister} name='name' label='Category name' />
 
-        <SelectInput name='parentCategoryId' register={formRegister} disabled={!markAsSubCategory} label='Parent category'>
+        <SelectInput name='parentCategoryId' register={formRegister} disabled={!markAsChildCategory} label='Parent category'>
           {isCategoriesLoading ? (
             <LinearProgress />
           ) : (
-            (categories ?? []).map((store) => {
+            (categories?.documents ?? []).map((store) => {
               return (
-                <MenuItem value={store.ID}>
+                <MenuItem value={store.$id}>
                   <ListItemText>{store.name}</ListItemText>
                 </MenuItem>
               );
@@ -60,7 +60,7 @@ export default function AddCategoryScreen() {
           )}
         </SelectInput>
 
-        <FormControlLabel control={<Switch onChange={() => setMarkAsSubCategory(!markAsSubCategory)} />} label={"Mark as sub category"} />
+        <FormControlLabel control={<Switch onChange={() => setMarkAsChildCategory(!markAsChildCategory)} />} label={"Mark as sub category"} />
 
         <Stack flexDirection={"row"} gap={1} justifyContent={"end"}>
           <Button onClick={handleReset} variant='text'>

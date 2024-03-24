@@ -31,7 +31,7 @@ export default function CategoryTable() {
 
   const TABLE_COLUMNS: GridColDef[] = [
     {
-      field: "ID",
+      field: "$id",
       headerName: t("ID"),
       width: 500,
     },
@@ -70,8 +70,8 @@ export default function CategoryTable() {
         <DataGridPro
           loading={isLoading}
           columns={TABLE_COLUMNS}
-          rows={categories ?? []}
-          getRowId={(row) => row.ID}
+          rows={categories?.documents ?? []}
+          getRowId={(row) => row.$id}
           pagination
           getRowHeight={() => "auto"}
           disableRowSelectionOnClick

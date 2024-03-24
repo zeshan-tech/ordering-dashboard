@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { Divider, ListItemText, Menu, MenuItem, SxProps, styled } from "@mui/material";
+import { Divider, ListItemText, Menu, MenuItem, styled } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { SearchIcon, SignalBarIcon, TranslateIcon } from "@/components/icons";
 import { SearchInput } from "@/components/Form";

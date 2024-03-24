@@ -1,13 +1,14 @@
 import { ProductImageList } from ".";
-import { useAddNewProduct, useGetProductsByCategoryId } from "../hooks";
+import { useAddNewProduct, useGetCategories } from "../hooks";
 import { IAddNewProductInput } from "../types";
 import { useForm } from "react-hook-form";
 import useNavigation from "@/navigation/useNavigation";
-import { Form, SelectInput, TextField } from "@/components/Form";
+import { Form, PriceField, SelectInput, TextField } from "@/components/Form";
 import { LinearProgress, ListItemText, MenuItem, Stack, styled } from "@mui/material";
 import UploadWidget from "@/components/UploadWidget";
 import Button from "@/components/Button";
 import { SaveIcon } from "@/components/icons";
+import { useEffect } from "react";
 
 interface IAddProductForm {
   categoryId: string;
@@ -16,19 +17,22 @@ interface IAddProductForm {
 export default function AddProductForm({ categoryId }: IAddProductForm) {
   const navigation = useNavigation();
 
-  const { data: categories, isLoading: isCategoriesLoading } = useGetProductsByCategoryId(categoryId!);
+  const { data: categories, isLoading: isCategoriesLoading } = useGetCategories();
   const { mutateAsync, isPending } = useAddNewProduct();
 
-  const { register: formRegister, handleSubmit, reset: resetForm, setValue: setFormValue, watch: watchForm } = useForm<IAddNewProductInput>();
+  const { control: formControl, handleSubmit, reset: resetForm, setValue: setFormValue, watch: watchForm } = useForm<IAddNewProductInput>();
+
+  useEffect(() => {
+    if (categoryId) {
+      setFormValue("category", categoryId);
+    }
+  }, [categoryId]);
 
   const handleAddProduct = async (input: IAddNewProductInput) => {
-    await mutateAsync({ name: input.name, categoryId: categoryId!, description: input.description, imageUrls: input.imageUrls, price: input.price });
+    await mutateAsync({ title: input.title, category: categoryId!, description: input.description, imageUrls: input.imageUrls, price: input.price });
     handleBackNavigate();
   };
 
-
-  console.log(watchForm('imageUrls'));
-  
   const handleReset = () => {
     handleBackNavigate();
     resetForm();
@@ -40,17 +44,17 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
 
   return (
     <StyledForm onSubmit={handleSubmit(handleAddProduct)} gap={1}>
-      <TextField register={formRegister} name='name' label='Title' />
-      <TextField register={formRegister} name='description' label='Description' />
-      <TextField register={formRegister} name='price' label='Product name' />
+      <TextField control={formControl} name='title' label='Title' />
+      <TextField multiline rows={4} control={formControl} name='description' label='Description' />
+      <PriceField control={formControl} name='price' label='Product price' />
 
-      <SelectInput name='categoryId' register={formRegister} defaultValue={categoryId} label='Category'>
+      <SelectInput name='category' control={formControl} defaultValue={categoryId} label='Category'>
         {isCategoriesLoading ? (
           <LinearProgress />
         ) : (
-          (categories ?? []).map((category) => {
+          (categories?.documents ?? []).map((category) => {
             return (
-              <MenuItem value={category.ID}>
+              <MenuItem value={category.$id}>
                 <ListItemText>{category.name}</ListItemText>
               </MenuItem>
             );
@@ -58,9 +62,9 @@ export default function AddProductForm({ categoryId }: IAddProductForm) {
         )}
       </SelectInput>
 
-      <ProductImageList list={watchForm("imageUrls") ?? []} />
 
       <UploadWidget children={"Upload images"} onUpload={(url) => setFormValue("imageUrls", [...watchForm("imageUrls"), url])} />
+      <ProductImageList list={watchForm("imageUrls") ?? []} />
 
       <Stack flexDirection={"row"} gap={1} justifyContent={"end"}>
         <Button onClick={handleReset} variant='text'>

@@ -1,1 +1,1 @@
-export { useGetStoreById, useUpdateStore } from "./queryHooks";
+export { useGetStore, useUpdateStore } from "./queryHooks";

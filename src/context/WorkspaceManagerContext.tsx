@@ -1,5 +1,5 @@
 import api, { productDbId, storeCollectionId } from "@/api/Appwrite";
-import { useAuth, useOrganization } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 import { LinearProgress } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
@@ -24,7 +24,7 @@ export const WorkspaceManagerProvider = ({ children }: { children: ReactNode }) 
   const [storeId, setStoreId] = useState<string>("");
   const { orgId } = useAuth();
 
-  const { mutateAsync, isPending } = useMutation({ mutationFn: () => api.getDocument(productDbId, storeCollectionId, orgId!) });
+  const { mutateAsync, isPending } = useMutation({ mutationFn: () => api.getDocument<{ $id: string }>(productDbId, storeCollectionId, orgId!) });
 
   const handleUpdateStore = async () => {
     const result = await mutateAsync();

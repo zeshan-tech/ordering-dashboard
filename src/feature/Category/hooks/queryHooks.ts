@@ -7,21 +7,25 @@ import { useOrganization } from "@clerk/clerk-react";
 export function useGetCategories() {
   const { organization } = useOrganization();
 
-  const query = Query.equal("organizationId", organization!.id.toString());
+  //TODO: fix query issue
+  const query = [Query.equal("organizationId", organization!.id)];
 
   return useQuery({
     queryKey: [organization],
     queryFn: () => {
-      return api.listDocuments<ICategory[]>(productDbId, categoryCollectionId, [query]);
+      return api.listDocuments<{ total: number; documents: ICategory[] }>(productDbId, categoryCollectionId);
     },
   });
 }
 
 export function useGetProductsByCategoryId(categoryId: string) {
+  //TODO: fix query issue
+  const query = [Query.equal("categoryId", [categoryId])];
+
   return useQuery({
     queryKey: [categoryId],
     queryFn: () => {
-      return api.listDocuments<ICategory[]>(productDbId, productCollectionId, [Query.equal("categoryId", categoryId)]);
+      return api.listDocuments<{ total: number; documents: ICategory[] }>(productDbId, productCollectionId);
     },
   });
 }
@@ -61,8 +65,8 @@ export function useDeleteCategory() {
 
 export function useUpdateCategory() {
   return useMutation({
-    mutationFn: (input: { ID: string; input: IUpdateCategoryInput }) => {
-      return api.updateDocument<ICategory[]>(productDbId, categoryCollectionId, input.ID, input.input);
+    mutationFn: (input: { $id: string; input: IUpdateCategoryInput }) => {
+      return api.updateDocument<ICategory[]>(productDbId, categoryCollectionId, input.$id, input.input);
     },
   });
 }

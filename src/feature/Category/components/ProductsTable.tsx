@@ -31,7 +31,7 @@ export default function ProductsTable({ categoryId }: Readonly<IProductsTable>) 
 
   const TABLE_COLUMNS: GridColDef[] = [
     {
-      field: "ID",
+      field: "$id",
       headerName: t("ID"),
       width: 500,
     },
@@ -70,8 +70,8 @@ export default function ProductsTable({ categoryId }: Readonly<IProductsTable>) 
         <DataGridPro
           loading={isLoading}
           columns={TABLE_COLUMNS}
-          rows={products ?? []}
-          getRowId={(row) => row.ID}
+          rows={products?.documents ?? []}
+          getRowId={(row) => row.$id}
           pagination
           getRowHeight={() => "auto"}
           disableRowSelectionOnClick

@@ -13,7 +13,7 @@ interface ApiProvider {
   createSession: (email: string, password: string) => Promise<any>;
   deleteCurrentSession: () => Promise<any>;
   createDocument: <T>(databaseId: string, collectionId: string, data: Record<string, any>, permissions?: any, ID?: string) => Promise<T>;
-  listDocuments: <T>(databaseId: string, collectionId: string, queries?: string[]) => Promise<T[]>;
+  listDocuments: <T>(databaseId: string, collectionId: string, queries?: string[]) => Promise<T>;
   getDocument: <T>(databaseId: string, collectionId: string, documentId: string) => Promise<T>;
   updateDocument: <T>(databaseId: string, collectionId: string, documentId: string, data: Record<string, any>) => Promise<T>;
   deleteDocument: <T>(databaseId: string, collectionId: string, documentId: string) => Promise<T>;
@@ -57,8 +57,8 @@ const api: ApiProvider = {
     return this.provider().database.createDocument(databaseId, collectionId, id ?? ID.unique(), data, permissions) as T;
   },
 
-  async listDocuments<T>(databaseId: string, collectionId: string, queries?: string[]): Promise<T[]> {
-    return this.provider().database.listDocuments(databaseId, collectionId, queries) as unknown as T[];
+  async listDocuments<T>(databaseId: string, collectionId: string, queries?: string[]): Promise<T> {
+    return this.provider().database.listDocuments(databaseId, collectionId, queries) as T;
   },
 
   async getDocument<T>(databaseId: string, collectionId: string, documentId: string): Promise<T> {

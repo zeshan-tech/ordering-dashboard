@@ -12,9 +12,10 @@ import { IAddNewStoreInput } from "../types";
 
 interface StoreCreateModalProps {
   isVisible: boolean;
+  onClose: () => void;
 }
 
-export default function StoreCreateModal({ isVisible }: Readonly<StoreCreateModalProps>) {
+export default function StoreCreateModal({ isVisible, onClose }: Readonly<StoreCreateModalProps>) {
   const { mutateAsync, isPending } = useAddNewStore();
 
   const {
@@ -29,6 +30,7 @@ export default function StoreCreateModal({ isVisible }: Readonly<StoreCreateModa
 
   const handleCreateStore = async (input: IAddNewStoreInput) => {
     await mutateAsync(input);
+    onClose();
   };
 
   return (

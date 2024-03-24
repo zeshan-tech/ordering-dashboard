@@ -16,7 +16,7 @@ export default function UpdateCategoryScreen() {
   let { categoryId } = useParams();
   const { storeId } = useWorkspaceManager();
 
-  const [markAsSubCategory, setMarkAsSubCategory] = useState(false);
+  const [markAsChildCategory, setMarkAsChildCategory] = useState(false);
 
   const { data: categories, isLoading: isCategoriesLoading } = useGetCategories();
   const { data: category, isLoading: isCategoryLoading } = useGetCategoryById(categoryId!);
@@ -28,12 +28,12 @@ export default function UpdateCategoryScreen() {
     if (category) {
       setFormValue("name", category.name);
       setFormValue("parentCategoryId", category.parentCategoryId);
-      setMarkAsSubCategory(!!category.parentCategoryId);
+      setMarkAsChildCategory(!!category.parentCategoryId);
     }
   }, [category]);
 
   const handleAddCategory = async (input: IUpdateCategoryInput) => {
-    await mutateAsync({ ID: categoryId!, input: { name: input.name, parentCategoryId: input.parentCategoryId, storeId: storeId } });
+    await mutateAsync({ $id: categoryId!, input: { name: input.name, parentCategoryId: input.parentCategoryId, organizationId: storeId } });
     handleBackNavigate();
   };
 
@@ -60,13 +60,13 @@ export default function UpdateCategoryScreen() {
       <StyledForm onSubmit={handleSubmit(handleAddCategory)} gap={1}>
         <TextField control={formControl} name='name' label='Category name' />
 
-        <SelectInput name='parentCategoryId' control={formControl} disabled={!markAsSubCategory} label='Parent category'>
+        <SelectInput name='parentCategoryId' control={formControl} disabled={!markAsChildCategory} label='Parent category'>
           {isCategoriesLoading ? (
             <LinearProgress />
           ) : (
-            (categories ?? []).map((store) => {
+            (categories?.documents ?? []).map((store) => {
               return (
-                <MenuItem value={store.ID}>
+                <MenuItem value={store.$id}>
                   <ListItemText>{store.name}</ListItemText>
                 </MenuItem>
               );
@@ -74,7 +74,7 @@ export default function UpdateCategoryScreen() {
           )}
         </SelectInput>
 
-        <FormControlLabel control={<Switch onChange={(e) => setMarkAsSubCategory(e.target.checked)} checked={markAsSubCategory} />} label={"Mark as sub category"} />
+        <FormControlLabel control={<Switch onChange={(e) => setMarkAsChildCategory(e.target.checked)} checked={markAsChildCategory} />} label={"Mark as sub category"} />
 
         <Stack flexDirection={"row"} gap={1} justifyContent={"end"}>
           <Button onClick={handleReset} variant='text'>

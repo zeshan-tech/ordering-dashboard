@@ -1,9 +1,11 @@
 export interface ICategory {
   name: string;
   active: string;
-  ID: string;
+  $id: string;
   parentCategoryId: string;
+  organizationId: string;
 }
+
 export interface IProduct {
   name: string;
   description: string;
@@ -14,20 +16,20 @@ export interface IProduct {
 
 export interface IAddNewCategoryInput {
   name: string;
-  storeId: string;
+  organizationId: string;
   parentCategoryId?: string;
 }
 
 export interface IAddNewProductInput {
-  name: string;
+  title: string;
   description: string;
   price: number;
   imageUrls: string[];
-  categoryId: string;
+  category: string;
 }
 
 export interface IUpdateCategoryInput {
   name: string;
-  storeId: string;
+  organizationId: string;
   parentCategoryId?: string;
 }
